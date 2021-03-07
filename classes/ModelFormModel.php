@@ -1,4 +1,4 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use SystemException;
 use ValidationException;
@@ -6,7 +6,7 @@ use ValidationException;
 /**
  * Represents and manages model forms.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class ModelFormModel extends ModelYamlModel

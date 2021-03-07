@@ -1,4 +1,4 @@
 
-    use \October\Rain\Database\Traits\SoftDelete;
+    use \Winter\Storm\Database\Traits\SoftDelete;
 
     protected $dates = ['deleted_at'];

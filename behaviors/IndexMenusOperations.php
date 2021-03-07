@@ -1,8 +1,8 @@
-<?php namespace RainLab\Builder\Behaviors;
+<?php namespace Winter\Builder\Behaviors;
 
-use RainLab\Builder\Classes\IndexOperationsBehaviorBase;
-use RainLab\Builder\Classes\MenusModel;
-use RainLab\Builder\Classes\PluginCode;
+use Winter\Builder\Classes\IndexOperationsBehaviorBase;
+use Winter\Builder\Classes\MenusModel;
+use Winter\Builder\Classes\PluginCode;
 use ApplicationException;
 use Exception;
 use Request;
@@ -13,12 +13,12 @@ use Lang;
 /**
  * Plugin back-end menu management functionality for the Builder index controller
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class IndexMenusOperations extends IndexOperationsBehaviorBase
 {
-    protected $baseFormConfigFile = '~/plugins/rainlab/builder/classes/menusmodel/fields.yaml';
+    protected $baseFormConfigFile = '~/plugins/winter/builder/classes/menusmodel/fields.yaml';
 
     public function onMenusOpen()
     {
@@ -28,7 +28,7 @@ class IndexMenusOperations extends IndexOperationsBehaviorBase
         $widget = $this->makeBaseFormWidget($pluginCode);
 
         $result = [
-            'tabTitle' => $widget->model->getPluginName().'/'.Lang::get('rainlab.builder::lang.menu.tab'),
+            'tabTitle' => $widget->model->getPluginName().'/'.Lang::get('winter.builder::lang.menu.tab'),
             'tabIcon' => 'icon-location-arrow',
             'tabId' => $this->getTabId($pluginCode),
             'tab' => $this->makePartial('tab', [
@@ -50,11 +50,11 @@ class IndexMenusOperations extends IndexOperationsBehaviorBase
         $model->fill($_POST);
         $model->save();
 
-        Flash::success(Lang::get('rainlab.builder::lang.menu.saved'));
+        Flash::success(Lang::get('winter.builder::lang.menu.saved'));
 
         $result['builderResponseData'] = [
             'tabId' => $this->getTabId($pluginCode),
-            'tabTitle' => $model->getPluginName().'/'.Lang::get('rainlab.builder::lang.menu.tab'),
+            'tabTitle' => $model->getPluginName().'/'.Lang::get('winter.builder::lang.menu.tab'),
         ];
 
         return $result;

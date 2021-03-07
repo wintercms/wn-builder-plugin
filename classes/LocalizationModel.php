@@ -1,4 +1,4 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use ApplicationException;
 use Symfony\Component\Yaml\Dumper as YamlDumper;
@@ -14,7 +14,7 @@ use File;
 /**
  * Represents and manages plugin localization files.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class LocalizationModel extends BaseModel
@@ -45,16 +45,16 @@ class LocalizationModel extends BaseModel
         $filePath = $this->getFilePath();
 
         if (!File::isFile($filePath)) {
-            throw new ApplicationException(Lang::get('rainlab.builder::lang.localization.error_cant_load_file'));
+            throw new ApplicationException(Lang::get('winter.builder::lang.localization.error_cant_load_file'));
         }
 
         if (!$this->validateFileContents($filePath)) {
-            throw new ApplicationException(Lang::get('rainlab.builder::lang.localization.error_bad_localization_file_contents'));
+            throw new ApplicationException(Lang::get('winter.builder::lang.localization.error_bad_localization_file_contents'));
         }
 
         $strings = include($filePath);
         if (!is_array($strings)) {
-            throw new ApplicationException(Lang::get('rainlab.builder::lang.localization.error_file_not_array'));
+            throw new ApplicationException(Lang::get('winter.builder::lang.localization.error_file_not_array'));
         }
 
         $this->originalStringArray = $strings;
@@ -89,19 +89,19 @@ class LocalizationModel extends BaseModel
 
         if (File::isFile($filePath)) {
             if ($isNew || $this->originalLanguage != $this->language) {
-                throw new ValidationException(['fileName' => Lang::get('rainlab.builder::lang.common.error_file_exists', ['path'=>$this->language.'/'.basename($filePath)])]);
+                throw new ValidationException(['fileName' => Lang::get('winter.builder::lang.common.error_file_exists', ['path'=>$this->language.'/'.basename($filePath)])]);
             }
         }
 
         $fileDirectory = dirname($filePath);
         if (!File::isDirectory($fileDirectory)) {
             if (!File::makeDirectory($fileDirectory, 0777, true, true)) {
-                throw new ApplicationException(Lang::get('rainlab.builder::lang.common.error_make_dir', ['name'=>$fileDirectory]));
+                throw new ApplicationException(Lang::get('winter.builder::lang.common.error_make_dir', ['name'=>$fileDirectory]));
             }
         }
 
         if (@File::put($filePath, $data) === false) {
-            throw new ApplicationException(Lang::get('rainlab.builder::lang.localization.save_error', ['name'=>$filePath]));
+            throw new ApplicationException(Lang::get('winter.builder::lang.localization.save_error', ['name'=>$filePath]));
         }
 
         @File::chmod($filePath);
@@ -124,14 +124,14 @@ class LocalizationModel extends BaseModel
         $filePath = File::symbolizePath($this->getFilePath());
         if (File::isFile($filePath)) {
             if (!@unlink($filePath)) {
-                throw new ApplicationException(Lang::get('rainlab.builder::lang.localization.error_delete_file'));
+                throw new ApplicationException(Lang::get('winter.builder::lang.localization.error_delete_file'));
             }
         }
     }
 
     public function initContent()
     {
-        $templatePath = '$/rainlab/builder/classes/localizationmodel/templates/lang.php';
+        $templatePath = '$/winter/builder/classes/localizationmodel/templates/lang.php';
         $templatePath = File::symbolizePath($templatePath);
 
         $strings = include($templatePath);
@@ -188,11 +188,11 @@ class LocalizationModel extends BaseModel
         $stringKey = trim($stringKey, '.');
 
         if (!strlen($stringKey)) {
-            throw new ValidationException(['key' => Lang::get('rainlab.builder::lang.localization.string_key_is_empty')]);
+            throw new ValidationException(['key' => Lang::get('winter.builder::lang.localization.string_key_is_empty')]);
         }
 
         if (!strlen($stringValue)) {
-            throw new ValidationException(['value' => Lang::get('rainlab.builder::lang.localization.string_value_is_empty')]);
+            throw new ValidationException(['value' => Lang::get('winter.builder::lang.localization.string_value_is_empty')]);
         }
 
         $originalStringArray = $this->getOriginalStringsArray();
@@ -200,12 +200,12 @@ class LocalizationModel extends BaseModel
 
         $existingStrings = self::convertToStringsArray($originalStringArray, $languagePrefix);
         if (array_key_exists($languagePrefix.$stringKey, $existingStrings)) {
-            throw new ValidationException(['key' => Lang::get('rainlab.builder::lang.localization.string_key_exists')]);
+            throw new ValidationException(['key' => Lang::get('winter.builder::lang.localization.string_key_exists')]);
         }
 
         $existingSections = self::convertToSectionsArray($originalStringArray);
         if (array_key_exists($stringKey.'.', $existingSections)) {
-            throw new ValidationException(['key' => Lang::get('rainlab.builder::lang.localization.string_key_exists')]);
+            throw new ValidationException(['key' => Lang::get('winter.builder::lang.localization.string_key_exists')]);
         }
 
         $sectionArray = [];
@@ -428,7 +428,7 @@ class LocalizationModel extends BaseModel
             }
 
             if (array_key_exists($languagePrefix.$fullKey, $existingStrings)) {
-                throw new ValidationException(['key' => Lang::get('rainlab.builder::lang.localization.string_key_is_a_string', ['key'=>$fullKey])]);
+                throw new ValidationException(['key' => Lang::get('winter.builder::lang.localization.string_key_is_a_string', ['key'=>$fullKey])]);
             }
 
             $lastElement = array_pop($sectionList);

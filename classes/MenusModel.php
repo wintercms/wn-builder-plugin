@@ -1,4 +1,4 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use ApplicationException;
 use SystemException;
@@ -8,7 +8,7 @@ use Lang;
 /**
  * Manages plugin back-end menus.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class MenusModel extends PluginYamlModel
@@ -159,7 +159,7 @@ class MenusModel extends PluginYamlModel
             if ($this->codeExistsInList($outerIndex, $mainMenuItem['code'], $this->menus)) {
                 throw new ValidationException([
                     'permissions' => Lang::get(
-                        'rainlab.builder::lang.menu.error_duplicate_main_menu_code',
+                        'winter.builder::lang.menu.error_duplicate_main_menu_code',
                         ['code' => $mainMenuItem['code']]
                     )
                 ]);
@@ -176,7 +176,7 @@ class MenusModel extends PluginYamlModel
                     if ($this->codeExistsInList($innerIndex, $sideMenuItem['code'], $mainMenuItem['sideMenu'])) {
                         throw new ValidationException([
                             'permissions' => Lang::get(
-                                'rainlab.builder::lang.menu.error_duplicate_side_menu_code',
+                                'winter.builder::lang.menu.error_duplicate_side_menu_code',
                                 ['code' => $sideMenuItem['code']]
                             )
                         ]);

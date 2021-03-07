@@ -1,14 +1,14 @@
-<?php namespace RainLab\Builder\Widgets;
+<?php namespace Winter\Builder\Widgets;
 
 use Str;
 use Input;
 use Backend\Classes\WidgetBase;
-use RainLab\Builder\Classes\DatabaseTableModel;
+use Winter\Builder\Classes\DatabaseTableModel;
 
 /**
  * Database table list widget.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class DatabaseTableList extends WidgetBase
@@ -18,7 +18,7 @@ class DatabaseTableList extends WidgetBase
 
     protected $theme;
 
-    public $noRecordsMessage = 'rainlab.builder::lang.database.no_records';
+    public $noRecordsMessage = 'winter.builder::lang.database.no_records';
 
     public function __construct($controller, $alias)
     {

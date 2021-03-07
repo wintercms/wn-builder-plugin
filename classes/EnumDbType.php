@@ -1,4 +1,4 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
@@ -9,7 +9,7 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
  * Currently this class is used as a placeholder. Enum columns
  * are not supported by the Builder table management UI.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class EnumDbType extends Type

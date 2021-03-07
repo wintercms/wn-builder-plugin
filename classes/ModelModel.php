@@ -1,4 +1,4 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use DirectoryIterator;
 use ApplicationException;
@@ -13,7 +13,7 @@ use Db;
 /**
  * Manages plugin models.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class ModelModel extends BaseModel
@@ -100,7 +100,7 @@ class ModelModel extends BaseModel
 
         $dynamicContents = [];
 
-        $generator = new FilesystemGenerator('$', $structure, '$/rainlab/builder/classes/modelmodel/templates');
+        $generator = new FilesystemGenerator('$', $structure, '$/winter/builder/classes/modelmodel/templates');
         $generator->setVariables($variables);
 
         if ($this->addSoftDeleting) {
@@ -121,9 +121,9 @@ class ModelModel extends BaseModel
         $path = File::symbolizePath('$/'.$this->getFilePath());
 
         $this->validationMessages = [
-            'className.uniq_model_name' => Lang::get('rainlab.builder::lang.model.error_class_name_exists', ['path'=>$path]),
-            'addTimestamps.timestamp_columns_must_exist' => Lang::get('rainlab.builder::lang.model.error_timestamp_columns_must_exist'),
-            'addSoftDeleting.deleted_at_column_must_exist' => Lang::get('rainlab.builder::lang.model.error_deleted_at_column_must_exist')
+            'className.uniq_model_name' => Lang::get('winter.builder::lang.model.error_class_name_exists', ['path'=>$path]),
+            'addTimestamps.timestamp_columns_must_exist' => Lang::get('winter.builder::lang.model.error_timestamp_columns_must_exist'),
+            'addSoftDeleting.deleted_at_column_must_exist' => Lang::get('winter.builder::lang.model.error_deleted_at_column_must_exist')
         ];
 
         Validator::extend('uniqModelName', function ($attribute, $value, $parameters) use ($path) {

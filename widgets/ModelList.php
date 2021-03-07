@@ -1,16 +1,16 @@
-<?php namespace RainLab\Builder\Widgets;
+<?php namespace Winter\Builder\Widgets;
 
 use Str;
 use Input;
 use Backend\Classes\WidgetBase;
-use RainLab\Builder\Classes\ModelModel;
-use RainLab\Builder\Classes\ModelFormModel;
-use RainLab\Builder\Classes\ModelListModel;
+use Winter\Builder\Classes\ModelModel;
+use Winter\Builder\Classes\ModelFormModel;
+use Winter\Builder\Classes\ModelListModel;
 
 /**
  * Model list widget.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class ModelList extends WidgetBase
@@ -20,7 +20,7 @@ class ModelList extends WidgetBase
 
     protected $theme;
 
-    public $noRecordsMessage = 'rainlab.builder::lang.model.no_records';
+    public $noRecordsMessage = 'winter.builder::lang.model.no_records';
 
     public function __construct($controller, $alias)
     {

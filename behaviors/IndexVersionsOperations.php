@@ -1,8 +1,8 @@
-<?php namespace RainLab\Builder\Behaviors;
+<?php namespace Winter\Builder\Behaviors;
 
-use RainLab\Builder\Classes\IndexOperationsBehaviorBase;
-use RainLab\Builder\Classes\MigrationModel;
-use RainLab\Builder\Classes\PluginCode;
+use Winter\Builder\Classes\IndexOperationsBehaviorBase;
+use Winter\Builder\Classes\MigrationModel;
+use Winter\Builder\Classes\PluginCode;
 use ApplicationException;
 use Exception;
 use Request;
@@ -13,12 +13,12 @@ use Lang;
 /**
  * Plugin version management functionality for the Builder index controller
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class IndexVersionsOperations extends IndexOperationsBehaviorBase
 {
-    protected $baseFormConfigFile = '~/plugins/rainlab/builder/classes/migrationmodel/management-fields.yaml';
+    protected $baseFormConfigFile = '~/plugins/winter/builder/classes/migrationmodel/management-fields.yaml';
 
     public function onVersionCreateOrOpen()
     {
@@ -58,7 +58,7 @@ class IndexVersionsOperations extends IndexOperationsBehaviorBase
         $model->fill($_POST);
         $model->save(false);
 
-        Flash::success(Lang::get('rainlab.builder::lang.version.saved'));
+        Flash::success(Lang::get('winter.builder::lang.version.saved'));
         $result = $this->controller->widget->versionList->updateList();
 
         $result['builderResponseData'] = [
@@ -92,7 +92,7 @@ class IndexVersionsOperations extends IndexOperationsBehaviorBase
         //
         $model->apply();
 
-        Flash::success(Lang::get('rainlab.builder::lang.version.applied'));
+        Flash::success(Lang::get('winter.builder::lang.version.applied'));
         $result = $this->controller->widget->versionList->updateList();
 
         $result['builderResponseData'] = [
@@ -116,7 +116,7 @@ class IndexVersionsOperations extends IndexOperationsBehaviorBase
         //
         $model->rollback();
 
-        Flash::success(Lang::get('rainlab.builder::lang.version.rolled_back'));
+        Flash::success(Lang::get('winter.builder::lang.version.rolled_back'));
         $result = $this->controller->widget->versionList->updateList();
 
         $result['builderResponseData'] = [
@@ -145,7 +145,7 @@ class IndexVersionsOperations extends IndexOperationsBehaviorBase
         $pluginName = Lang::get($model->getModelPluginName());
 
         if (!strlen($version)) {
-            return $pluginName.'/'.Lang::get('rainlab.builder::lang.version.tab_new_version');
+            return $pluginName.'/'.Lang::get('winter.builder::lang.version.tab_new_version');
         }
 
         return $pluginName.'/v'.$version;

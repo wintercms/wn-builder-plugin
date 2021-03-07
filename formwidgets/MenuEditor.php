@@ -1,14 +1,14 @@
-<?php namespace RainLab\Builder\FormWidgets;
+<?php namespace Winter\Builder\FormWidgets;
 
 use Backend\Classes\FormWidgetBase;
-use RainLab\Builder\Classes\IconList;
+use Winter\Builder\Classes\IconList;
 use Input;
 use Lang;
 
 /**
  * Menu items widget.
  *
- * @package october\backend
+ * @package winter\backend
  * @author Alexey Bobkov, Samuel Georges
  */
 class MenuEditor extends FormWidgetBase
@@ -45,14 +45,14 @@ class MenuEditor extends FormWidgetBase
         $this->vars['items'] = $this->model->menus;
 
         $this->vars['emptyItem'] = [
-            'label' => Lang::get('rainlab.builder::lang.menu.new_menu_item'),
+            'label' => Lang::get('winter.builder::lang.menu.new_menu_item'),
             'icon' => 'icon-life-ring',
             'code' => 'newitemcode',
             'url' => '/'
         ];
 
         $this->vars['emptySubItem'] = [
-            'label' => Lang::get('rainlab.builder::lang.menu.new_menu_item'),
+            'label' => Lang::get('winter.builder::lang.menu.new_menu_item'),
             'icon' => 'icon-sitemap',
             'code' => 'newitemcode',
             'url' => '/'
@@ -118,48 +118,48 @@ class MenuEditor extends FormWidgetBase
     {
         $result = [
             [
-                'title' => Lang::get('rainlab.builder::lang.menu.property_code'),
+                'title' => Lang::get('winter.builder::lang.menu.property_code'),
                 'property' => 'code',
                 'validation' => [
                     'required' => [
-                        'message' => Lang::get('rainlab.builder::lang.menu.property_code_required')
+                        'message' => Lang::get('winter.builder::lang.menu.property_code_required')
                     ]
                 ]
             ],
             [
-                'title' => Lang::get('rainlab.builder::lang.menu.property_label'),
+                'title' => Lang::get('winter.builder::lang.menu.property_label'),
                 'type' => 'builderLocalization',
                 'property' => 'label',
                 'validation' => [
                     'required' => [
-                        'message' => Lang::get('rainlab.builder::lang.menu.property_label_required')
+                        'message' => Lang::get('winter.builder::lang.menu.property_label_required')
                     ]
                 ]
             ],
             [
-                'title' => Lang::get('rainlab.builder::lang.menu.property_url'),
+                'title' => Lang::get('winter.builder::lang.menu.property_url'),
                 'property' => 'url',
                 'type' => 'autocomplete',
                 'fillFrom' => 'controller-urls',
                 'validation' => [
                     'required' => [
-                        'message' => Lang::get('rainlab.builder::lang.menu.property_url_required')
+                        'message' => Lang::get('winter.builder::lang.menu.property_url_required')
                     ]
                 ]
             ],
             [
-                'title' => Lang::get('rainlab.builder::lang.menu.property_icon'),
+                'title' => Lang::get('winter.builder::lang.menu.property_icon'),
                 'property' => 'icon',
                 'type' => 'dropdown',
                 'options' => $this->getIconList(),
                 'validation' => [
                     'required' => [
-                        'message' => Lang::get('rainlab.builder::lang.menu.property_icon_required')
+                        'message' => Lang::get('winter.builder::lang.menu.property_icon_required')
                     ]
                 ],
             ],
             [
-                'title' => Lang::get('rainlab.builder::lang.menu.property_permissions'),
+                'title' => Lang::get('winter.builder::lang.menu.property_permissions'),
                 'property' => 'permissions',
                 'type' => 'stringListAutocomplete',
                 'fillFrom' => 'permissions'
@@ -174,7 +174,7 @@ class MenuEditor extends FormWidgetBase
         $result = $this->getCommonMenuItemConfigurationSchema();
 
         $result[] = [
-                'title' => Lang::get('rainlab.builder::lang.menu.property_attributes'),
+                'title' => Lang::get('winter.builder::lang.menu.property_attributes'),
                 'property' => 'attributes',
                 'type' => 'stringList'
         ];
@@ -197,13 +197,13 @@ class MenuEditor extends FormWidgetBase
         $result = $this->getCommonMenuItemConfigurationSchema();
 
         $result[] = [
-            'title' => Lang::get('rainlab.builder::lang.menu.property_order'),
-            'description' => Lang::get('rainlab.builder::lang.menu.property_order_description'),
+            'title' => Lang::get('winter.builder::lang.menu.property_order'),
+            'description' => Lang::get('winter.builder::lang.menu.property_order_description'),
             'property' => 'order',
             'validation' => [
                 'regex' => [
                     'pattern' => '^[0-9]+$',
-                    'message' => Lang::get('rainlab.builder::lang.menu.property_order_invalid')
+                    'message' => Lang::get('winter.builder::lang.menu.property_order_invalid')
                 ]
             ]
         ];

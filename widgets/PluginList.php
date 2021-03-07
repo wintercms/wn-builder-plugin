@@ -1,19 +1,19 @@
-<?php namespace RainLab\Builder\Widgets;
+<?php namespace Winter\Builder\Widgets;
 
 use Str;
 use Input;
 use File;
 use Backend\Classes\WidgetBase;
 use System\Classes\PluginManager;
-use RainLab\Builder\Classes\PluginCode;
-use RainLab\Builder\Models\Settings as PluginSettings;
-use RainLab\Builder\Classes\PluginVector;
+use Winter\Builder\Classes\PluginCode;
+use Winter\Builder\Models\Settings as PluginSettings;
+use Winter\Builder\Classes\PluginVector;
 use Exception;
 
 /**
  * Plugin list widget.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class PluginList extends WidgetBase
@@ -22,7 +22,7 @@ class PluginList extends WidgetBase
 
     protected $theme;
 
-    public $noRecordsMessage = 'rainlab.builder::lang.plugin.no_records';
+    public $noRecordsMessage = 'winter.builder::lang.plugin.no_records';
 
     public function __construct($controller, $alias)
     {
@@ -158,8 +158,8 @@ class PluginList extends WidgetBase
             $pluginInfo = $plugin->pluginDetails();
 
             $itemInfo = [
-                'name' => isset($pluginInfo['name']) ? $pluginInfo['name'] : 'rainlab.builder::lang.plugin.no_name',
-                'description' => isset($pluginInfo['description']) ? $pluginInfo['description'] : 'rainlab.builder::lang.plugin.no_description',
+                'name' => isset($pluginInfo['name']) ? $pluginInfo['name'] : 'winter.builder::lang.plugin.no_name',
+                'description' => isset($pluginInfo['description']) ? $pluginInfo['description'] : 'winter.builder::lang.plugin.no_description',
                 'icon' => isset($pluginInfo['icon']) ? $pluginInfo['icon'] : null
             ];
 

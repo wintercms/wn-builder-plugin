@@ -3,7 +3,7 @@
 return [
     'plugin' => [
         'name' => 'Builder',
-        'description' => 'Poskytuje vizuální nástroj pro tvorbu October pluginů.',
+        'description' => 'Poskytuje vizuální nástroj pro tvorbu Winter CMS pluginů.',
         'add' => 'Vytvořit plugin',
         'no_records' => 'Žádný plugin nenalezen',
         'no_description' => 'Bez popisu',
@@ -34,7 +34,7 @@ return [
     ],
     'author_namespace' => [
         'title' => 'Jmenný prostor autora',
-        'description' => 'Pokud budete chtít plugin umístit na stránkách OctoberCMS, jmenný prostor by se měl být pro všechny vaše pluginy shodný. Více detailů najdete v dokumentaci publikace pluginů.',
+        'description' => 'Pokud budete chtít plugin umístit na stránkách Winter CMS, jmenný prostor by se měl být pro všechny vaše pluginy shodný. Více detailů najdete v dokumentaci publikace pluginů.',
     ],
     'database' => [
         'menu_label' => 'Databáze',
@@ -553,7 +553,7 @@ return [
     ],
     'common' => [
         'error_file_exists' => "Soubor již existuje: ':path'.",
-        'field_icon_description' => 'October používá ikony Font Autumn: http://octobercms.com/docs/ui/icon',
+        'field_icon_description' => 'Winter CMS používá ikony Font Autumn: http://octobercms.com/docs/ui/icon',
         'destination_dir_not_exists' => "Cílový adresář neexistuje: ':path'.",
         'error_make_dir' => "Chyba vytváření adresáře: ':name'.",
         'error_dir_exists' => "Adresář již existuje: ':path'.",

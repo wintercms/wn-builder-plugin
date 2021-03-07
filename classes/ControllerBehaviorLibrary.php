@@ -1,4 +1,4 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use Event;
 use Lang;
@@ -6,14 +6,14 @@ use Lang;
 /**
  * Manages Builder controller behavior library.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class ControllerBehaviorLibrary
 {
-    use \October\Rain\Support\Traits\Singleton;
+    use \Winter\Storm\Support\Traits\Singleton;
 
-    const DEFAULT_DESIGN_TIME_PROVIDER = 'RainLab\Builder\Widgets\DefaultBehaviorDesignTimeProvider';
+    const DEFAULT_DESIGN_TIME_PROVIDER = 'Winter\Builder\Widgets\DefaultBehaviorDesignTimeProvider';
 
     protected $behaviors = null;
 
@@ -38,7 +38,7 @@ class ControllerBehaviorLibrary
      * to the Component properties: http://octobercms.com/docs/plugin/components#component-properties
      * @param string $configFilePropertyName Specifies the name of the controller property that contains the configuration file name for the behavior.
      * @param string $designTimeProviderClass Specifies the behavior design-time provider class name.
-     * The class should extend RainLab\Builder\Classes\BehaviorDesignTimeProviderBase. If the class is not provided,
+     * The class should extend Winter\Builder\Classes\BehaviorDesignTimeProviderBase. If the class is not provided,
      * the default control design and design settings will be used.
      * @param string $configFileName Default behavior configuration file name, for example config_form.yaml.
      * @param array $viewTemplates An array of view templates that are required for the behavior.

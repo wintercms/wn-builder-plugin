@@ -4,21 +4,21 @@
 
 fields:
     language:
-        label: rainlab.builder::lang.localization.language
+        label: winter.builder::lang.localization.language
         attributes:
             default-focus: 1
             spellcheck: 'false'
 
     toolbar:
         type: partial
-        path: $/rainlab/builder/behaviors/indexlocalizationoperations/partials/_toolbar.htm
+        path: $/winter/builder/behaviors/indexlocalizationoperations/partials/_toolbar.htm
         cssClass: collapse-visible
 
 secondaryTabs:
     stretch: true
     fields:
         strings:
-            tab: rainlab.builder::lang.localization.strings
+            tab: winter.builder::lang.localization.strings
             stretch: true
             type: codeeditor
             language: yaml

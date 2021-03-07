@@ -1,7 +1,7 @@
-<?php namespace RainLab\Builder\FormWidgets;
+<?php namespace Winter\Builder\FormWidgets;
 
 use Backend\Classes\FormWidgetBase;
-use RainLab\Builder\Classes\ControlLibrary;
+use Winter\Builder\Classes\ControlLibrary;
 use ApplicationException;
 use Input;
 use Lang;
@@ -9,7 +9,7 @@ use Lang;
 /**
  * Form builder widget.
  *
- * @package october\backend
+ * @package winter\backend
  * @author Alexey Bobkov, Samuel Georges
  */
 class FormBuilder extends FormWidgetBase
@@ -155,16 +155,16 @@ class FormBuilder extends FormWidgetBase
         $result = [];
 
         $fieldNameProperty = [
-            'title' => Lang::get('rainlab.builder::lang.form.property_field_name_title'),
+            'title' => Lang::get('winter.builder::lang.form.property_field_name_title'),
             'property' => 'oc.fieldName',
             'type' => 'autocomplete',
             'fillFrom' => 'model-fields',
             'validation' => [
                 'required' => [
-                    'message' => Lang::get('rainlab.builder::lang.form.property_field_name_required')
+                    'message' => Lang::get('winter.builder::lang.form.property_field_name_required')
                 ],
                 'regex' => [
-                    'message' => Lang::get('rainlab.builder::lang.form.property_field_name_regex'),
+                    'message' => Lang::get('winter.builder::lang.form.property_field_name_regex'),
                     'pattern' => '^[a-zA-Z\_]+[0-9a-z\_\[\]]*$'
                 ]
             ]
@@ -320,12 +320,12 @@ class FormBuilder extends FormWidgetBase
 
         $result = [
             [
-                'title' => Lang::get('rainlab.builder::lang.form.tab_title'),
+                'title' => Lang::get('winter.builder::lang.form.tab_title'),
                 'property' => 'title',
                 'type' => 'builderLocalization',
                 'validation' => [
                     'required' => [
-                        'message' => Lang::get('rainlab.builder::lang.form.property_tab_title_required')
+                        'message' => Lang::get('winter.builder::lang.form.property_tab_title_required')
                     ]
                 ]
             ]
@@ -342,14 +342,14 @@ class FormBuilder extends FormWidgetBase
 
         $result = [
             [
-                'title' => Lang::get('rainlab.builder::lang.form.tab_stretch'),
-                'description' => Lang::get('rainlab.builder::lang.form.tab_stretch_description'),
+                'title' => Lang::get('winter.builder::lang.form.tab_stretch'),
+                'description' => Lang::get('winter.builder::lang.form.tab_stretch_description'),
                 'property' => 'stretch',
                 'type' => 'checkbox'
             ],
             [
-                'title' => Lang::get('rainlab.builder::lang.form.tab_css_class'),
-                'description' => Lang::get('rainlab.builder::lang.form.tab_css_class_description'),
+                'title' => Lang::get('winter.builder::lang.form.tab_css_class'),
+                'description' => Lang::get('winter.builder::lang.form.tab_css_class_description'),
                 'property' => 'cssClass',
                 'type' => 'string'
             ]

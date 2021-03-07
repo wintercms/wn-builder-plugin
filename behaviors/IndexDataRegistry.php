@@ -1,13 +1,13 @@
-<?php namespace RainLab\Builder\Behaviors;
+<?php namespace Winter\Builder\Behaviors;
 
 use Backend\Classes\ControllerBehavior;
-use RainLab\Builder\Classes\PluginCode;
-use RainLab\Builder\Classes\LocalizationModel;
-use RainLab\Builder\Classes\ModelModel;
-use RainLab\Builder\Classes\ModelFormModel;
-use RainLab\Builder\Classes\ModelListModel;
-use RainLab\Builder\Classes\ControllerModel;
-use RainLab\Builder\Classes\PermissionsModel;
+use Winter\Builder\Classes\PluginCode;
+use Winter\Builder\Classes\LocalizationModel;
+use Winter\Builder\Classes\ModelModel;
+use Winter\Builder\Classes\ModelFormModel;
+use Winter\Builder\Classes\ModelListModel;
+use Winter\Builder\Classes\ControllerModel;
+use Winter\Builder\Classes\PermissionsModel;
 use ApplicationException;
 use SystemException;
 use Exception;
@@ -19,7 +19,7 @@ use Lang;
 /**
  * Plugin data registry functionality for the Builder index controller
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class IndexDataRegistry extends ControllerBehavior

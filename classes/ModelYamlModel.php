@@ -1,4 +1,4 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use DirectoryIterator;
 use SystemException;
@@ -10,7 +10,7 @@ use Yaml;
 /**
  * A base class for models belonging to databse models (forms, lists, etc.).
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 abstract class ModelYamlModel extends YamlModel
@@ -40,8 +40,8 @@ abstract class ModelYamlModel extends YamlModel
     public function validate()
     {
         $this->validationMessages = [
-            'fileName.required' => Lang::get('rainlab.builder::lang.form.error_file_name_required'),
-            'fileName.regex' => Lang::get('rainlab.builder::lang.form.error_file_name_invalid')
+            'fileName.required' => Lang::get('winter.builder::lang.form.error_file_name_required'),
+            'fileName.regex' => Lang::get('winter.builder::lang.form.error_file_name_invalid')
         ];
 
         return parent::validate();

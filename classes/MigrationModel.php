@@ -1,4 +1,4 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use Str;
 use Lang;
@@ -6,7 +6,7 @@ use File;
 use Yaml;
 use Validator;
 use System\Classes\VersionManager;
-use October\Rain\Parse\Bracket as TextParser;
+use Winter\Storm\Parse\Bracket as TextParser;
 use ApplicationException;
 use ValidationException;
 use SystemException;
@@ -16,7 +16,7 @@ use Throwable;
 /**
  * Manages plugin migrations
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class MigrationModel extends BaseModel
@@ -64,9 +64,9 @@ class MigrationModel extends BaseModel
         $isNewModel = $this->isNewModel();
 
         $this->validationMessages = [
-            'version.regex' => Lang::get('rainlab.builder::lang.migration.error_version_invalid'),
-            'version.unique_version' => Lang::get('rainlab.builder::lang.migration.error_version_exists'),
-            'scriptFileName.regex' => Lang::get('rainlab.builder::lang.migration.error_script_filename_invalid')
+            'version.regex' => Lang::get('winter.builder::lang.migration.error_version_invalid'),
+            'version.unique_version' => Lang::get('winter.builder::lang.migration.error_version_exists'),
+            'scriptFileName.regex' => Lang::get('winter.builder::lang.migration.error_script_filename_invalid')
         ];
 
         $versionInformation = $this->getPluginVersionInformation();
@@ -80,7 +80,7 @@ class MigrationModel extends BaseModel
 
         if (!$isNewModel && $this->version != $this->originalVersion && $this->isApplied()) {
             throw new ValidationException([
-                'version' => Lang::get('rainlab.builder::lang.migration.error_cannot_change_version_number')
+                'version' => Lang::get('winter.builder::lang.migration.error_cannot_change_version_number')
             ]);
         }
 
@@ -207,7 +207,7 @@ class MigrationModel extends BaseModel
             'seeder' => 'seeder.php.tpl'
         ];
 
-        $templatePath = '$/rainlab/builder/classes/migrationmodel/templates/'.$templateFiles[$versionType];
+        $templatePath = '$/winter/builder/classes/migrationmodel/templates/'.$templateFiles[$versionType];
         $templatePath = File::symbolizePath($templatePath);
 
         $fileContents = File::get($templatePath);
@@ -240,7 +240,7 @@ class MigrationModel extends BaseModel
     public function deleteModel()
     {
         if ($this->isApplied()) {
-            throw new ApplicationException(Lang::get('rainlab.builder::lang.migration.error_cant_delete_applied'));
+            throw new ApplicationException(Lang::get('winter.builder::lang.migration.error_cant_delete_applied'));
         }
 
         $this->deleteVersion();
@@ -296,13 +296,13 @@ class MigrationModel extends BaseModel
 
         if (!$migrationInfo || !array_key_exists('class', $migrationInfo)) {
             throw new ValidationException([
-                'code' => Lang::get('rainlab.builder::lang.migration.error_file_must_define_class')
+                'code' => Lang::get('winter.builder::lang.migration.error_file_must_define_class')
             ]);
         }
 
         if (!array_key_exists('namespace', $migrationInfo)) {
             throw new ValidationException([
-                'code' => Lang::get('rainlab.builder::lang.migration.error_file_must_define_namespace')
+                'code' => Lang::get('winter.builder::lang.migration.error_file_must_define_namespace')
             ]);
         }
 
@@ -311,7 +311,7 @@ class MigrationModel extends BaseModel
 
         if ($migrationInfo['namespace'] != $pluginNamespace) {
             throw new ValidationException([
-                'code' => Lang::get('rainlab.builder::lang.migration.error_namespace_mismatch', ['namespace'=>$pluginNamespace])
+                'code' => Lang::get('winter.builder::lang.migration.error_namespace_mismatch', ['namespace'=>$pluginNamespace])
             ]);
         }
 
@@ -326,7 +326,7 @@ class MigrationModel extends BaseModel
 
             if (File::isFile($filePath)) {
                 throw new ValidationException([
-                    'code' => Lang::get('rainlab.builder::lang.migration.error_migration_file_exists', ['file'=>$fileName])
+                    'code' => Lang::get('winter.builder::lang.migration.error_migration_file_exists', ['file'=>$fileName])
                 ]);
             }
         }

@@ -1,15 +1,15 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use Lang;
 use File;
-use October\Rain\Parse\Bracket as TextParser;
+use Winter\Storm\Parse\Bracket as TextParser;
 use ApplicationException;
 use SystemException;
 
 /**
  * Generates filesystem objects basing on a structure provided with an array
  * and using file templates and variables. Variables in template files use
- * the Twig syntax, but processed with October\Rain\Syntax\Bracket.
+ * the Twig syntax, but processed with Winter\Storm\Syntax\Bracket.
  *
  * Example - generate a plugin directory containing the plugin.php file.
  * The file is created from a template, which uses a couple of variables.
@@ -27,7 +27,7 @@ use SystemException;
  * $generator->setVariables($variables);
  * $generator->generate();
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class FilesystemGenerator
@@ -74,7 +74,7 @@ class FilesystemGenerator
     public function generate()
     {
         if (!File::isDirectory($this->destinationPath)) {
-            throw new SystemException(Lang::get('rainlab.builder::lang.common.destination_dir_not_exists', ['path'=>$this->destinationPath]));
+            throw new SystemException(Lang::get('winter.builder::lang.common.destination_dir_not_exists', ['path'=>$this->destinationPath]));
         }
 
         foreach ($this->structure as $key => $value) {
@@ -91,7 +91,7 @@ class FilesystemGenerator
     {
         $templatePath = $this->templatesPath.DIRECTORY_SEPARATOR.$templateName;
         if (!File::isFile($templatePath)) {
-            throw new SystemException(Lang::get('rainlab.builder::lang.common.template_not_found', ['name'=>$templateName]));
+            throw new SystemException(Lang::get('winter.builder::lang.common.template_not_found', ['name'=>$templateName]));
         }
 
         $fileContents = File::get($templatePath);
@@ -104,11 +104,11 @@ class FilesystemGenerator
         $path = $this->destinationPath.DIRECTORY_SEPARATOR.$dirPath;
 
         if (File::isDirectory($path)) {
-            throw new ApplicationException(Lang::get('rainlab.builder::lang.common.error_dir_exists', ['path'=>$path]));
+            throw new ApplicationException(Lang::get('winter.builder::lang.common.error_dir_exists', ['path'=>$path]));
         }
 
         if (!File::makeDirectory($path, 0777, true, true)) {
-            throw new SystemException(Lang::get('rainlab.builder::lang.common.error_make_dir', ['name'=>$path]));
+            throw new SystemException(Lang::get('winter.builder::lang.common.error_make_dir', ['name'=>$path]));
         }
     }
 
@@ -117,19 +117,19 @@ class FilesystemGenerator
         $path = $this->destinationPath.DIRECTORY_SEPARATOR.$filePath;
 
         if (File::isFile($path)) {
-            throw new ApplicationException(Lang::get('rainlab.builder::lang.common.error_file_exists', ['path'=>$path]));
+            throw new ApplicationException(Lang::get('winter.builder::lang.common.error_file_exists', ['path'=>$path]));
         }
 
         $fileDirectory = dirname($path);
         if (!File::isDirectory($fileDirectory)) {
             if (!File::makeDirectory($fileDirectory, 0777, true, true)) {
-                throw new SystemException(Lang::get('rainlab.builder::lang.common.error_make_dir', ['name'=>$fileDirectory]));
+                throw new SystemException(Lang::get('winter.builder::lang.common.error_make_dir', ['name'=>$fileDirectory]));
             }
         }
 
         $fileContents = $this->getTemplateContents($templateName);
         if (@File::put($path, $fileContents) === false) {
-            throw new SystemException(Lang::get('rainlab.builder::lang.common.error_generating_file', ['path'=>$path]));
+            throw new SystemException(Lang::get('winter.builder::lang.common.error_generating_file', ['path'=>$path]));
         }
 
         @File::chmod($path);

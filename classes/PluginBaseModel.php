@@ -1,6 +1,6 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
-use RainLab\Builder\Models\Settings as PluginSettings;
+use Winter\Builder\Models\Settings as PluginSettings;
 use System\Classes\UpdateManager;
 use System\Classes\PluginManager;
 use Exception;
@@ -9,7 +9,7 @@ use File;
 /**
  * Manages plugin basic information.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class PluginBaseModel extends PluginYamlModel
@@ -154,7 +154,7 @@ class PluginBaseModel extends PluginYamlModel
             'pluginDescriptionSanitized' => $this->sanitizePHPString($this->localizedDescription),
         ];
 
-        $generator = new FilesystemGenerator('$', $structure, '$/rainlab/builder/classes/pluginbasemodel/templates');
+        $generator = new FilesystemGenerator('$', $structure, '$/winter/builder/classes/pluginbasemodel/templates');
         $generator->setVariables($variables);
         $generator->generate();
     }

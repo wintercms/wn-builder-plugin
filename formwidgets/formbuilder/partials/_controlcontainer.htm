@@ -9,18 +9,18 @@
         'type' => 'primary',
         'controls' => $this->getTabsFields('tabs', $fieldsConfiguration),
         'listName' => 'tabs',
-        'tabsTitle' => trans('rainlab.builder::lang.form.tabs_primary'),
+        'tabsTitle' => trans('winter.builder::lang.form.tabs_primary'),
         'configuration' => [],
-        'tabNameTemplate' =>  trans('rainlab.builder::lang.form.tab_name_template'),
+        'tabNameTemplate' =>  trans('winter.builder::lang.form.tab_name_template'),
     ]) ?>
 
     <?= $this->makePartial('tabs', [
         'type' => 'secondary',
         'controls' => $this->getTabsFields('secondaryTabs', $fieldsConfiguration),
         'listName' => 'secondaryTabs',
-        'tabsTitle' => trans('rainlab.builder::lang.form.tabs_secondary'),
+        'tabsTitle' => trans('winter.builder::lang.form.tabs_secondary'),
         'configuration' => [],
-        'tabNameTemplate' =>  trans('rainlab.builder::lang.form.tab_name_template'),
+        'tabNameTemplate' =>  trans('winter.builder::lang.form.tab_name_template'),
     ]) ?>
 
 </div>

@@ -1,8 +1,8 @@
-<?php namespace RainLab\Builder\Behaviors;
+<?php namespace Winter\Builder\Behaviors;
 
-use RainLab\Builder\Classes\IndexOperationsBehaviorBase;
-use RainLab\Builder\Classes\LocalizationModel;
-use RainLab\Builder\Classes\PluginCode;
+use Winter\Builder\Classes\IndexOperationsBehaviorBase;
+use Winter\Builder\Classes\LocalizationModel;
+use Winter\Builder\Classes\PluginCode;
 use ApplicationException;
 use Exception;
 use Request;
@@ -13,12 +13,12 @@ use Lang;
 /**
  * Plugin localization management functionality for the Builder index controller
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class IndexLocalizationOperations extends IndexOperationsBehaviorBase
 {
-    protected $baseFormConfigFile = '~/plugins/rainlab/builder/classes/localizationmodel/fields.yaml';
+    protected $baseFormConfigFile = '~/plugins/winter/builder/classes/localizationmodel/fields.yaml';
 
     public function onLanguageCreateOrOpen()
     {
@@ -58,7 +58,7 @@ class IndexLocalizationOperations extends IndexOperationsBehaviorBase
         $model->fill($_POST);
         $model->save(false);
 
-        Flash::success(Lang::get('rainlab.builder::lang.localization.saved'));
+        Flash::success(Lang::get('winter.builder::lang.localization.saved'));
         $result = $this->controller->widget->languageList->updateList();
 
         $result['builderResponseData'] = [
@@ -185,7 +185,7 @@ class IndexLocalizationOperations extends IndexOperationsBehaviorBase
         $pluginName = Lang::get($model->getModelPluginName());
 
         if (!strlen($model->language)) {
-            return $pluginName.'/'.Lang::get('rainlab.builder::lang.localization.tab_new_language');
+            return $pluginName.'/'.Lang::get('winter.builder::lang.localization.tab_new_language');
         }
 
         return $pluginName.'/'.$model->language;

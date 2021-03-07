@@ -1,9 +1,9 @@
-<?php namespace RainLab\Builder\Components;
+<?php namespace Winter\Builder\Components;
 
 use Lang;
 use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
-use RainLab\Builder\Classes\ComponentHelper;
+use Winter\Builder\Classes\ComponentHelper;
 use SystemException;
 use Exception;
 
@@ -11,7 +11,7 @@ class RecordList extends ComponentBase
 {
     /**
      * A collection of records to display
-     * @var \October\Rain\Database\Collection
+     * @var \Winter\Storm\Database\Collection
      */
     public $records;
 
@@ -60,8 +60,8 @@ class RecordList extends ComponentBase
     public function componentDetails()
     {
         return [
-            'name'        => 'rainlab.builder::lang.components.list_title',
-            'description' => 'rainlab.builder::lang.components.list_description'
+            'name'        => 'winter.builder::lang.components.list_title',
+            'description' => 'winter.builder::lang.components.list_description'
         ];
     }
 
@@ -73,95 +73,95 @@ class RecordList extends ComponentBase
     {
         return [
             'modelClass' => [
-                'title'       => 'rainlab.builder::lang.components.list_model',
+                'title'       => 'winter.builder::lang.components.list_model',
                 'type'        => 'dropdown',
                 'showExternalParam' => false
             ],
             'scope' => [
-                'title'       => 'rainlab.builder::lang.components.list_scope',
-                'description' => 'rainlab.builder::lang.components.list_scope_description',
+                'title'       => 'winter.builder::lang.components.list_scope',
+                'description' => 'winter.builder::lang.components.list_scope_description',
                 'type'        => 'dropdown',
                 'depends'     => ['modelClass'],
                 'showExternalParam' => false
             ],
             'scopeValue' => [
-                'title'       => 'rainlab.builder::lang.components.list_scope_value',
-                'description' => 'rainlab.builder::lang.components.list_scope_value_description',
+                'title'       => 'winter.builder::lang.components.list_scope_value',
+                'description' => 'winter.builder::lang.components.list_scope_value_description',
                 'type'        => 'string',
                 'default'     => '{{ :scope }}',
             ],
             'displayColumn' => [
-                'title'       => 'rainlab.builder::lang.components.list_display_column',
-                'description' => 'rainlab.builder::lang.components.list_display_column_description',
+                'title'       => 'winter.builder::lang.components.list_display_column',
+                'description' => 'winter.builder::lang.components.list_display_column_description',
                 'type'        => 'autocomplete',
                 'depends'     => ['modelClass'],
                 'validation'  => [
                     'required' => [
-                        'message' => Lang::get('rainlab.builder::lang.components.list_display_column_required')
+                        'message' => Lang::get('winter.builder::lang.components.list_display_column_required')
                     ]
                 ]
             ],
             'noRecordsMessage' => [
-                'title'        => 'rainlab.builder::lang.components.list_no_records',
-                'description'  => 'rainlab.builder::lang.components.list_no_records_description',
+                'title'        => 'winter.builder::lang.components.list_no_records',
+                'description'  => 'winter.builder::lang.components.list_no_records_description',
                 'type'         => 'string',
-                'default'      => Lang::get('rainlab.builder::lang.components.list_no_records_default'),
+                'default'      => Lang::get('winter.builder::lang.components.list_no_records_default'),
                 'showExternalParam' => false,
             ],
             'detailsPage' => [
-                'title'       => 'rainlab.builder::lang.components.list_details_page',
-                'description' => 'rainlab.builder::lang.components.list_details_page_description',
+                'title'       => 'winter.builder::lang.components.list_details_page',
+                'description' => 'winter.builder::lang.components.list_details_page_description',
                 'type'        => 'dropdown',
                 'showExternalParam' => false,
-                'group'       => 'rainlab.builder::lang.components.list_details_page_link'
+                'group'       => 'winter.builder::lang.components.list_details_page_link'
             ],
             'detailsKeyColumn' => [
-                'title'       => 'rainlab.builder::lang.components.list_details_key_column',
-                'description' => 'rainlab.builder::lang.components.list_details_key_column_description',
+                'title'       => 'winter.builder::lang.components.list_details_key_column',
+                'description' => 'winter.builder::lang.components.list_details_key_column_description',
                 'type'        => 'autocomplete',
                 'depends'     => ['modelClass'],
                 'showExternalParam' => false,
-                'group'       => 'rainlab.builder::lang.components.list_details_page_link'
+                'group'       => 'winter.builder::lang.components.list_details_page_link'
             ],
             'detailsUrlParameter' => [
-                'title'       => 'rainlab.builder::lang.components.list_details_url_parameter',
-                'description' => 'rainlab.builder::lang.components.list_details_url_parameter_description',
+                'title'       => 'winter.builder::lang.components.list_details_url_parameter',
+                'description' => 'winter.builder::lang.components.list_details_url_parameter_description',
                 'type'        => 'string',
                 'default'     => 'id',
                 'showExternalParam' => false,
-                'group'       => 'rainlab.builder::lang.components.list_details_page_link'
+                'group'       => 'winter.builder::lang.components.list_details_page_link'
             ],
             'recordsPerPage' => [
-                'title'             => 'rainlab.builder::lang.components.list_records_per_page',
-                'description'       => 'rainlab.builder::lang.components.list_records_per_page_description',
+                'title'             => 'winter.builder::lang.components.list_records_per_page',
+                'description'       => 'winter.builder::lang.components.list_records_per_page_description',
                 'type'              => 'string',
                 'validationPattern' => '^[0-9]*$',
-                'validationMessage' => 'rainlab.builder::lang.components.list_records_per_page_validation',
-                'group'             => 'rainlab.builder::lang.components.list_pagination'
+                'validationMessage' => 'winter.builder::lang.components.list_records_per_page_validation',
+                'group'             => 'winter.builder::lang.components.list_pagination'
             ],
             'pageNumber' => [
-                'title'       => 'rainlab.builder::lang.components.list_page_number',
-                'description' => 'rainlab.builder::lang.components.list_page_number_description',
+                'title'       => 'winter.builder::lang.components.list_page_number',
+                'description' => 'winter.builder::lang.components.list_page_number_description',
                 'type'        => 'string',
                 'default'     => '{{ :page }}',
-                'group'       => 'rainlab.builder::lang.components.list_pagination'
+                'group'       => 'winter.builder::lang.components.list_pagination'
             ],
             'sortColumn' => [
-                'title'       => 'rainlab.builder::lang.components.list_sort_column',
-                'description' => 'rainlab.builder::lang.components.list_sort_column_description',
+                'title'       => 'winter.builder::lang.components.list_sort_column',
+                'description' => 'winter.builder::lang.components.list_sort_column_description',
                 'type'        => 'autocomplete',
                 'depends'     => ['modelClass'],
-                'group'       => 'rainlab.builder::lang.components.list_sorting',
+                'group'       => 'winter.builder::lang.components.list_sorting',
                 'showExternalParam' => false
             ],
             'sortDirection' => [
-                'title'       => 'rainlab.builder::lang.components.list_sort_direction',
+                'title'       => 'winter.builder::lang.components.list_sort_direction',
                 'type'        => 'dropdown',
                 'showExternalParam' => false,
-                'group'       => 'rainlab.builder::lang.components.list_sorting',
+                'group'       => 'winter.builder::lang.components.list_sorting',
                 'options'     => [
-                    'asc'     => 'rainlab.builder::lang.components.list_order_direction_asc',
-                    'desc'    => 'rainlab.builder::lang.components.list_order_direction_desc'
+                    'asc'     => 'winter.builder::lang.components.list_order_direction_asc',
+                    'desc'    => 'winter.builder::lang.components.list_order_direction_desc'
                 ]
             ]
         ];
@@ -172,7 +172,7 @@ class RecordList extends ComponentBase
         $pages = Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
 
         $pages = [
-            '-' => Lang::get('rainlab.builder::lang.components.list_details_page_no')
+            '-' => Lang::get('winter.builder::lang.components.list_details_page_no')
         ] + $pages;
 
         return $pages;
@@ -203,7 +203,7 @@ class RecordList extends ComponentBase
         $modelClass = ComponentHelper::instance()->getModelClassDesignTime();
 
         $result = [
-            '-' => Lang::get('rainlab.builder::lang.components.list_scope_default')
+            '-' => Lang::get('winter.builder::lang.components.list_scope_default')
         ];
         try {
             $model = new $modelClass;

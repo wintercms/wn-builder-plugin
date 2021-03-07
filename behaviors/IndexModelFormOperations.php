@@ -1,10 +1,10 @@
-<?php namespace RainLab\Builder\Behaviors;
+<?php namespace Winter\Builder\Behaviors;
 
-use RainLab\Builder\Classes\IndexOperationsBehaviorBase;
-use RainLab\Builder\Classes\ModelFormModel;
-use RainLab\Builder\Classes\PluginCode;
-use RainLab\Builder\FormWidgets\FormBuilder;
-use RainLab\Builder\Classes\ModelModel;
+use Winter\Builder\Classes\IndexOperationsBehaviorBase;
+use Winter\Builder\Classes\ModelFormModel;
+use Winter\Builder\Classes\PluginCode;
+use Winter\Builder\FormWidgets\FormBuilder;
+use Winter\Builder\Classes\ModelModel;
 use Backend\Classes\FormField;
 use ApplicationException;
 use Exception;
@@ -16,12 +16,12 @@ use Lang;
 /**
  * Model form management functionality for the Builder index controller
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class IndexModelFormOperations extends IndexOperationsBehaviorBase
 {
-    protected $baseFormConfigFile = '~/plugins/rainlab/builder/classes/modelformmodel/fields.yaml';
+    protected $baseFormConfigFile = '~/plugins/winter/builder/classes/modelformmodel/fields.yaml';
 
     public function __construct($controller)
     {
@@ -51,7 +51,7 @@ class IndexModelFormOperations extends IndexOperationsBehaviorBase
         $this->vars['fileName'] = $fileName;
 
         $result = [
-            'tabTitle' => $widget->model->getDisplayName(Lang::get('rainlab.builder::lang.form.tab_new_form')),
+            'tabTitle' => $widget->model->getDisplayName(Lang::get('winter.builder::lang.form.tab_new_form')),
             'tabIcon' => 'icon-check-square',
             'tabId' => $this->getTabId($modelClass, $fileName),
             'tab' => $this->makePartial('tab', [
@@ -74,13 +74,13 @@ class IndexModelFormOperations extends IndexOperationsBehaviorBase
 
         $result = $this->controller->widget->modelList->updateList();
 
-        Flash::success(Lang::get('rainlab.builder::lang.form.saved'));
+        Flash::success(Lang::get('winter.builder::lang.form.saved'));
 
         $modelClass = Input::get('model_class');
         $result['builderResponseData'] = [
             'builderObjectName' => $model->fileName,
             'tabId' => $this->getTabId($modelClass, $model->fileName),
-            'tabTitle' => $model->getDisplayName(Lang::get('rainlab.builder::lang.form.tab_new_form'))
+            'tabTitle' => $model->getDisplayName(Lang::get('winter.builder::lang.form.tab_new_form'))
         ];
 
         $this->mergeRegistryDataIntoResult($result, $model, $modelClass);

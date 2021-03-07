@@ -2,7 +2,7 @@
 
 return [
     'plugin' => [
-        'description' => 'Wizualne narzędzia do tworzenia wtyczek dla October CMS.',
+        'description' => 'Wizualne narzędzia do tworzenia wtyczek dla Winter CMS.',
         'add' => 'Utwórz wtyczkę',
         'no_records' => 'Nie znaleziono wtyczek',
         'no_name' => 'Brak nazwy',
@@ -613,7 +613,7 @@ return [
     ],
     'common' => [
         'error_file_exists' => "Plik już istnieje: ':path'.",
-        'field_icon_description' => 'October używa ikon Font Autumn: http://octobercms.com/docs/ui/icon',
+        'field_icon_description' => 'Winter CMS używa ikon Font Autumn: http://octobercms.com/docs/ui/icon',
         'destination_dir_not_exists' => "Folder docelowy nie istnieje: ':path'.",
         'error_make_dir' => "Błąd podczas tworzenia folderu: ':name'.",
         'error_dir_exists' => "Folder już istnieje: ':path'.",

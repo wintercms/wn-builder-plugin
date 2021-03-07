@@ -1,6 +1,6 @@
 <?php
 
-use RainLab\Builder\Classes\FilesystemGenerator;
+use Winter\Builder\Classes\FilesystemGenerator;
 
 class FilesystemGeneratorTest extends TestCase
 {
@@ -52,7 +52,7 @@ class FilesystemGeneratorTest extends TestCase
     }
 
     /**
-     * @expectedException        October\Rain\Exception\SystemException
+     * @expectedException        Winter\Storm\Exception\SystemException
      * @expectedExceptionMessage exists
      */
     public function testDestNotExistsException()
@@ -63,7 +63,7 @@ class FilesystemGeneratorTest extends TestCase
     }
 
     /**
-     * @expectedException        October\Rain\Exception\ApplicationException
+     * @expectedException        Winter\Storm\Exception\ApplicationException
      * @expectedExceptionMessage exists
      */
     public function testDirExistsException()
@@ -83,7 +83,7 @@ class FilesystemGeneratorTest extends TestCase
     }
 
     /**
-     * @expectedException        October\Rain\Exception\ApplicationException
+     * @expectedException        Winter\Storm\Exception\ApplicationException
      * @expectedExceptionMessage exists
      */
     public function testFileExistsException()
@@ -106,7 +106,7 @@ class FilesystemGeneratorTest extends TestCase
     }
 
     /**
-     * @expectedException        October\Rain\Exception\SystemException
+     * @expectedException        Winter\Storm\Exception\SystemException
      * @expectedExceptionMessage found
      */
     public function testTemplateNotFound()

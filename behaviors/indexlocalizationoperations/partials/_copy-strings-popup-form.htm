@@ -3,14 +3,14 @@
 ]) ?>
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="popup">&times;</button>
-        <h4 class="modal-title"><?= e(trans('rainlab.builder::lang.localization.add_missing_strings')) ?></h4>
+        <h4 class="modal-title"><?= e(trans('winter.builder::lang.localization.add_missing_strings')) ?></h4>
     </div>
 
     <div class="modal-body">
         <?php if ($languages): ?>
             <div class="form-group dropdown-field span-full" id="languge-dropdown">
                 <label for="languge-dropdown">
-                    <?= e(trans('rainlab.builder::lang.localization.add_missing_strings_label')) ?>
+                    <?= e(trans('winter.builder::lang.localization.add_missing_strings_label')) ?>
                 </label>
 
                 <select class="form-control custom-select" name="language">
@@ -20,7 +20,7 @@
                 </select>
             </div>
         <?php else: ?>
-            <p><?= e(trans('rainlab.builder::lang.localization.no_languages_to_copy_from')) ?></p>
+            <p><?= e(trans('winter.builder::lang.localization.no_languages_to_copy_from')) ?></p>
         <?php endif ?>
     </div>
     <div class="modal-footer">
@@ -28,7 +28,7 @@
             <button
                 type="submit"
                 class="btn btn-primary">
-                <?= e(trans('rainlab.builder::lang.localization.copy')) ?>
+                <?= e(trans('winter.builder::lang.localization.copy')) ?>
             </button>
         <?php endif ?>
         <button

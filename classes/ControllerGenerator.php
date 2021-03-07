@@ -1,4 +1,4 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use ApplicationException;
 use Symfony\Component\Yaml\Dumper as YamlDumper;
@@ -11,7 +11,7 @@ use Twig;
 /**
  * Helper class for generating controller class files and associated files.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class ControllerGenerator
@@ -76,7 +76,7 @@ class ControllerGenerator
             $behaviorInfo = $behaviorLibrary->getBehaviorInfo($behaviorClass);
             if (!$behaviorInfo) {
                 throw new ValidationException([
-                    'behaviors' => Lang::get('rainlab.builder::lang.controller.error_unknown_behavior', [
+                    'behaviors' => Lang::get('winter.builder::lang.controller.error_unknown_behavior', [
                         'class' => $behaviorClass
                     ])
                 ]);
@@ -88,7 +88,7 @@ class ControllerGenerator
 
                 if (in_array($templateFileName, $knownTemplates)) {
                     throw new ValidationException([
-                        'behaviors' => Lang::get('rainlab.builder::lang.controller.error_behavior_view_conflict', [
+                        'behaviors' => Lang::get('winter.builder::lang.controller.error_behavior_view_conflict', [
                             'view' => $templateBaseName
                         ])
                     ]);
@@ -101,7 +101,7 @@ class ControllerGenerator
                 $filePath = File::symbolizePath($viewTemplate);
                 if (!File::isFile($filePath)) {
                     throw new ValidationException([
-                        'behaviors' => Lang::get('rainlab.builder::lang.controller.error_behavior_view_file_not_found', [
+                        'behaviors' => Lang::get('winter.builder::lang.controller.error_behavior_view_file_not_found', [
                             'class' => $behaviorClass,
                             'view' => $templateFileName
                         ])
@@ -111,7 +111,7 @@ class ControllerGenerator
                 $destFilePath = $controllerPath.'/'.$templateBaseName;
                 if (File::isFile($destFilePath)) {
                     throw new ValidationException([
-                        'behaviors' => Lang::get('rainlab.builder::lang.controller.error_behavior_view_file_exists', [
+                        'behaviors' => Lang::get('winter.builder::lang.controller.error_behavior_view_file_exists', [
                             'view' => $destFilePath
                         ])
                     ]);
@@ -144,7 +144,7 @@ class ControllerGenerator
 
             if (in_array($configFileName, $knownConfgFiles)) {
                 throw new ValidationException([
-                    'behaviors' => Lang::get('rainlab.builder::lang.controller.error_behavior_config_conflict', [
+                    'behaviors' => Lang::get('winter.builder::lang.controller.error_behavior_config_conflict', [
                         'file' => $configFileName
                     ])
                 ]);
@@ -157,7 +157,7 @@ class ControllerGenerator
             $destFilePath = $controllerPath.'/'.$configFileName;
             if (File::isFile($destFilePath)) {
                 throw new ValidationException([
-                    'behaviors' => Lang::get('rainlab.builder::lang.controller.error_behavior_config_file_exists', [
+                    'behaviors' => Lang::get('winter.builder::lang.controller.error_behavior_config_file_exists', [
                         'file' => $destFilePath
                     ])
                 ]);
@@ -174,7 +174,7 @@ class ControllerGenerator
 
         if (File::isFile($controlerFilePath)) {
             throw new ValidationException([
-                'controller' => Lang::get('rainlab.builder::lang.controller.error_controller_exists', [
+                'controller' => Lang::get('winter.builder::lang.controller.error_controller_exists', [
                     'file' => basename($controlerFilePath)
                 ])
             ]);
@@ -233,14 +233,14 @@ class ControllerGenerator
         $fileDirectory = dirname($path);
         if (!File::isDirectory($fileDirectory)) {
             if (!File::makeDirectory($fileDirectory, 0777, true, true)) {
-                throw new ApplicationException(Lang::get('rainlab.builder::lang.common.error_make_dir', [
+                throw new ApplicationException(Lang::get('winter.builder::lang.common.error_make_dir', [
                     'name' => $fileDirectory
                 ]));
             }
         }
 
         if (@File::put($path, $data) === false) {
-            throw new ApplicationException(Lang::get('rainlab.builder::lang.controller.error_save_file', [
+            throw new ApplicationException(Lang::get('winter.builder::lang.controller.error_save_file', [
                 'file' => basename($path)
             ]));
         }

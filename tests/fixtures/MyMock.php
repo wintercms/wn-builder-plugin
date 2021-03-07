@@ -1,4 +1,4 @@
-<?php namespace RainLab\Builder\Models;
+<?php namespace Winter\Builder\Models;
 
 class MyMock
 {

@@ -140,7 +140,7 @@
 
             /*
              The check is disabled, because repeaters don't have list names. --ab Aug 7, 2016
-             See https://github.com/rainlab/builder-plugin/issues/74
+             See https://github.com/wintercms/wn-builder-plugin/issues/74
 
             if (currentListName.length === 0 || (listName !== null && currentListName != listName)) {
                 throw new Error('Lists in control list containers should have names, and the name should be equal for all lists in a container.')

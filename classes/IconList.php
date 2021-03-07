@@ -1,10 +1,10 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 /**
  * Contains a list of icons that can be used by plugins.
  * @see http://octobercms.com/docs/ui/icon
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class IconList
