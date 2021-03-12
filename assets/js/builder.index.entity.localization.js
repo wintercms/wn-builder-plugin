@@ -3,13 +3,13 @@
  */
 +function ($) { "use strict";
 
-    if ($.oc.builder === undefined)
-        $.oc.builder = {}
+    if ($.wn.builder === undefined)
+        $.wn.builder = {}
 
-    if ($.oc.builder.entityControllers === undefined)
-        $.oc.builder.entityControllers = {}
+    if ($.wn.builder.entityControllers === undefined)
+        $.wn.builder.entityControllers = {}
 
-    var Base = $.oc.builder.entityControllers.base,
+    var Base = $.wn.builder.entityControllers.base,
         BaseProto = Base.prototype
 
     var Localization = function(indexController) {
@@ -46,7 +46,7 @@
 
     Localization.prototype.cmdDeleteLanguage = function(ev) {
         var $target = $(ev.currentTarget)
-        $.oc.confirm($target.data('confirm'), this.proxy(this.deleteConfirmed))
+        $.wn.confirm($target.data('confirm'), this.proxy(this.deleteConfirmed))
     }
 
     Localization.prototype.cmdCopyMissingStrings = function(ev) {
@@ -56,13 +56,13 @@
 
         $form.trigger('close.oc.popup')
 
-        $.oc.stripeLoadIndicator.show()
+        $.wn.stripeLoadIndicator.show()
         $masterTabPane.find('form').request('onLanguageCopyStringsFrom', {
             data: {
                 copy_from: language
             }
         }).always(
-            $.oc.builder.indexController.hideStripeIndicatorProxy
+            $.wn.builder.indexController.hideStripeIndicatorProxy
         ).done(
             this.proxy(this.copyStringsFromDone)
         )
@@ -99,7 +99,7 @@
     Localization.prototype.updateOnScreenStrings = function(plugin) {
         var stringElements = document.body.querySelectorAll('span[data-localization-key][data-plugin="'+plugin+'"]')
 
-        $.oc.builder.dataRegistry.get($('#builder-plugin-selector-panel form'), plugin, 'localization', null, function(data){
+        $.wn.builder.dataRegistry.get($('#builder-plugin-selector-panel form'), plugin, 'localization', null, function(data){
             for (var i=stringElements.length-1; i>=0; i--) {
                 var stringElement = stringElements[i],
                     stringKey = stringElement.getAttribute('data-localization-key')
@@ -134,8 +134,8 @@
         if (data.builderResponseData.registryData !== undefined) {
             var registryData = data.builderResponseData.registryData
 
-            $.oc.builder.dataRegistry.set(registryData.pluginCode, 'localization', null, registryData.strings, {suppressLanguageEditorUpdate: true})
-            $.oc.builder.dataRegistry.set(registryData.pluginCode, 'localization', 'sections', registryData.sections)
+            $.wn.builder.dataRegistry.set(registryData.pluginCode, 'localization', null, registryData.strings, {suppressLanguageEditorUpdate: true})
+            $.wn.builder.dataRegistry.set(registryData.pluginCode, 'localization', 'sections', registryData.sections)
         }
     }
 
@@ -151,9 +151,9 @@
         var $masterTabPane = this.getMasterTabsActivePane(),
             $form = $masterTabPane.find('form')
 
-        $.oc.stripeLoadIndicator.show()
+        $.wn.stripeLoadIndicator.show()
         $form.request('onLanguageDelete').always(
-            $.oc.builder.indexController.hideStripeIndicatorProxy
+            $.wn.builder.indexController.hideStripeIndicatorProxy
         ).done(
             this.proxy(this.deleteDone)
         )
@@ -195,7 +195,7 @@
         codeEditor.getSession().setAnnotations(annotations)
 
         if (responseData.mismatch) {
-            $.oc.alert(mismatchMessage)
+            $.wn.alert(mismatchMessage)
         }
     }
 
@@ -277,6 +277,6 @@
     // REGISTRATION
     // ============================
 
-    $.oc.builder.entityControllers.localization = Localization;
+    $.wn.builder.entityControllers.localization = Localization;
 
 }(window.jQuery);

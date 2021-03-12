@@ -7,10 +7,10 @@
  */
 +function ($) { "use strict";
 
-    if ($.oc.builder.menubuilder === undefined)
-        $.oc.builder.menubuilder = {}
+    if ($.wn.builder.menubuilder === undefined)
+        $.wn.builder.menubuilder = {}
 
-    var Base = $.oc.foundation.base,
+    var Base = $.wn.foundation.base,
         BaseProto = Base.prototype
 
     var MenuBulder = function() {
@@ -109,7 +109,7 @@
 
         $item.find('> .item-container > span.title').attr('data-localization-key', properties.label)
 
-        $.oc.builder.dataRegistry.getLocalizationString($item, pluginCode, properties.label, function(label){
+        $.wn.builder.dataRegistry.getLocalizationString($item, pluginCode, properties.label, function(label){
             $item.find('> .item-container > span.title').text(label)
         })
 
@@ -184,13 +184,13 @@
 
         if ($(item).hasClass('inspector-open')) {
             var $inspectorContainer = this.findInspectorContainer($(item))
-            $.oc.foundation.controlUtils.disposeControls($inspectorContainer.get(0))
+            $.wn.foundation.controlUtils.disposeControls($inspectorContainer.get(0))
         }
 
         var subitems = item.get(0).querySelectorAll('li.inspector-open')
         for (var i=subitems.length-1; i>=0; i--) {
             var $inspectorContainer = this.findInspectorContainer($(subitems[i]))
-            $.oc.foundation.controlUtils.disposeControls($inspectorContainer.get(0))
+            $.wn.foundation.controlUtils.disposeControls($inspectorContainer.get(0))
         }
 
         $(this.findForm(ev.currentTarget)).trigger('change')
@@ -224,7 +224,7 @@
     $(document).ready(function(){
         // There is a single instance of the form builder. All operations
         // are stateless, so instance properties or DOM references are not needed.
-        $.oc.builder.menubuilder.controller = new MenuBulder()
+        $.wn.builder.menubuilder.controller = new MenuBulder()
     })
 
 }(window.jQuery);

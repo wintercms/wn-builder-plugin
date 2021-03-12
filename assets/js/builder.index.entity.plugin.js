@@ -3,13 +3,13 @@
  */
 +function ($) { "use strict";
 
-    if ($.oc.builder === undefined)
-        $.oc.builder = {}
+    if ($.wn.builder === undefined)
+        $.wn.builder = {}
 
-    if ($.oc.builder.entityControllers === undefined)
-        $.oc.builder.entityControllers = {}
+    if ($.wn.builder.entityControllers === undefined)
+        $.wn.builder.entityControllers = {}
 
-    var Base = $.oc.builder.entityControllers.base,
+    var Base = $.wn.builder.entityControllers.base,
         BaseProto = Base.prototype
 
     var Plugin = function(indexController) {
@@ -46,9 +46,9 @@
         var $form = $(ev.currentTarget),
             self = this
 
-        $.oc.stripeLoadIndicator.show()
+        $.wn.stripeLoadIndicator.show()
         $form.request('onPluginSave').always(
-            $.oc.builder.indexController.hideStripeIndicatorProxy
+            $.wn.builder.indexController.hideStripeIndicatorProxy
         ).done(function(data){
             $form.trigger('close.oc.popup')
 
@@ -89,14 +89,14 @@
     Plugin.prototype.makePluginActive = function(pluginCode, updatePluginList) {
         var $form = $('#builder-plugin-selector-panel form').first()
 
-        $.oc.stripeLoadIndicator.show()
+        $.wn.stripeLoadIndicator.show()
         $form.request('onPluginSetActive', {
             data: {
                 pluginCode: pluginCode,
                 updatePluginList: (updatePluginList ? 1 : 0)
             }
         }).always(
-            $.oc.builder.indexController.hideStripeIndicatorProxy
+            $.wn.builder.indexController.hideStripeIndicatorProxy
         ).done(
             this.proxy(this.makePluginActiveDone)
         )
@@ -111,6 +111,6 @@
     // REGISTRATION
     // ============================
 
-    $.oc.builder.entityControllers.plugin = Plugin;
+    $.wn.builder.entityControllers.plugin = Plugin;
 
 }(window.jQuery);

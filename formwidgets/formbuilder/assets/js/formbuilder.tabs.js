@@ -3,7 +3,7 @@
  */
 +function ($) { "use strict";
 
-    var Base = $.oc.foundation.base,
+    var Base = $.wn.foundation.base,
         BaseProto = Base.prototype
 
     var TabManager = function() {
@@ -172,7 +172,7 @@
 
         var $inspectorContainer = this.findInspectorContainer($tab)
 
-        $.oc.foundation.controlUtils.disposeControls($inspectorContainer.get(0))
+        $.wn.foundation.controlUtils.disposeControls($inspectorContainer.get(0))
     }
 
     TabManager.prototype.closeTabControlPalette = function($tab, $tabPanel) {
@@ -182,7 +182,7 @@
 
         var $inspectorContainer = this.findInspectorContainer($tab)
 
-        $.oc.foundation.controlUtils.disposeControls($inspectorContainer.get(0))
+        $.wn.foundation.controlUtils.disposeControls($inspectorContainer.get(0))
     }
 
     TabManager.prototype.closeTab = function($tab) {
@@ -227,7 +227,7 @@
 
         $tab.find('[data-tab-title]').attr('data-localization-key', propertiesParsed.title)
 
-        $.oc.builder.dataRegistry.getLocalizationString($form, pluginCode, propertiesParsed.title, function(title){
+        $.wn.builder.dataRegistry.getLocalizationString($form, pluginCode, propertiesParsed.title, function(title){
             $tab.find('[data-tab-title]').text(title)
         })
     }
@@ -280,7 +280,7 @@
 
     $(document).ready(function(){
         // There is a single instance of the tabs manager.
-        $.oc.builder.formbuilder.tabManager = new TabManager()
+        $.wn.builder.formbuilder.tabManager = new TabManager()
     })
 
 }(window.jQuery);

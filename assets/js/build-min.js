@@ -1,7 +1,7 @@
 
-+function($){"use strict";if($.oc.builder===undefined)
-$.oc.builder={}
-var Base=$.oc.foundation.base,BaseProto=Base.prototype
++function($){"use strict";if($.wn.builder===undefined)
+$.wn.builder={}
+var Base=$.wn.foundation.base,BaseProto=Base.prototype
 var DataRegistry=function(){this.data={}
 this.requestCache={}
 this.callbackCache={}
@@ -36,14 +36,14 @@ this.data[plugin][type]=undefined}
 DataRegistry.prototype.getLocalizationString=function($formElement,plugin,key,callback){this.get($formElement,plugin,'localization',null,function(data){if(data[key]!==undefined){callback(data[key])
 return}
 callback(key)})}
-DataRegistry.prototype.localizationUpdated=function(plugin,params){$.oc.builder.localizationInput.updatePluginInputs(plugin)
-if(params===undefined||!params.suppressLanguageEditorUpdate){$.oc.builder.indexController.entityControllers.localization.languageUpdated(plugin)}
-$.oc.builder.indexController.entityControllers.localization.updateOnScreenStrings(plugin)}
-$.oc.builder.dataRegistry=new DataRegistry()}(window.jQuery);+function($){"use strict";if($.oc.builder===undefined)
-$.oc.builder={}
-if($.oc.builder.entityControllers===undefined)
-$.oc.builder.entityControllers={}
-var Base=$.oc.foundation.base,BaseProto=Base.prototype
+DataRegistry.prototype.localizationUpdated=function(plugin,params){$.wn.builder.localizationInput.updatePluginInputs(plugin)
+if(params===undefined||!params.suppressLanguageEditorUpdate){$.wn.builder.indexController.entityControllers.localization.languageUpdated(plugin)}
+$.wn.builder.indexController.entityControllers.localization.updateOnScreenStrings(plugin)}
+$.wn.builder.dataRegistry=new DataRegistry()}(window.jQuery);+function($){"use strict";if($.wn.builder===undefined)
+$.wn.builder={}
+if($.wn.builder.entityControllers===undefined)
+$.wn.builder.entityControllers={}
+var Base=$.wn.foundation.base,BaseProto=Base.prototype
 var EntityBase=function(typeName,indexController){if(typeName===undefined){throw new Error('The Builder entity type name should be set in the base constructor call.')}
 if(indexController===undefined){throw new Error('The Builder index controller should be set when creating an entity controller.')}
 this.typeName=typeName
@@ -68,11 +68,11 @@ tabsObject.updateTitle($tabPane,responseData.tabTitle)}
 EntityBase.prototype.unhideFormDeleteButton=function($tabPane){$('[data-control=delete-button]',$tabPane).removeClass('hide')}
 EntityBase.prototype.forceCloseTab=function($tabPane){$tabPane.trigger('close.oc.tab',[{force:true}])}
 EntityBase.prototype.unmodifyTab=function($tabPane){this.indexController.unchangeTab($tabPane)}
-$.oc.builder.entityControllers.base=EntityBase;}(window.jQuery);+function($){"use strict";if($.oc.builder===undefined)
-$.oc.builder={}
-if($.oc.builder.entityControllers===undefined)
-$.oc.builder.entityControllers={}
-var Base=$.oc.builder.entityControllers.base,BaseProto=Base.prototype
+$.wn.builder.entityControllers.base=EntityBase;}(window.jQuery);+function($){"use strict";if($.wn.builder===undefined)
+$.wn.builder={}
+if($.wn.builder.entityControllers===undefined)
+$.wn.builder.entityControllers={}
+var Base=$.wn.builder.entityControllers.base,BaseProto=Base.prototype
 var Plugin=function(indexController){Base.call(this,'plugin',indexController)
 this.popupZIndex=5050}
 Plugin.prototype=Object.create(BaseProto)
@@ -83,8 +83,8 @@ Plugin.prototype.cmdCreatePlugin=function(ev){var $target=$(ev.currentTarget)
 $target.one('shown.oc.popup',this.proxy(this.onPluginPopupShown))
 $target.popup({handler:'onPluginLoadPopup',zIndex:this.popupZIndex})}
 Plugin.prototype.cmdApplyPluginSettings=function(ev){var $form=$(ev.currentTarget),self=this
-$.oc.stripeLoadIndicator.show()
-$form.request('onPluginSave').always($.oc.builder.indexController.hideStripeIndicatorProxy).done(function(data){$form.trigger('close.oc.popup')
+$.wn.stripeLoadIndicator.show()
+$form.request('onPluginSave').always($.wn.builder.indexController.hideStripeIndicatorProxy).done(function(data){$form.trigger('close.oc.popup')
 self.applyPluginSettingsDone(data)})}
 Plugin.prototype.cmdEditPluginSettings=function(ev){var $target=$(ev.currentTarget)
 $target.one('shown.oc.popup',this.proxy(this.onPluginPopupShown))
@@ -92,15 +92,15 @@ $target.popup({handler:'onPluginLoadPopup',zIndex:this.popupZIndex,extraData:{pl
 Plugin.prototype.onPluginPopupShown=function(ev,button,popup){$(popup).find('input[name=name]').focus()}
 Plugin.prototype.applyPluginSettingsDone=function(data){if(data.responseData!==undefined&&data.responseData.isNewPlugin!==undefined){this.makePluginActive(data.responseData.pluginCode,true)}}
 Plugin.prototype.makePluginActive=function(pluginCode,updatePluginList){var $form=$('#builder-plugin-selector-panel form').first()
-$.oc.stripeLoadIndicator.show()
-$form.request('onPluginSetActive',{data:{pluginCode:pluginCode,updatePluginList:(updatePluginList?1:0)}}).always($.oc.builder.indexController.hideStripeIndicatorProxy).done(this.proxy(this.makePluginActiveDone))}
+$.wn.stripeLoadIndicator.show()
+$form.request('onPluginSetActive',{data:{pluginCode:pluginCode,updatePluginList:(updatePluginList?1:0)}}).always($.wn.builder.indexController.hideStripeIndicatorProxy).done(this.proxy(this.makePluginActiveDone))}
 Plugin.prototype.makePluginActiveDone=function(data){var pluginCode=data.responseData.pluginCode
 $('#builder-plugin-selector-panel [data-control=filelist]').fileList('markActive',pluginCode)}
-$.oc.builder.entityControllers.plugin=Plugin;}(window.jQuery);+function($){"use strict";if($.oc.builder===undefined)
-$.oc.builder={}
-if($.oc.builder.entityControllers===undefined)
-$.oc.builder.entityControllers={}
-var Base=$.oc.builder.entityControllers.base,BaseProto=Base.prototype
+$.wn.builder.entityControllers.plugin=Plugin;}(window.jQuery);+function($){"use strict";if($.wn.builder===undefined)
+$.wn.builder={}
+if($.wn.builder.entityControllers===undefined)
+$.wn.builder.entityControllers={}
+var Base=$.wn.builder.entityControllers.base,BaseProto=Base.prototype
 var DatabaseTable=function(indexController){Base.call(this,'databaseTable',indexController)}
 DatabaseTable.prototype=Object.create(BaseProto)
 DatabaseTable.prototype.constructor=DatabaseTable
@@ -113,10 +113,10 @@ if(!this.validateTable($target)){return}
 var data={'columns':this.getTableData($target)}
 $target.popup({extraData:data,handler:'onDatabaseTableValidateAndShowPopup'})}
 DatabaseTable.prototype.cmdSaveMigration=function(ev){var $target=$(ev.currentTarget)
-$.oc.stripeLoadIndicator.show()
-$target.request('onDatabaseTableMigrationApply').always($.oc.builder.indexController.hideStripeIndicatorProxy).done(this.proxy(this.saveMigrationDone))}
+$.wn.stripeLoadIndicator.show()
+$target.request('onDatabaseTableMigrationApply').always($.wn.builder.indexController.hideStripeIndicatorProxy).done(this.proxy(this.saveMigrationDone))}
 DatabaseTable.prototype.cmdDeleteTable=function(ev){var $target=$(ev.currentTarget)
-$.oc.confirm($target.data('confirm'),this.proxy(this.deleteConfirmed))}
+$.wn.confirm($target.data('confirm'),this.proxy(this.deleteConfirmed))}
 DatabaseTable.prototype.cmdUnModifyForm=function(){var $masterTabPane=this.getMasterTabsActivePane()
 this.unmodifyTab($masterTabPane)}
 DatabaseTable.prototype.cmdAddIdColumn=function(ev){var $target=$(ev.currentTarget),added=this.addIdColumn($target)
@@ -160,7 +160,7 @@ this.getTableList().fileList('markActive',data.builderResponseData.tabId)
 this.getIndexController().unchangeTab($masterTabPane)
 this.updateTable(data.builderResponseData)}
 else{this.forceCloseTab($masterTabPane)}
-$.oc.builder.dataRegistry.clearCache(data.builderResponseData.pluginCode,'model-columns')}
+$.wn.builder.dataRegistry.clearCache(data.builderResponseData.pluginCode,'model-columns')}
 DatabaseTable.prototype.getTableList=function(){return $('#layout-side-panel form[data-content-id=database] [data-control=filelist]')}
 DatabaseTable.prototype.deleteConfirmed=function(){var $masterTabPane=this.getMasterTabsActivePane()
 $masterTabPane.find('form').popup({handler:'onDatabaseTableShowDeletePopup'})}
@@ -193,11 +193,11 @@ tableObj.deleteRecord()}
 DatabaseTable.prototype.updateTable=function(data){var tabsObject=this.getMasterTabsObject(),tabs=$('#builder-master-tabs').data('oc.tab'),tab=tabs.findByIdentifier(data.tabId)
 tabsObject.updateTab(tab,data.tableName,data.tab)
 this.onTableLoaded()}
-$.oc.builder.entityControllers.databaseTable=DatabaseTable;}(window.jQuery);+function($){"use strict";if($.oc.builder===undefined)
-$.oc.builder={}
-if($.oc.builder.entityControllers===undefined)
-$.oc.builder.entityControllers={}
-var Base=$.oc.builder.entityControllers.base,BaseProto=Base.prototype
+$.wn.builder.entityControllers.databaseTable=DatabaseTable;}(window.jQuery);+function($){"use strict";if($.wn.builder===undefined)
+$.wn.builder={}
+if($.wn.builder.entityControllers===undefined)
+$.wn.builder.entityControllers={}
+var Base=$.wn.builder.entityControllers.base,BaseProto=Base.prototype
 var Model=function(indexController){Base.call(this,'model',indexController)}
 Model.prototype=Object.create(BaseProto)
 Model.prototype.constructor=Model
@@ -205,36 +205,36 @@ Model.prototype.cmdCreateModel=function(ev){var $target=$(ev.currentTarget)
 $target.one('shown.oc.popup',this.proxy(this.onModelPopupShown))
 $target.popup({handler:'onModelLoadPopup'})}
 Model.prototype.cmdApplyModelSettings=function(ev){var $form=$(ev.currentTarget),self=this
-$.oc.stripeLoadIndicator.show()
-$form.request('onModelSave').always($.oc.builder.indexController.hideStripeIndicatorProxy).done(function(data){$form.trigger('close.oc.popup')
+$.wn.stripeLoadIndicator.show()
+$form.request('onModelSave').always($.wn.builder.indexController.hideStripeIndicatorProxy).done(function(data){$form.trigger('close.oc.popup')
 self.applyModelSettingsDone(data)})}
 Model.prototype.onModelPopupShown=function(ev,button,popup){$(popup).find('input[name=className]').focus()}
 Model.prototype.applyModelSettingsDone=function(data){if(data.builderResponseData.registryData!==undefined){var registryData=data.builderResponseData.registryData
-$.oc.builder.dataRegistry.set(registryData.pluginCode,'model-classes',null,registryData.models)}}
-$.oc.builder.entityControllers.model=Model;}(window.jQuery);+function($){"use strict";if($.oc.builder===undefined)
-$.oc.builder={}
-if($.oc.builder.entityControllers===undefined)
-$.oc.builder.entityControllers={}
-var Base=$.oc.builder.entityControllers.base,BaseProto=Base.prototype
+$.wn.builder.dataRegistry.set(registryData.pluginCode,'model-classes',null,registryData.models)}}
+$.wn.builder.entityControllers.model=Model;}(window.jQuery);+function($){"use strict";if($.wn.builder===undefined)
+$.wn.builder={}
+if($.wn.builder.entityControllers===undefined)
+$.wn.builder.entityControllers={}
+var Base=$.wn.builder.entityControllers.base,BaseProto=Base.prototype
 var ModelForm=function(indexController){Base.call(this,'modelForm',indexController)}
 ModelForm.prototype=Object.create(BaseProto)
 ModelForm.prototype.constructor=ModelForm
 ModelForm.prototype.cmdCreateForm=function(ev){var $link=$(ev.currentTarget),data={model_class:$link.data('modelClass')}
 this.indexController.openOrLoadMasterTab($link,'onModelFormCreateOrOpen',this.newTabId(),data)}
-ModelForm.prototype.cmdSaveForm=function(ev){var $target=$(ev.currentTarget),$form=$target.closest('form'),$rootContainer=$('[data-root-control-wrapper] > [data-control-container]',$form),$inspectorContainer=$form.find('.inspector-container'),controls=$.oc.builder.formbuilder.domToPropertyJson.convert($rootContainer.get(0))
-if(!$.oc.inspector.manager.applyValuesFromContainer($inspectorContainer)){return}
-if(controls===false){$.oc.flashMsg({'text':$.oc.builder.formbuilder.domToPropertyJson.getLastError(),'class':'error','interval':5})
+ModelForm.prototype.cmdSaveForm=function(ev){var $target=$(ev.currentTarget),$form=$target.closest('form'),$rootContainer=$('[data-root-control-wrapper] > [data-control-container]',$form),$inspectorContainer=$form.find('.inspector-container'),controls=$.wn.builder.formbuilder.domToPropertyJson.convert($rootContainer.get(0))
+if(!$.wn.inspector.manager.applyValuesFromContainer($inspectorContainer)){return}
+if(controls===false){$.wn.flashMsg({'text':$.wn.builder.formbuilder.domToPropertyJson.getLastError(),'class':'error','interval':5})
 return}
 var data={controls:controls}
 $target.request('onModelFormSave',{data:data}).done(this.proxy(this.saveFormDone))}
 ModelForm.prototype.cmdOpenForm=function(ev){var form=$(ev.currentTarget).data('form'),model=$(ev.currentTarget).data('modelClass')
 this.indexController.openOrLoadMasterTab($(ev.target),'onModelFormCreateOrOpen',this.makeTabId(model+'-'+form),{file_name:form,model_class:model})}
 ModelForm.prototype.cmdDeleteForm=function(ev){var $target=$(ev.currentTarget)
-$.oc.confirm($target.data('confirm'),this.proxy(this.deleteConfirmed))}
-ModelForm.prototype.cmdAddControl=function(ev){$.oc.builder.formbuilder.controlPalette.addControl(ev)}
-ModelForm.prototype.cmdUndockControlPalette=function(ev){$.oc.builder.formbuilder.controlPalette.undockFromContainer(ev)}
-ModelForm.prototype.cmdDockControlPalette=function(ev){$.oc.builder.formbuilder.controlPalette.dockToContainer(ev)}
-ModelForm.prototype.cmdCloseControlPalette=function(ev){$.oc.builder.formbuilder.controlPalette.closeInContainer(ev)}
+$.wn.confirm($target.data('confirm'),this.proxy(this.deleteConfirmed))}
+ModelForm.prototype.cmdAddControl=function(ev){$.wn.builder.formbuilder.controlPalette.addControl(ev)}
+ModelForm.prototype.cmdUndockControlPalette=function(ev){$.wn.builder.formbuilder.controlPalette.undockFromContainer(ev)}
+ModelForm.prototype.cmdDockControlPalette=function(ev){$.wn.builder.formbuilder.controlPalette.dockToContainer(ev)}
+ModelForm.prototype.cmdCloseControlPalette=function(ev){$.wn.builder.formbuilder.controlPalette.closeInContainer(ev)}
 ModelForm.prototype.saveFormDone=function(data){if(data['builderResponseData']===undefined){throw new Error('Invalid response data')}
 var $masterTabPane=this.getMasterTabsActivePane()
 $masterTabPane.find('input[name=file_name]').val(data.builderResponseData.builderObjectName)
@@ -244,20 +244,20 @@ this.getModelList().fileList('markActive',data.builderResponseData.tabId)
 this.getIndexController().unchangeTab($masterTabPane)
 this.updateDataRegistry(data)}
 ModelForm.prototype.updateDataRegistry=function(data){if(data.builderResponseData.registryData!==undefined){var registryData=data.builderResponseData.registryData
-$.oc.builder.dataRegistry.set(registryData.pluginCode,'model-forms',registryData.modelClass,registryData.forms)}}
+$.wn.builder.dataRegistry.set(registryData.pluginCode,'model-forms',registryData.modelClass,registryData.forms)}}
 ModelForm.prototype.deleteConfirmed=function(){var $masterTabPane=this.getMasterTabsActivePane(),$form=$masterTabPane.find('form')
-$.oc.stripeLoadIndicator.show()
-$form.request('onModelFormDelete').always($.oc.builder.indexController.hideStripeIndicatorProxy).done(this.proxy(this.deleteDone))}
+$.wn.stripeLoadIndicator.show()
+$form.request('onModelFormDelete').always($.wn.builder.indexController.hideStripeIndicatorProxy).done(this.proxy(this.deleteDone))}
 ModelForm.prototype.deleteDone=function(data){var $masterTabPane=this.getMasterTabsActivePane()
 this.getIndexController().unchangeTab($masterTabPane)
 this.forceCloseTab($masterTabPane)
 this.updateDataRegistry(data)}
 ModelForm.prototype.getModelList=function(){return $('#layout-side-panel form[data-content-id=models] [data-control=filelist]')}
-$.oc.builder.entityControllers.modelForm=ModelForm;}(window.jQuery);+function($){"use strict";if($.oc.builder===undefined)
-$.oc.builder={}
-if($.oc.builder.entityControllers===undefined)
-$.oc.builder.entityControllers={}
-var Base=$.oc.builder.entityControllers.base,BaseProto=Base.prototype
+$.wn.builder.entityControllers.modelForm=ModelForm;}(window.jQuery);+function($){"use strict";if($.wn.builder===undefined)
+$.wn.builder={}
+if($.wn.builder.entityControllers===undefined)
+$.wn.builder.entityControllers={}
+var Base=$.wn.builder.entityControllers.base,BaseProto=Base.prototype
 var ModelList=function(indexController){this.cachedModelFieldsPromises={}
 Base.call(this,'modelList',indexController)}
 ModelList.prototype=Object.create(BaseProto)
@@ -273,10 +273,10 @@ ModelList.prototype.cmdOpenList=function(ev){var list=$(ev.currentTarget).data('
 var result=this.indexController.openOrLoadMasterTab($(ev.target),'onModelListCreateOrOpen',this.makeTabId(model+'-'+list),{file_name:list,model_class:model})
 if(result!==false){result.done(this.proxy(this.onListLoaded,this))}}
 ModelList.prototype.cmdDeleteList=function(ev){var $target=$(ev.currentTarget)
-$.oc.confirm($target.data('confirm'),this.proxy(this.deleteConfirmed))}
+$.wn.confirm($target.data('confirm'),this.proxy(this.deleteConfirmed))}
 ModelList.prototype.cmdAddDatabaseColumns=function(ev){var $target=$(ev.currentTarget)
-$.oc.stripeLoadIndicator.show()
-$target.request('onModelListLoadDatabaseColumns').done(this.proxy(this.databaseColumnsLoaded)).always($.oc.builder.indexController.hideStripeIndicatorProxy)}
+$.wn.stripeLoadIndicator.show()
+$target.request('onModelListLoadDatabaseColumns').done(this.proxy(this.databaseColumnsLoaded)).always($.wn.builder.indexController.hideStripeIndicatorProxy)}
 ModelList.prototype.saveListDone=function(data){if(data['builderResponseData']===undefined){throw new Error('Invalid response data')}
 var $masterTabPane=this.getMasterTabsActivePane()
 $masterTabPane.find('input[name=file_name]').val(data.builderResponseData.builderObjectName)
@@ -286,8 +286,8 @@ this.getModelList().fileList('markActive',data.builderResponseData.tabId)
 this.getIndexController().unchangeTab($masterTabPane)
 this.updateDataRegistry(data)}
 ModelList.prototype.deleteConfirmed=function(){var $masterTabPane=this.getMasterTabsActivePane(),$form=$masterTabPane.find('form')
-$.oc.stripeLoadIndicator.show()
-$form.request('onModelListDelete').always($.oc.builder.indexController.hideStripeIndicatorProxy).done(this.proxy(this.deleteDone))}
+$.wn.stripeLoadIndicator.show()
+$form.request('onModelListDelete').always($.wn.builder.indexController.hideStripeIndicatorProxy).done(this.proxy(this.deleteDone))}
 ModelList.prototype.deleteDone=function(data){var $masterTabPane=this.getMasterTabsActivePane()
 this.getIndexController().unchangeTab($masterTabPane)
 this.forceCloseTab($masterTabPane)
@@ -309,8 +309,8 @@ if(callback===undefined){return}
 this.cachedModelFieldsPromises[modelClass].done(function(data){$form.data('oc.model-field-cache',data.responseData.options)
 callback(data.responseData.options)})}
 ModelList.prototype.updateDataRegistry=function(data){if(data.builderResponseData.registryData!==undefined){var registryData=data.builderResponseData.registryData
-$.oc.builder.dataRegistry.set(registryData.pluginCode,'model-lists',registryData.modelClass,registryData.lists)
-$.oc.builder.dataRegistry.clearCache(registryData.pluginCode,'plugin-lists')}}
+$.wn.builder.dataRegistry.set(registryData.pluginCode,'model-lists',registryData.modelClass,registryData.lists)
+$.wn.builder.dataRegistry.clearCache(registryData.pluginCode,'plugin-lists')}}
 ModelList.prototype.databaseColumnsLoaded=function(data){if(!$.isArray(data.responseData.columns)){alert('Invalid server response')}
 var $masterTabPane=this.getMasterTabsActivePane(),$form=$masterTabPane.find('form'),existingColumns=this.getColumnNames($form),columnsAdded=false
 for(var i in data.responseData.columns){var column=data.responseData.columns[i],type=this.mapType(column.type)
@@ -338,11 +338,11 @@ return false}}
 ModelList.prototype.onListLoaded=function(){$(document).trigger('render')
 var $masterTabPane=this.getMasterTabsActivePane(),$form=$masterTabPane.find('form'),$toolbar=$masterTabPane.find('div[data-control=table] div.toolbar'),$button=$('<a class="btn oc-icon-magic builder-custom-table-button" data-builder-command="modelList:cmdAddDatabaseColumns"></a>')
 $button.text($form.attr('data-lang-add-database-columns'));$toolbar.append($button)}
-$.oc.builder.entityControllers.modelList=ModelList;}(window.jQuery);+function($){"use strict";if($.oc.builder===undefined)
-$.oc.builder={}
-if($.oc.builder.entityControllers===undefined)
-$.oc.builder.entityControllers={}
-var Base=$.oc.builder.entityControllers.base,BaseProto=Base.prototype
+$.wn.builder.entityControllers.modelList=ModelList;}(window.jQuery);+function($){"use strict";if($.wn.builder===undefined)
+$.wn.builder={}
+if($.wn.builder.entityControllers===undefined)
+$.wn.builder.entityControllers={}
+var Base=$.wn.builder.entityControllers.base,BaseProto=Base.prototype
 var Permission=function(indexController){Base.call(this,'permissions',indexController)}
 Permission.prototype=Object.create(BaseProto)
 Permission.prototype.constructor=Permission
@@ -365,18 +365,18 @@ return tableObj.dataSource.getAllData()}
 Permission.prototype.savePermissionsDone=function(data){if(data['builderResponseData']===undefined){throw new Error('Invalid response data')}
 var $masterTabPane=this.getMasterTabsActivePane()
 this.getIndexController().unchangeTab($masterTabPane)
-$.oc.builder.dataRegistry.clearCache(data.builderResponseData.pluginCode,'permissions')}
+$.wn.builder.dataRegistry.clearCache(data.builderResponseData.pluginCode,'permissions')}
 Permission.prototype.onTableRowCreated=function(ev,recordData){var $target=$(ev.target)
 if($target.data('alias')!='permissions'){return}
 var $form=$target.closest('form')
 if($form.data('entity')!='permissions'){return}
 var pluginCode=$form.find('input[name=plugin_code]').val()
 recordData.permission=pluginCode.toLowerCase()+'.';}
-$.oc.builder.entityControllers.permission=Permission;}(window.jQuery);+function($){"use strict";if($.oc.builder===undefined)
-$.oc.builder={}
-if($.oc.builder.entityControllers===undefined)
-$.oc.builder.entityControllers={}
-var Base=$.oc.builder.entityControllers.base,BaseProto=Base.prototype
+$.wn.builder.entityControllers.permission=Permission;}(window.jQuery);+function($){"use strict";if($.wn.builder===undefined)
+$.wn.builder={}
+if($.wn.builder.entityControllers===undefined)
+$.wn.builder.entityControllers={}
+var Base=$.wn.builder.entityControllers.base,BaseProto=Base.prototype
 var Menus=function(indexController){Base.call(this,'menus',indexController)}
 Menus.prototype=Object.create(BaseProto)
 Menus.prototype.constructor=Menus
@@ -385,20 +385,20 @@ if(!currentPlugin){alert('Please select a plugin first')
 return}
 this.indexController.openOrLoadMasterTab($(ev.target),'onMenusOpen',this.makeTabId(currentPlugin))}
 Menus.prototype.cmdSaveMenus=function(ev){var $target=$(ev.currentTarget),$form=$target.closest('form'),$inspectorContainer=$form.find('.inspector-container')
-if(!$.oc.inspector.manager.applyValuesFromContainer($inspectorContainer)){return}
-var menus=$.oc.builder.menubuilder.controller.getJson($form.get(0))
+if(!$.wn.inspector.manager.applyValuesFromContainer($inspectorContainer)){return}
+var menus=$.wn.builder.menubuilder.controller.getJson($form.get(0))
 $target.request('onMenusSave',{data:{menus:menus}}).done(this.proxy(this.saveMenusDone))}
-Menus.prototype.cmdAddMainMenuItem=function(ev){$.oc.builder.menubuilder.controller.addMainMenuItem(ev)}
-Menus.prototype.cmdAddSideMenuItem=function(ev){$.oc.builder.menubuilder.controller.addSideMenuItem(ev)}
-Menus.prototype.cmdDeleteMenuItem=function(ev){$.oc.builder.menubuilder.controller.deleteMenuItem(ev)}
+Menus.prototype.cmdAddMainMenuItem=function(ev){$.wn.builder.menubuilder.controller.addMainMenuItem(ev)}
+Menus.prototype.cmdAddSideMenuItem=function(ev){$.wn.builder.menubuilder.controller.addSideMenuItem(ev)}
+Menus.prototype.cmdDeleteMenuItem=function(ev){$.wn.builder.menubuilder.controller.deleteMenuItem(ev)}
 Menus.prototype.saveMenusDone=function(data){if(data['builderResponseData']===undefined){throw new Error('Invalid response data')}
 var $masterTabPane=this.getMasterTabsActivePane()
 this.getIndexController().unchangeTab($masterTabPane)}
-$.oc.builder.entityControllers.menus=Menus;}(window.jQuery);+function($){"use strict";if($.oc.builder===undefined)
-$.oc.builder={}
-if($.oc.builder.entityControllers===undefined)
-$.oc.builder.entityControllers={}
-var Base=$.oc.builder.entityControllers.base,BaseProto=Base.prototype
+$.wn.builder.entityControllers.menus=Menus;}(window.jQuery);+function($){"use strict";if($.wn.builder===undefined)
+$.wn.builder={}
+if($.wn.builder.entityControllers===undefined)
+$.wn.builder.entityControllers={}
+var Base=$.wn.builder.entityControllers.base,BaseProto=Base.prototype
 var Version=function(indexController){Base.call(this,'version',indexController)
 this.hiddenHints={}}
 Version.prototype=Object.create(BaseProto)
@@ -410,7 +410,7 @@ $target.request('onVersionSave').done(this.proxy(this.saveVersionDone))}
 Version.prototype.cmdOpenVersion=function(ev){var versionNumber=$(ev.currentTarget).data('id'),pluginCode=$(ev.currentTarget).data('pluginCode')
 this.indexController.openOrLoadMasterTab($(ev.target),'onVersionCreateOrOpen',this.makeTabId(pluginCode+'-'+versionNumber),{original_version:versionNumber})}
 Version.prototype.cmdDeleteVersion=function(ev){var $target=$(ev.currentTarget)
-$.oc.confirm($target.data('confirm'),this.proxy(this.deleteConfirmed))}
+$.wn.confirm($target.data('confirm'),this.proxy(this.deleteConfirmed))}
 Version.prototype.cmdApplyVersion=function(ev){var $target=$(ev.currentTarget),$pane=$target.closest('div.tab-pane'),self=this
 this.showHintPopup($pane,'builder-version-apply',function(){$target.request('onVersionApply').done(self.proxy(self.applyVersionDone))})}
 Version.prototype.cmdRollbackVersion=function(ev){var $target=$(ev.currentTarget),$pane=$target.closest('div.tab-pane'),self=this
@@ -446,8 +446,8 @@ this.unhideFormDeleteButton($masterTabPane)
 this.getVersionList().fileList('markActive',data.builderResponseData.tabId)
 this.getIndexController().unchangeTab($masterTabPane)}
 Version.prototype.deleteConfirmed=function(){var $masterTabPane=this.getMasterTabsActivePane(),$form=$masterTabPane.find('form')
-$.oc.stripeLoadIndicator.show()
-$form.request('onVersionDelete').always($.oc.builder.indexController.hideStripeIndicatorProxy).done(this.proxy(this.deleteDone))}
+$.wn.stripeLoadIndicator.show()
+$form.request('onVersionDelete').always($.wn.builder.indexController.hideStripeIndicatorProxy).done(this.proxy(this.deleteDone))}
 Version.prototype.deleteDone=function(){var $masterTabPane=this.getMasterTabsActivePane()
 this.getIndexController().unchangeTab($masterTabPane)
 this.forceCloseTab($masterTabPane)}
@@ -470,11 +470,11 @@ if(isApplied){$pane.find('[data-builder-command="version:cmdApplyVersion"]').add
 $pane.find('[data-builder-command="version:cmdRollbackVersion"]').removeClass('hide')}
 else{$pane.find('[data-builder-command="version:cmdApplyVersion"]').removeClass('hide')
 $pane.find('[data-builder-command="version:cmdRollbackVersion"]').addClass('hide')}}}
-$.oc.builder.entityControllers.version=Version;}(window.jQuery);+function($){"use strict";if($.oc.builder===undefined)
-$.oc.builder={}
-if($.oc.builder.entityControllers===undefined)
-$.oc.builder.entityControllers={}
-var Base=$.oc.builder.entityControllers.base,BaseProto=Base.prototype
+$.wn.builder.entityControllers.version=Version;}(window.jQuery);+function($){"use strict";if($.wn.builder===undefined)
+$.wn.builder={}
+if($.wn.builder.entityControllers===undefined)
+$.wn.builder.entityControllers={}
+var Base=$.wn.builder.entityControllers.base,BaseProto=Base.prototype
 var Localization=function(indexController){Base.call(this,'localization',indexController)}
 Localization.prototype=Object.create(BaseProto)
 Localization.prototype.constructor=Localization
@@ -484,18 +484,18 @@ this.indexController.openOrLoadMasterTab($(ev.target),'onLanguageCreateOrOpen',t
 Localization.prototype.cmdSaveLanguage=function(ev){var $target=$(ev.currentTarget),$form=$target.closest('form')
 $target.request('onLanguageSave').done(this.proxy(this.saveLanguageDone))}
 Localization.prototype.cmdDeleteLanguage=function(ev){var $target=$(ev.currentTarget)
-$.oc.confirm($target.data('confirm'),this.proxy(this.deleteConfirmed))}
+$.wn.confirm($target.data('confirm'),this.proxy(this.deleteConfirmed))}
 Localization.prototype.cmdCopyMissingStrings=function(ev){var $form=$(ev.currentTarget),language=$form.find('select[name=language]').val(),$masterTabPane=this.getMasterTabsActivePane()
 $form.trigger('close.oc.popup')
-$.oc.stripeLoadIndicator.show()
-$masterTabPane.find('form').request('onLanguageCopyStringsFrom',{data:{copy_from:language}}).always($.oc.builder.indexController.hideStripeIndicatorProxy).done(this.proxy(this.copyStringsFromDone))}
+$.wn.stripeLoadIndicator.show()
+$masterTabPane.find('form').request('onLanguageCopyStringsFrom',{data:{copy_from:language}}).always($.wn.builder.indexController.hideStripeIndicatorProxy).done(this.proxy(this.copyStringsFromDone))}
 Localization.prototype.languageUpdated=function(plugin){var languageForm=this.findDefaultLanguageForm(plugin)
 if(!languageForm){return}
 var $languageForm=$(languageForm)
 if(!$languageForm.hasClass('oc-data-changed')){this.updateLanguageFromServer($languageForm)}
 else{this.mergeLanguageFromServer($languageForm)}}
 Localization.prototype.updateOnScreenStrings=function(plugin){var stringElements=document.body.querySelectorAll('span[data-localization-key][data-plugin="'+plugin+'"]')
-$.oc.builder.dataRegistry.get($('#builder-plugin-selector-panel form'),plugin,'localization',null,function(data){for(var i=stringElements.length-1;i>=0;i--){var stringElement=stringElements[i],stringKey=stringElement.getAttribute('data-localization-key')
+$.wn.builder.dataRegistry.get($('#builder-plugin-selector-panel form'),plugin,'localization',null,function(data){for(var i=stringElements.length-1;i>=0;i--){var stringElement=stringElements[i],stringKey=stringElement.getAttribute('data-localization-key')
 if(data[stringKey]!==undefined){stringElement.textContent=data[stringKey]}
 else{stringElement.textContent=stringKey}}})}
 Localization.prototype.saveLanguageDone=function(data){if(data['builderResponseData']===undefined){throw new Error('Invalid response data')}
@@ -506,13 +506,13 @@ this.unhideFormDeleteButton($masterTabPane)
 this.getLanguageList().fileList('markActive',data.builderResponseData.tabId)
 this.getIndexController().unchangeTab($masterTabPane)
 if(data.builderResponseData.registryData!==undefined){var registryData=data.builderResponseData.registryData
-$.oc.builder.dataRegistry.set(registryData.pluginCode,'localization',null,registryData.strings,{suppressLanguageEditorUpdate:true})
-$.oc.builder.dataRegistry.set(registryData.pluginCode,'localization','sections',registryData.sections)}}
+$.wn.builder.dataRegistry.set(registryData.pluginCode,'localization',null,registryData.strings,{suppressLanguageEditorUpdate:true})
+$.wn.builder.dataRegistry.set(registryData.pluginCode,'localization','sections',registryData.sections)}}
 Localization.prototype.getLanguageList=function(){return $('#layout-side-panel form[data-content-id=localization] [data-control=filelist]')}
 Localization.prototype.getCodeEditor=function($tab){return $tab.find('div[data-field-name=strings] div[data-control=codeeditor]').data('oc.codeEditor').editor}
 Localization.prototype.deleteConfirmed=function(){var $masterTabPane=this.getMasterTabsActivePane(),$form=$masterTabPane.find('form')
-$.oc.stripeLoadIndicator.show()
-$form.request('onLanguageDelete').always($.oc.builder.indexController.hideStripeIndicatorProxy).done(this.proxy(this.deleteDone))}
+$.wn.stripeLoadIndicator.show()
+$form.request('onLanguageDelete').always($.wn.builder.indexController.hideStripeIndicatorProxy).done(this.proxy(this.deleteDone))}
 Localization.prototype.deleteDone=function(){var $masterTabPane=this.getMasterTabsActivePane()
 this.getIndexController().unchangeTab($masterTabPane)
 this.forceCloseTab($masterTabPane)}
@@ -523,7 +523,7 @@ var annotations=[]
 for(var i=responseData.updatedLines.length-1;i>=0;i--){var line=responseData.updatedLines[i]
 annotations.push({row:line,column:0,text:newStringMessage,type:'warning'})}
 codeEditor.getSession().setAnnotations(annotations)
-if(responseData.mismatch){$.oc.alert(mismatchMessage)}}
+if(responseData.mismatch){$.wn.alert(mismatchMessage)}}
 Localization.prototype.findDefaultLanguageForm=function(plugin){var forms=document.body.querySelectorAll('form[data-entity=localization]')
 for(var i=forms.length-1;i>=0;i--){var form=forms[i],pluginInput=form.querySelector('input[name=plugin_code]'),languageInput=form.querySelector('input[name=original_language]')
 if(!pluginInput||pluginInput.value!=plugin){continue}
@@ -543,11 +543,11 @@ Localization.prototype.mergeLanguageFromServerDone=function($languageForm,data){
 var responseData=data.builderResponseData,$tabPane=$languageForm.closest('.tab-pane'),codeEditor=this.getCodeEditor($tabPane)
 codeEditor.getSession().setValue(responseData.strings)
 codeEditor.getSession().setAnnotations([])}
-$.oc.builder.entityControllers.localization=Localization;}(window.jQuery);+function($){"use strict";if($.oc.builder===undefined)
-$.oc.builder={}
-if($.oc.builder.entityControllers===undefined)
-$.oc.builder.entityControllers={}
-var Base=$.oc.builder.entityControllers.base,BaseProto=Base.prototype
+$.wn.builder.entityControllers.localization=Localization;}(window.jQuery);+function($){"use strict";if($.wn.builder===undefined)
+$.wn.builder={}
+if($.wn.builder.entityControllers===undefined)
+$.wn.builder.entityControllers={}
+var Base=$.wn.builder.entityControllers.base,BaseProto=Base.prototype
 var Controller=function(indexController){Base.call(this,'controller',indexController)}
 Controller.prototype=Object.create(BaseProto)
 Controller.prototype.constructor=Controller
@@ -555,21 +555,21 @@ Controller.prototype.cmdCreateController=function(ev){var $form=$(ev.currentTarg
 if(behaviorsSelected){promise=this.indexController.openOrLoadMasterTab($form,'onControllerCreate',this.makeTabId(pluginCode+'-new-controller'),{})}
 else{promise=$form.request('onControllerCreate')}
 promise.done(function(data){$form.trigger('close.oc.popup')
-self.updateDataRegistry(data)}).always($.oc.builder.indexController.hideStripeIndicatorProxy)}
+self.updateDataRegistry(data)}).always($.wn.builder.indexController.hideStripeIndicatorProxy)}
 Controller.prototype.cmdOpenController=function(ev){var controller=$(ev.currentTarget).data('id'),pluginCode=$(ev.currentTarget).data('pluginCode')
 this.indexController.openOrLoadMasterTab($(ev.target),'onControllerOpen',this.makeTabId(pluginCode+'-'+controller),{controller:controller})}
 Controller.prototype.cmdSaveController=function(ev){var $target=$(ev.currentTarget),$form=$target.closest('form'),$inspectorContainer=$form.find('.inspector-container')
-if(!$.oc.inspector.manager.applyValuesFromContainer($inspectorContainer)){return}
+if(!$.wn.inspector.manager.applyValuesFromContainer($inspectorContainer)){return}
 $target.request('onControllerSave').done(this.proxy(this.saveControllerDone))}
 Controller.prototype.saveControllerDone=function(data){if(data['builderResponseData']===undefined){throw new Error('Invalid response data')}
 var $masterTabPane=this.getMasterTabsActivePane()
 this.getIndexController().unchangeTab($masterTabPane)}
 Controller.prototype.updateDataRegistry=function(data){if(data.builderResponseData.registryData!==undefined){var registryData=data.builderResponseData.registryData
-$.oc.builder.dataRegistry.set(registryData.pluginCode,'controller-urls',null,registryData.urls)}}
+$.wn.builder.dataRegistry.set(registryData.pluginCode,'controller-urls',null,registryData.urls)}}
 Controller.prototype.getControllerList=function(){return $('#layout-side-panel form[data-content-id=controller] [data-control=filelist]')}
-$.oc.builder.entityControllers.controller=Controller;}(window.jQuery);+function($){"use strict";if($.oc.builder===undefined)
-$.oc.builder={}
-var Base=$.oc.foundation.base,BaseProto=Base.prototype
+$.wn.builder.entityControllers.controller=Controller;}(window.jQuery);+function($){"use strict";if($.wn.builder===undefined)
+$.wn.builder={}
+var Base=$.wn.foundation.base,BaseProto=Base.prototype
 var Builder=function(){Base.call(this)
 this.$masterTabs=null
 this.masterTabsObj=null
@@ -582,7 +582,7 @@ Builder.prototype.dispose=function(){BaseProto.dispose.call(this)}
 Builder.prototype.openOrLoadMasterTab=function($form,serverHandlerName,tabId,data){if(this.masterTabsObj.goTo(tabId))
 return false
 var requestData=data===undefined?{}:data
-$.oc.stripeLoadIndicator.show()
+$.wn.stripeLoadIndicator.show()
 var promise=$form.request(serverHandlerName,{data:requestData}).done(this.proxy(this.addMasterTab)).always(this.hideStripeIndicatorProxy)
 return promise}
 Builder.prototype.getMasterTabActivePane=function(){return this.$masterTabs.find('> .tab-content > .tab-pane.active')}
@@ -595,11 +595,11 @@ Builder.prototype.init=function(){this.$masterTabs=$('#builder-master-tabs')
 this.$sidePanel=$('#builder-side-panel')
 this.masterTabsObj=this.$masterTabs.data('oc.tab')
 this.hideStripeIndicatorProxy=this.proxy(this.hideStripeIndicator)
-new $.oc.tabFormExpandControls(this.$masterTabs)
+new $.wn.tabFormExpandControls(this.$masterTabs)
 this.createEntityControllers()
 this.registerHandlers()}
-Builder.prototype.createEntityControllers=function(){for(var controller in $.oc.builder.entityControllers){if(controller=="base"){continue}
-this.entityControllers[controller]=new $.oc.builder.entityControllers[controller](this)}}
+Builder.prototype.createEntityControllers=function(){for(var controller in $.wn.builder.entityControllers){if(controller=="base"){continue}
+this.entityControllers[controller]=new $.wn.builder.entityControllers[controller](this)}}
 Builder.prototype.registerHandlers=function(){$(document).on('click','[data-builder-command]',this.proxy(this.onCommand))
 $(document).on('submit','[data-builder-command]',this.proxy(this.onCommand))
 this.$masterTabs.on('changed.oc.changeMonitor',this.proxy(this.onFormChanged))
@@ -610,18 +610,18 @@ this.$masterTabs.on('closed.oc.tab',this.proxy(this.onTabClosed))
 this.$masterTabs.on('autocompleteitems.oc.inspector',this.proxy(this.onDataRegistryItems))
 this.$masterTabs.on('dropdownoptions.oc.inspector',this.proxy(this.onDataRegistryItems))
 for(var controller in this.entityControllers){if(this.entityControllers[controller].registerHandlers!==undefined){this.entityControllers[controller].registerHandlers()}}}
-Builder.prototype.hideStripeIndicator=function(){$.oc.stripeLoadIndicator.hide()}
+Builder.prototype.hideStripeIndicator=function(){$.wn.stripeLoadIndicator.hide()}
 Builder.prototype.addMasterTab=function(data){this.masterTabsObj.addTab(data.tabTitle,data.tab,data.tabId,'oc-'+data.tabIcon)
 if(data.isNewRecord){var $masterTabPane=this.getMasterTabActivePane()
 $masterTabPane.find('form').one('ready.oc.changeMonitor',this.proxy(this.onChangeMonitorReady))}}
 Builder.prototype.updateModifiedCounter=function(){var counters={database:{menu:'database',count:0},models:{menu:'models',count:0},permissions:{menu:'permissions',count:0},menus:{menu:'menus',count:0},versions:{menu:'versions',count:0},localization:{menu:'localization',count:0},controller:{menu:'controllers',count:0}}
 $('> div.tab-content > div.tab-pane[data-modified] > form',this.$masterTabs).each(function(){var entity=$(this).data('entity')
 counters[entity].count++})
-$.each(counters,function(type,data){$.oc.sideNav.setCounter('builder/'+data.menu,data.count);})}
+$.each(counters,function(type,data){$.wn.sideNav.setCounter('builder/'+data.menu,data.count);})}
 Builder.prototype.getFormPluginCode=function(formElement){var $form=$(formElement).closest('form'),$input=$form.find('input[name="plugin_code"]'),code=$input.val()
 if(!code){throw new Error('Plugin code input is not found in the form.')}
 return code}
-Builder.prototype.setPageTitle=function(title){$.oc.layout.setPageTitle(title.length?(title+' | '):title)}
+Builder.prototype.setPageTitle=function(title){$.wn.layout.setPageTitle(title.length?(title+' | '):title)}
 Builder.prototype.getFileLists=function(){return $('[data-control=filelist]',this.$sidePanel)}
 Builder.prototype.dataToInspectorArray=function(data){var result=[]
 for(var key in data){var item={title:data[key],value:key}
@@ -653,10 +653,10 @@ Builder.prototype.onDataRegistryItems=function(ev,data){var self=this
 if(data.propertyDefinition.fillFrom=='model-classes'||data.propertyDefinition.fillFrom=='model-forms'||data.propertyDefinition.fillFrom=='model-lists'||data.propertyDefinition.fillFrom=='controller-urls'||data.propertyDefinition.fillFrom=='model-columns'||data.propertyDefinition.fillFrom=='plugin-lists'||data.propertyDefinition.fillFrom=='permissions'){ev.preventDefault()
 var subtype=null,subtypeProperty=data.propertyDefinition.subtypeFrom
 if(subtypeProperty!==undefined){subtype=data.values[subtypeProperty]}
-$.oc.builder.dataRegistry.get($(ev.target),this.getFormPluginCode(ev.target),data.propertyDefinition.fillFrom,subtype,function(response){data.callback({options:self.dataToInspectorArray(response)})})}}
-$(document).ready(function(){$.oc.builder.indexController=new Builder()})}(window.jQuery);+function($){"use strict";if($.oc.builder===undefined)
-$.oc.builder={}
-var Base=$.oc.foundation.base,BaseProto=Base.prototype
+$.wn.builder.dataRegistry.get($(ev.target),this.getFormPluginCode(ev.target),data.propertyDefinition.fillFrom,subtype,function(response){data.callback({options:self.dataToInspectorArray(response)})})}}
+$(document).ready(function(){$.wn.builder.indexController=new Builder()})}(window.jQuery);+function($){"use strict";if($.wn.builder===undefined)
+$.wn.builder={}
+var Base=$.wn.foundation.base,BaseProto=Base.prototype
 var LocalizationInput=function(input,form,options){this.input=input
 this.form=form
 this.options=$.extend({},LocalizationInput.DEFAULTS,options)
@@ -695,9 +695,9 @@ var pos=$container.position()
 $(trigger).css({top:pos.top+4,right:7})
 $container.append(trigger)}
 LocalizationInput.prototype.loadDataAndBuild=function(){this.showLoadingIndicator()
-var result=$.oc.builder.dataRegistry.get(this.form,this.options.plugin,'localization',null,this.proxy(this.dataLoaded)),self=this
+var result=$.wn.builder.dataRegistry.get(this.form,this.options.plugin,'localization',null,this.proxy(this.dataLoaded)),self=this
 if(result){result.always(function(){self.hideLoadingIndicator()})}}
-LocalizationInput.prototype.reload=function(){$.oc.builder.dataRegistry.get(this.form,this.options.plugin,'localization',null,this.proxy(this.dataLoaded))}
+LocalizationInput.prototype.reload=function(){$.wn.builder.dataRegistry.get(this.form,this.options.plugin,'localization',null,this.proxy(this.dataLoaded))}
 LocalizationInput.prototype.dataLoaded=function(data){if(this.disposed){return}
 var $input=$(this.input),autocomplete=$input.data('autocomplete')
 if(!autocomplete){this.hideLoadingIndicator()
@@ -717,26 +717,26 @@ LocalizationInput.prototype.hideLoadingIndicator=function(){var $container=this.
 $container.loadIndicator('hide')
 $container.loadIndicator('destroy')
 $container.removeClass('loading-indicator-container')}
-LocalizationInput.prototype.loadAndShowPopup=function(){if(this.newStringPopupMarkup===null){$.oc.stripeLoadIndicator.show()
-$(this.input).request('onLanguageLoadAddStringForm').done(this.proxy(this.popupMarkupLoaded)).always(function(){$.oc.stripeLoadIndicator.hide()})}
+LocalizationInput.prototype.loadAndShowPopup=function(){if(this.newStringPopupMarkup===null){$.wn.stripeLoadIndicator.show()
+$(this.input).request('onLanguageLoadAddStringForm').done(this.proxy(this.popupMarkupLoaded)).always(function(){$.wn.stripeLoadIndicator.hide()})}
 else{this.showPopup()}}
 LocalizationInput.prototype.popupMarkupLoaded=function(responseData){this.newStringPopupMarkup=responseData.markup
 this.showPopup()}
 LocalizationInput.prototype.showPopup=function(){var $input=$(this.input)
 $input.popup({content:this.newStringPopupMarkup})
 var $content=$input.data('oc.popup').$content,$keyInput=$content.find('#language_string_key')
-$.oc.builder.dataRegistry.get(this.form,this.options.plugin,'localization','sections',function(data){$keyInput.autocomplete({source:data,matchWidth:true})})
+$.wn.builder.dataRegistry.get(this.form,this.options.plugin,'localization','sections',function(data){$keyInput.autocomplete({source:data,matchWidth:true})})
 $content.find('form').on('submit',this.proxy(this.onSubmitPopupForm))}
 LocalizationInput.prototype.stringCreated=function(data){if(data.localizationData===undefined||data.registryData===undefined){throw new Error('Invalid server response.')}
 var $input=$(this.input)
 $input.val(data.localizationData.key)
-$.oc.builder.dataRegistry.set(this.options.plugin,'localization',null,data.registryData.strings)
-$.oc.builder.dataRegistry.set(this.options.plugin,'localization','sections',data.registryData.sections)
+$.wn.builder.dataRegistry.set(this.options.plugin,'localization',null,data.registryData.strings)
+$.wn.builder.dataRegistry.set(this.options.plugin,'localization','sections',data.registryData.sections)
 $input.data('oc.popup').hide()
 $input.trigger('change')}
 LocalizationInput.prototype.onSubmitPopupForm=function(ev){var $form=$(ev.target)
-$.oc.stripeLoadIndicator.show()
-$form.request('onLanguageCreateString',{data:{plugin_code:this.options.plugin}}).done(this.proxy(this.stringCreated)).always(function(){$.oc.stripeLoadIndicator.hide()})
+$.wn.stripeLoadIndicator.show()
+$form.request('onLanguageCreateString',{data:{plugin_code:this.options.plugin}}).done(this.proxy(this.stringCreated)).always(function(){$.wn.stripeLoadIndicator.hide()})
 ev.preventDefault()
 return false}
 LocalizationInput.prototype.onPopupHidden=function(ev,link,popup){$(popup).find('#language_string_key').autocomplete('destroy')
@@ -756,7 +756,7 @@ this.loadAndShowPopup()
 ev.preventDefault()
 return false}
 LocalizationInput.DEFAULTS={plugin:null,autocompleteOptions:{},beforePopupShowCallback:null,afterPopupHideCallback:null}
-$.oc.builder.localizationInput=LocalizationInput}(window.jQuery);+function($){"use strict";var Base=$.oc.inspector.propertyEditors.string,BaseProto=Base.prototype
+$.wn.builder.localizationInput=LocalizationInput}(window.jQuery);+function($){"use strict";var Base=$.wn.inspector.propertyEditors.string,BaseProto=Base.prototype
 var LocalizationEditor=function(inspector,propertyDefinition,containerCell,group){this.localizationInput=null
 Base.call(this,inspector,propertyDefinition,containerCell,group)}
 LocalizationEditor.prototype=Object.create(BaseProto)
@@ -771,11 +771,11 @@ container.setAttribute('class','autocomplete-container')
 if(value===undefined){value=this.propertyDefinition.default}
 if(value===undefined){value=''}
 editor.value=value
-$.oc.foundation.element.addClass(this.containerCell,'text autocomplete')
+$.wn.foundation.element.addClass(this.containerCell,'text autocomplete')
 container.appendChild(editor)
 this.containerCell.appendChild(container)
 this.buildLocalizationEditor()}
-LocalizationEditor.prototype.buildLocalizationEditor=function(){this.localizationInput=new $.oc.builder.localizationInput(this.getInput(),this.getForm(),{plugin:this.getPluginCode(),beforePopupShowCallback:this.proxy(this.onPopupShown,this),afterPopupHideCallback:this.proxy(this.onPopupHidden,this)})}
+LocalizationEditor.prototype.buildLocalizationEditor=function(){this.localizationInput=new $.wn.builder.localizationInput(this.getInput(),this.getForm(),{plugin:this.getPluginCode(),beforePopupShowCallback:this.proxy(this.onPopupShown,this),afterPopupHideCallback:this.proxy(this.onPopupHidden,this)})}
 LocalizationEditor.prototype.removeLocalizationInput=function(){this.localizationInput.dispose()
 this.localizationInput=null}
 LocalizationEditor.prototype.supportsExternalParameterEditor=function(){return false}
@@ -791,9 +791,9 @@ if(!$input.length){throw new Error('The input "plugin_code" should be defined in
 return $input.val()}
 LocalizationEditor.prototype.onPopupShown=function(){this.getRootSurface().popupDisplayed()}
 LocalizationEditor.prototype.onPopupHidden=function(){this.getRootSurface().popupHidden()}
-$.oc.inspector.propertyEditors.builderLocalization=LocalizationEditor}(window.jQuery);+function($){"use strict";if($.oc.table===undefined)
-throw new Error("The $.oc.table namespace is not defined. Make sure that the table.js script is loaded.");if($.oc.table.processor===undefined)
-throw new Error("The $.oc.table.processor namespace is not defined. Make sure that the table.processor.base.js script is loaded.");var Base=$.oc.table.processor.string,BaseProto=Base.prototype
+$.wn.inspector.propertyEditors.builderLocalization=LocalizationEditor}(window.jQuery);+function($){"use strict";if($.wn.table===undefined)
+throw new Error("The $.wn.table namespace is not defined. Make sure that the table.js script is loaded.");if($.wn.table.processor===undefined)
+throw new Error("The $.wn.table.processor namespace is not defined. Make sure that the table.processor.base.js script is loaded.");var Base=$.wn.table.processor.string,BaseProto=Base.prototype
 var LocalizationProcessor=function(tableObj,columnName,columnConfiguration){this.localizationInput=null
 this.popupDisplayed=false
 Base.call(this,tableObj,columnName,columnConfiguration)}
@@ -809,10 +809,10 @@ LocalizationProcessor.prototype.onBeforePopupShow=function(){this.popupDisplayed
 LocalizationProcessor.prototype.onAfterPopupHide=function(){this.popupDisplayed=false}
 LocalizationProcessor.prototype.renderCell=function(value,cellContentContainer){BaseProto.renderCell.call(this,value,cellContentContainer)}
 LocalizationProcessor.prototype.buildEditor=function(cellElement,cellContentContainer,isClick){BaseProto.buildEditor.call(this,cellElement,cellContentContainer,isClick)
-$.oc.foundation.element.addClass(cellContentContainer,'autocomplete-container')
+$.wn.foundation.element.addClass(cellContentContainer,'autocomplete-container')
 this.buildLocalizationEditor()}
 LocalizationProcessor.prototype.buildLocalizationEditor=function(){var input=this.getInput()
-this.localizationInput=new $.oc.builder.localizationInput(input,$(input),{plugin:this.getPluginCode(input),beforePopupShowCallback:$.proxy(this.onBeforePopupShow,this),afterPopupHideCallback:$.proxy(this.onAfterPopupHide,this),autocompleteOptions:{menu:'<ul class="autocomplete dropdown-menu table-widget-autocomplete localization"></ul>',bodyContainer:true}})}
+this.localizationInput=new $.wn.builder.localizationInput(input,$(input),{plugin:this.getPluginCode(input),beforePopupShowCallback:$.proxy(this.onBeforePopupShow,this),afterPopupHideCallback:$.proxy(this.onAfterPopupHide,this),autocompleteOptions:{menu:'<ul class="autocomplete dropdown-menu table-widget-autocomplete localization"></ul>',bodyContainer:true}})}
 LocalizationProcessor.prototype.getInput=function(){if(!this.activeCell){return null}
 return this.activeCell.querySelector('.string-input')}
 LocalizationProcessor.prototype.getPluginCode=function(input){var $form=$(input).closest('form'),$input=$form.find('input[name=plugin_code]')
@@ -821,4 +821,4 @@ return $input.val()}
 LocalizationProcessor.prototype.removeLocalizationInput=function(){if(!this.localizationInput){return}
 this.localizationInput.dispose()
 this.localizationInput=null}
-$.oc.table.processor.builderLocalization=LocalizationProcessor;}(window.jQuery);
+$.wn.table.processor.builderLocalization=LocalizationProcessor;}(window.jQuery);

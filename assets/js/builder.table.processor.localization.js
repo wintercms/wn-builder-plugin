@@ -7,16 +7,16 @@
     // NAMESPACE CHECK
     // ============================
 
-    if ($.oc.table === undefined)
-        throw new Error("The $.oc.table namespace is not defined. Make sure that the table.js script is loaded.");
+    if ($.wn.table === undefined)
+        throw new Error("The $.wn.table namespace is not defined. Make sure that the table.js script is loaded.");
 
-    if ($.oc.table.processor === undefined)
-        throw new Error("The $.oc.table.processor namespace is not defined. Make sure that the table.processor.base.js script is loaded.");
+    if ($.wn.table.processor === undefined)
+        throw new Error("The $.wn.table.processor namespace is not defined. Make sure that the table.processor.base.js script is loaded.");
 
     // CLASS DEFINITION
     // ============================
 
-    var Base = $.oc.table.processor.string,
+    var Base = $.wn.table.processor.string,
         BaseProto = Base.prototype
 
     var LocalizationProcessor = function(tableObj, columnName, columnConfiguration) {
@@ -75,14 +75,14 @@
     LocalizationProcessor.prototype.buildEditor = function(cellElement, cellContentContainer, isClick) {
         BaseProto.buildEditor.call(this, cellElement, cellContentContainer, isClick)
 
-        $.oc.foundation.element.addClass(cellContentContainer, 'autocomplete-container')
+        $.wn.foundation.element.addClass(cellContentContainer, 'autocomplete-container')
         this.buildLocalizationEditor()
     }
 
     LocalizationProcessor.prototype.buildLocalizationEditor = function() {
         var input = this.getInput()
 
-        this.localizationInput = new $.oc.builder.localizationInput(input, $(input), {
+        this.localizationInput = new $.wn.builder.localizationInput(input, $(input), {
             plugin: this.getPluginCode(input),
             beforePopupShowCallback: $.proxy(this.onBeforePopupShow, this),
             afterPopupHideCallback: $.proxy(this.onAfterPopupHide, this),
@@ -122,5 +122,5 @@
         this.localizationInput = null
     }
 
-    $.oc.table.processor.builderLocalization = LocalizationProcessor;
+    $.wn.table.processor.builderLocalization = LocalizationProcessor;
 }(window.jQuery);

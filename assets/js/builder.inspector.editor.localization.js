@@ -3,7 +3,7 @@
  */
 +function ($) { "use strict";
 
-    var Base = $.oc.inspector.propertyEditors.string,
+    var Base = $.wn.inspector.propertyEditors.string,
         BaseProto = Base.prototype
 
     var LocalizationEditor = function(inspector, propertyDefinition, containerCell, group) {
@@ -43,7 +43,7 @@
 
         editor.value = value
 
-        $.oc.foundation.element.addClass(this.containerCell, 'text autocomplete')
+        $.wn.foundation.element.addClass(this.containerCell, 'text autocomplete')
 
         container.appendChild(editor)
         this.containerCell.appendChild(container)
@@ -52,7 +52,7 @@
     }
 
     LocalizationEditor.prototype.buildLocalizationEditor = function() {
-        this.localizationInput = new $.oc.builder.localizationInput(this.getInput(), this.getForm(), {
+        this.localizationInput = new $.wn.builder.localizationInput(this.getInput(), this.getForm(), {
             plugin: this.getPluginCode(),
             beforePopupShowCallback: this.proxy(this.onPopupShown, this),
             afterPopupHideCallback: this.proxy(this.onPopupHidden, this)
@@ -110,5 +110,5 @@
         this.getRootSurface().popupHidden()
     }
 
-    $.oc.inspector.propertyEditors.builderLocalization = LocalizationEditor
+    $.wn.inspector.propertyEditors.builderLocalization = LocalizationEditor
 }(window.jQuery);

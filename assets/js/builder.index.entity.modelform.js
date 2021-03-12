@@ -3,13 +3,13 @@
  */
 +function ($) { "use strict";
 
-    if ($.oc.builder === undefined)
-        $.oc.builder = {}
+    if ($.wn.builder === undefined)
+        $.wn.builder = {}
 
-    if ($.oc.builder.entityControllers === undefined)
-        $.oc.builder.entityControllers = {}
+    if ($.wn.builder.entityControllers === undefined)
+        $.wn.builder.entityControllers = {}
 
-    var Base = $.oc.builder.entityControllers.base,
+    var Base = $.wn.builder.entityControllers.base,
         BaseProto = Base.prototype
 
     var ModelForm = function(indexController) {
@@ -36,15 +36,15 @@
             $form = $target.closest('form'),
             $rootContainer = $('[data-root-control-wrapper] > [data-control-container]', $form), 
             $inspectorContainer = $form.find('.inspector-container'),
-            controls = $.oc.builder.formbuilder.domToPropertyJson.convert($rootContainer.get(0))
+            controls = $.wn.builder.formbuilder.domToPropertyJson.convert($rootContainer.get(0))
 
-        if (!$.oc.inspector.manager.applyValuesFromContainer($inspectorContainer)) {
+        if (!$.wn.inspector.manager.applyValuesFromContainer($inspectorContainer)) {
             return
         }
 
         if (controls === false) {
-            $.oc.flashMsg({
-                'text': $.oc.builder.formbuilder.domToPropertyJson.getLastError(),
+            $.wn.flashMsg({
+                'text': $.wn.builder.formbuilder.domToPropertyJson.getLastError(),
                 'class': 'error',
                 'interval': 5
             })
@@ -75,23 +75,23 @@
 
     ModelForm.prototype.cmdDeleteForm = function(ev) {
         var $target = $(ev.currentTarget)
-        $.oc.confirm($target.data('confirm'), this.proxy(this.deleteConfirmed))
+        $.wn.confirm($target.data('confirm'), this.proxy(this.deleteConfirmed))
     }
 
     ModelForm.prototype.cmdAddControl = function(ev) {
-        $.oc.builder.formbuilder.controlPalette.addControl(ev)
+        $.wn.builder.formbuilder.controlPalette.addControl(ev)
     }
 
     ModelForm.prototype.cmdUndockControlPalette = function(ev) {
-        $.oc.builder.formbuilder.controlPalette.undockFromContainer(ev)
+        $.wn.builder.formbuilder.controlPalette.undockFromContainer(ev)
     }
 
     ModelForm.prototype.cmdDockControlPalette = function(ev) {
-        $.oc.builder.formbuilder.controlPalette.dockToContainer(ev)
+        $.wn.builder.formbuilder.controlPalette.dockToContainer(ev)
     }
 
     ModelForm.prototype.cmdCloseControlPalette = function(ev) {
-        $.oc.builder.formbuilder.controlPalette.closeInContainer(ev)
+        $.wn.builder.formbuilder.controlPalette.closeInContainer(ev)
     }
 
     // INTERNAL METHODS
@@ -118,7 +118,7 @@
         if (data.builderResponseData.registryData !== undefined) {
             var registryData = data.builderResponseData.registryData
 
-            $.oc.builder.dataRegistry.set(registryData.pluginCode, 'model-forms', registryData.modelClass, registryData.forms)
+            $.wn.builder.dataRegistry.set(registryData.pluginCode, 'model-forms', registryData.modelClass, registryData.forms)
         }
     }
 
@@ -126,9 +126,9 @@
         var $masterTabPane = this.getMasterTabsActivePane(),
             $form = $masterTabPane.find('form')
 
-        $.oc.stripeLoadIndicator.show()
+        $.wn.stripeLoadIndicator.show()
         $form.request('onModelFormDelete').always(
-            $.oc.builder.indexController.hideStripeIndicatorProxy
+            $.wn.builder.indexController.hideStripeIndicatorProxy
         ).done(
             this.proxy(this.deleteDone)
         )
@@ -150,6 +150,6 @@
     // REGISTRATION
     // ============================
 
-    $.oc.builder.entityControllers.modelForm = ModelForm;
+    $.wn.builder.entityControllers.modelForm = ModelForm;
 
 }(window.jQuery);
