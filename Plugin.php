@@ -19,7 +19,8 @@ class Plugin extends PluginBase
             'description' => 'winter.builder::lang.plugin.description',
             'author'      => 'Alexey Bobkov, Samuel Georges',
             'icon'        => 'icon-wrench',
-            'homepage'    => 'https://github.com/wintercms/wn-builder-plugin'
+            'homepage'    => 'https://github.com/wintercms/wn-builder-plugin',
+            'replaces'    => 'RainLab.Builder'
         ];
     }
 
