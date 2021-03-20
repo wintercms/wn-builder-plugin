@@ -1,15 +1,15 @@
-<?php namespace RainLab\Builder\Components;
+<?php namespace Winter\Builder\Components;
 
 use Lang;
 use Cms\Classes\ComponentBase;
-use RainLab\Builder\Classes\ComponentHelper;
+use Winter\Builder\Classes\ComponentHelper;
 use SystemException;
 
 class RecordDetails extends ComponentBase
 {
     /**
      * A model instance to display
-     * @var \October\Rain\Database\Model
+     * @var \Winter\Storm\Database\Model
      */
     public $record = null;
 
@@ -40,8 +40,8 @@ class RecordDetails extends ComponentBase
     public function componentDetails()
     {
         return [
-            'name'        => 'rainlab.builder::lang.components.details_title',
-            'description' => 'rainlab.builder::lang.components.details_description'
+            'name'        => 'winter.builder::lang.components.details_title',
+            'description' => 'winter.builder::lang.components.details_description'
         ];
     }
 
@@ -53,49 +53,49 @@ class RecordDetails extends ComponentBase
     {
         return [
             'modelClass' => [
-                'title'       => 'rainlab.builder::lang.components.details_model',
+                'title'       => 'winter.builder::lang.components.details_model',
                 'type'        => 'dropdown',
                 'showExternalParam' => false
             ],
             'identifierValue' => [
-                'title'       => 'rainlab.builder::lang.components.details_identifier_value',
-                'description' => 'rainlab.builder::lang.components.details_identifier_value_description',
+                'title'       => 'winter.builder::lang.components.details_identifier_value',
+                'description' => 'winter.builder::lang.components.details_identifier_value_description',
                 'type'        => 'string',
                 'default'     => '{{ :id }}',
                 'validation'  => [
                     'required' => [
-                        'message' => Lang::get('rainlab.builder::lang.components.details_identifier_value_required')
+                        'message' => Lang::get('winter.builder::lang.components.details_identifier_value_required')
                     ]
                 ]
             ],
             'modelKeyColumn' => [
-                'title'       => 'rainlab.builder::lang.components.details_key_column',
-                'description' => 'rainlab.builder::lang.components.details_key_column_description',
+                'title'       => 'winter.builder::lang.components.details_key_column',
+                'description' => 'winter.builder::lang.components.details_key_column_description',
                 'type'        => 'autocomplete',
                 'default'     => 'id',
                 'validation'  => [
                     'required' => [
-                        'message' => Lang::get('rainlab.builder::lang.components.details_key_column_required')
+                        'message' => Lang::get('winter.builder::lang.components.details_key_column_required')
                     ]
                 ],
                 'showExternalParam' => false
             ],
             'displayColumn' => [
-                'title'       => 'rainlab.builder::lang.components.details_display_column',
-                'description' => 'rainlab.builder::lang.components.details_display_column_description',
+                'title'       => 'winter.builder::lang.components.details_display_column',
+                'description' => 'winter.builder::lang.components.details_display_column_description',
                 'type'        => 'autocomplete',
                 'depends'     => ['modelClass'],
                 'validation'  => [
                     'required' => [
-                        'message' => Lang::get('rainlab.builder::lang.components.details_display_column_required')
+                        'message' => Lang::get('winter.builder::lang.components.details_display_column_required')
                     ]
                 ],
                 'showExternalParam' => false
             ],
             'notFoundMessage' => [
-                'title'       => 'rainlab.builder::lang.components.details_not_found_message',
-                'description' => 'rainlab.builder::lang.components.details_not_found_message_description',
-                'default'     => Lang::get('rainlab.builder::lang.components.details_not_found_message_default'),
+                'title'       => 'winter.builder::lang.components.details_not_found_message',
+                'description' => 'winter.builder::lang.components.details_not_found_message_description',
+                'default'     => Lang::get('winter.builder::lang.components.details_not_found_message_default'),
                 'type'        => 'string',
                 'showExternalParam' => false
             ]

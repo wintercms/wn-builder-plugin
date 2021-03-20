@@ -1,4 +1,4 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use System\Classes\PluginBase;
 use System\Classes\PluginManager;
@@ -6,7 +6,7 @@ use System\Classes\PluginManager;
 /**
  * Holds a plugin code object and a plugin information class instancd.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class PluginVector

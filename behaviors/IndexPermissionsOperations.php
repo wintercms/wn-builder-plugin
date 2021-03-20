@@ -1,8 +1,8 @@
-<?php namespace RainLab\Builder\Behaviors;
+<?php namespace Winter\Builder\Behaviors;
 
-use RainLab\Builder\Classes\IndexOperationsBehaviorBase;
-use RainLab\Builder\Classes\PermissionsModel;
-use RainLab\Builder\Classes\PluginCode;
+use Winter\Builder\Classes\IndexOperationsBehaviorBase;
+use Winter\Builder\Classes\PermissionsModel;
+use Winter\Builder\Classes\PluginCode;
 use ApplicationException;
 use Exception;
 use Request;
@@ -13,12 +13,12 @@ use Lang;
 /**
  * Plugin permissions management functionality for the Builder index controller
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class IndexPermissionsOperations extends IndexOperationsBehaviorBase
 {
-    protected $baseFormConfigFile = '~/plugins/rainlab/builder/classes/permissionsmodel/fields.yaml';
+    protected $baseFormConfigFile = '~/plugins/winter/builder/classes/permissionsmodel/fields.yaml';
 
     public function onPermissionsOpen()
     {
@@ -28,7 +28,7 @@ class IndexPermissionsOperations extends IndexOperationsBehaviorBase
         $widget = $this->makeBaseFormWidget($pluginCode);
 
         $result = [
-            'tabTitle' => Lang::get($widget->model->getPluginName()).'/'.Lang::get('rainlab.builder::lang.permission.tab'),
+            'tabTitle' => Lang::get($widget->model->getPluginName()).'/'.Lang::get('winter.builder::lang.permission.tab'),
             'tabIcon' => 'icon-unlock-alt',
             'tabId' => $this->getTabId($pluginCode),
             'tab' => $this->makePartial('tab', [
@@ -50,11 +50,11 @@ class IndexPermissionsOperations extends IndexOperationsBehaviorBase
         $model->fill($_POST);
         $model->save();
 
-        Flash::success(Lang::get('rainlab.builder::lang.permission.saved'));
+        Flash::success(Lang::get('winter.builder::lang.permission.saved'));
 
         $result['builderResponseData'] = [
             'tabId' => $this->getTabId($pluginCode),
-            'tabTitle' => $model->getPluginName().'/'.Lang::get('rainlab.builder::lang.permission.tab'),
+            'tabTitle' => $model->getPluginName().'/'.Lang::get('winter.builder::lang.permission.tab'),
             'pluginCode' => $pluginCode
         ];
 

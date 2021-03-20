@@ -1,11 +1,11 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use SystemException;
 
 /**
  * Represents a PHP source code token stream.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class PhpSourceStream

@@ -3,13 +3,13 @@
  */
 +function ($) { "use strict";
 
-    if ($.oc.builder === undefined)
-        $.oc.builder = {}
+    if ($.wn.builder === undefined)
+        $.wn.builder = {}
 
-    if ($.oc.builder.entityControllers === undefined)
-        $.oc.builder.entityControllers = {}
+    if ($.wn.builder.entityControllers === undefined)
+        $.wn.builder.entityControllers = {}
 
-    var Base = $.oc.builder.entityControllers.base,
+    var Base = $.wn.builder.entityControllers.base,
         BaseProto = Base.prototype
 
     var Menus = function(indexController) {
@@ -38,11 +38,11 @@
             $form = $target.closest('form'),
             $inspectorContainer = $form.find('.inspector-container')
 
-        if (!$.oc.inspector.manager.applyValuesFromContainer($inspectorContainer)) {
+        if (!$.wn.inspector.manager.applyValuesFromContainer($inspectorContainer)) {
             return
         }
 
-        var menus = $.oc.builder.menubuilder.controller.getJson($form.get(0))
+        var menus = $.wn.builder.menubuilder.controller.getJson($form.get(0))
 
         $target.request('onMenusSave', {
             data: {
@@ -54,15 +54,15 @@
     }
 
     Menus.prototype.cmdAddMainMenuItem = function(ev) {
-        $.oc.builder.menubuilder.controller.addMainMenuItem(ev)
+        $.wn.builder.menubuilder.controller.addMainMenuItem(ev)
     }
 
     Menus.prototype.cmdAddSideMenuItem = function(ev) {
-        $.oc.builder.menubuilder.controller.addSideMenuItem(ev)
+        $.wn.builder.menubuilder.controller.addSideMenuItem(ev)
     }
 
     Menus.prototype.cmdDeleteMenuItem = function(ev) {
-        $.oc.builder.menubuilder.controller.deleteMenuItem(ev)
+        $.wn.builder.menubuilder.controller.deleteMenuItem(ev)
     }
 
     // INTERNAL METHODS
@@ -81,6 +81,6 @@
     // REGISTRATION
     // ============================
 
-    $.oc.builder.entityControllers.menus = Menus;
+    $.wn.builder.entityControllers.menus = Menus;
 
 }(window.jQuery);

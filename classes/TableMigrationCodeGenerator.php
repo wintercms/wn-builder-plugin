@@ -1,15 +1,15 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use Str;
 use File;
 use Doctrine\DBAL\Schema\Comparator;
 use Doctrine\DBAL\Schema\TableDiff;
-use October\Rain\Parse\Bracket as TextParser;
+use Winter\Storm\Parse\Bracket as TextParser;
 
 /**
  * Generates migration code for creating, updates and deleting tables.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class TableMigrationCodeGenerator extends BaseModel
@@ -83,7 +83,7 @@ class TableMigrationCodeGenerator extends BaseModel
      */
     public function wrapMigrationCode($scriptFilename, $code, $pluginCodeObj)
     {
-        $templatePath = '$/rainlab/builder/classes/databasetablemodel/templates/full-migration-code.php.tpl';
+        $templatePath = '$/winter/builder/classes/databasetablemodel/templates/full-migration-code.php.tpl';
         $templatePath = File::symbolizePath($templatePath);
 
         $fileContents = File::get($templatePath);
@@ -124,7 +124,7 @@ class TableMigrationCodeGenerator extends BaseModel
 
     protected function generateMigrationCode($upCode, $downCode)
     {
-        $templatePath = '$/rainlab/builder/classes/databasetablemodel/templates/migration-code.php.tpl';
+        $templatePath = '$/winter/builder/classes/databasetablemodel/templates/migration-code.php.tpl';
         $templatePath = File::symbolizePath($templatePath);
 
         $fileContents = File::get($templatePath);

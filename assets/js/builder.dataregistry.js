@@ -3,10 +3,10 @@
  */
 +function ($) { "use strict";
 
-    if ($.oc.builder === undefined)
-        $.oc.builder = {}
+    if ($.wn.builder === undefined)
+        $.wn.builder = {}
 
-    var Base = $.oc.foundation.base,
+    var Base = $.wn.foundation.base,
         BaseProto = Base.prototype
 
     var DataRegistry = function() {
@@ -19,8 +19,8 @@
 
     /* 
      * Example: 
-     * $.oc.builder.dataRegistry.set('rainlab.blog', 'model.forms', 'Categories', formsArray)
-     * $.oc.builder.dataRegistry.set('rainlab.blog', 'localization', null, stringsArray) // The registry contains only default language
+     * $.wn.builder.dataRegistry.set('rainlab.blog', 'model.forms', 'Categories', formsArray)
+     * $.wn.builder.dataRegistry.set('rainlab.blog', 'localization', null, stringsArray) // The registry contains only default language
      */
     DataRegistry.prototype.set = function(plugin, type, subtype, data, params) {
         this.storeData(plugin, type, subtype, data)
@@ -32,7 +32,7 @@
 
     /* 
      * Example: 
-     * $.oc.builder.dataRegistry.get($form, 'rainlab.blog', 'model.forms', 'Categories', function(data){ ... })
+     * $.wn.builder.dataRegistry.get($form, 'rainlab.blog', 'model.forms', 'Categories', function(data){ ... })
      */
     DataRegistry.prototype.get = function($formElement, plugin, type, subtype, callback) {
         if (this.data[plugin] === undefined 
@@ -157,14 +157,14 @@
     }
 
     DataRegistry.prototype.localizationUpdated = function(plugin, params) {
-        $.oc.builder.localizationInput.updatePluginInputs(plugin)
+        $.wn.builder.localizationInput.updatePluginInputs(plugin)
 
         if (params === undefined || !params.suppressLanguageEditorUpdate) {
-            $.oc.builder.indexController.entityControllers.localization.languageUpdated(plugin)
+            $.wn.builder.indexController.entityControllers.localization.languageUpdated(plugin)
         }
 
-        $.oc.builder.indexController.entityControllers.localization.updateOnScreenStrings(plugin)
+        $.wn.builder.indexController.entityControllers.localization.updateOnScreenStrings(plugin)
     }
 
-    $.oc.builder.dataRegistry = new DataRegistry()
+    $.wn.builder.dataRegistry = new DataRegistry()
 }(window.jQuery);

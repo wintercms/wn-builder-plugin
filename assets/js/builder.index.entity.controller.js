@@ -3,13 +3,13 @@
  */
 +function ($) { "use strict";
 
-    if ($.oc.builder === undefined)
-        $.oc.builder = {}
+    if ($.wn.builder === undefined)
+        $.wn.builder = {}
 
-    if ($.oc.builder.entityControllers === undefined)
-        $.oc.builder.entityControllers = {}
+    if ($.wn.builder.entityControllers === undefined)
+        $.wn.builder.entityControllers = {}
 
-    var Base = $.oc.builder.entityControllers.base,
+    var Base = $.wn.builder.entityControllers.base,
         BaseProto = Base.prototype
 
     var Controller = function(indexController) {
@@ -47,7 +47,7 @@
         promise.done(function(data){
             $form.trigger('close.oc.popup')
             self.updateDataRegistry(data)
-        }).always($.oc.builder.indexController.hideStripeIndicatorProxy)
+        }).always($.wn.builder.indexController.hideStripeIndicatorProxy)
     }
 
     Controller.prototype.cmdOpenController = function(ev) {
@@ -64,7 +64,7 @@
             $form = $target.closest('form'),
             $inspectorContainer = $form.find('.inspector-container')
 
-        if (!$.oc.inspector.manager.applyValuesFromContainer($inspectorContainer)) {
+        if (!$.wn.inspector.manager.applyValuesFromContainer($inspectorContainer)) {
             return
         }
 
@@ -93,7 +93,7 @@
         if (data.builderResponseData.registryData !== undefined) {
             var registryData = data.builderResponseData.registryData
 
-            $.oc.builder.dataRegistry.set(registryData.pluginCode, 'controller-urls', null, registryData.urls)
+            $.wn.builder.dataRegistry.set(registryData.pluginCode, 'controller-urls', null, registryData.urls)
         }
     }
 
@@ -104,6 +104,6 @@
     // REGISTRATION
     // ============================
 
-    $.oc.builder.entityControllers.controller = Controller;
+    $.wn.builder.entityControllers.controller = Controller;
 
 }(window.jQuery);

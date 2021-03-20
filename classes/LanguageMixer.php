@@ -1,4 +1,4 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use Yaml;
 use Symfony\Component\Yaml\Dumper as YamlDumper;

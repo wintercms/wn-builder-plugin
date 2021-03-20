@@ -1,11 +1,11 @@
-<?php namespace RainLab\Builder\Behaviors;
+<?php namespace Winter\Builder\Behaviors;
 
-use RainLab\Builder\Classes\IndexOperationsBehaviorBase;
-use RainLab\Builder\Classes\DatabaseTableModel;
+use Winter\Builder\Classes\IndexOperationsBehaviorBase;
+use Winter\Builder\Classes\DatabaseTableModel;
 use Backend\Behaviors\FormController;
-use RainLab\Builder\Classes\MigrationModel;
-use RainLab\Builder\Classes\TableMigrationCodeGenerator;
-use RainLab\Builder\Classes\PluginCode;
+use Winter\Builder\Classes\MigrationModel;
+use Winter\Builder\Classes\TableMigrationCodeGenerator;
+use Winter\Builder\Classes\PluginCode;
 use ApplicationException;
 use Exception;
 use Request;
@@ -15,13 +15,13 @@ use Lang;
 /**
  * Database table management functionality for the Builder index controller
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class IndexDatabaseTableOperations extends IndexOperationsBehaviorBase
 {
-    protected $baseFormConfigFile = '~/plugins/rainlab/builder/classes/databasetablemodel/fields.yaml';
-    protected $migrationFormConfigFile = '~/plugins/rainlab/builder/classes/migrationmodel/fields.yaml';
+    protected $baseFormConfigFile = '~/plugins/winter/builder/classes/databasetablemodel/fields.yaml';
+    protected $migrationFormConfigFile = '~/plugins/winter/builder/classes/migrationmodel/fields.yaml';
 
     public function onDatabaseTableCreateOrOpen()
     {
@@ -159,7 +159,7 @@ class IndexDatabaseTableOperations extends IndexOperationsBehaviorBase
     protected function getTabTitle($tableName)
     {
         if (!strlen($tableName)) {
-            return Lang::get('rainlab.builder::lang.database.tab_new_table');
+            return Lang::get('winter.builder::lang.database.tab_new_table');
         }
 
         return $tableName;

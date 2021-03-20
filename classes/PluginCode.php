@@ -1,11 +1,11 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use ApplicationException;
 
 /**
  * Represents a plugin code and provides basic code operations.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class PluginCode

@@ -1,4 +1,4 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use Symfony\Component\Yaml\Dumper as YamlDumper;
 use ApplicationException;
@@ -11,7 +11,7 @@ use Lang;
 /**
  * Base class for models that store data in YAML files.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 abstract class YamlModel extends BaseModel
@@ -65,19 +65,19 @@ abstract class YamlModel extends BaseModel
 
         if (File::isFile($filePath)) {
             if ($isNew || $this->originalFilePath != $filePath) {
-                throw new ValidationException(['fileName' => Lang::get('rainlab.builder::lang.common.error_file_exists', ['path'=>basename($filePath)])]);
+                throw new ValidationException(['fileName' => Lang::get('winter.builder::lang.common.error_file_exists', ['path'=>basename($filePath)])]);
             }
         }
 
         $fileDirectory = dirname($filePath);
         if (!File::isDirectory($fileDirectory)) {
             if (!File::makeDirectory($fileDirectory, 0777, true, true)) {
-                throw new ApplicationException(Lang::get('rainlab.builder::lang.common.error_make_dir', ['name'=>$fileDirectory]));
+                throw new ApplicationException(Lang::get('winter.builder::lang.common.error_make_dir', ['name'=>$fileDirectory]));
             }
         }
 
         if (@File::put($filePath, $yamlData) === false) {
-            throw new ApplicationException(Lang::get('rainlab.builder::lang.yaml.save_error', ['name'=>$filePath]));
+            throw new ApplicationException(Lang::get('winter.builder::lang.yaml.save_error', ['name'=>$filePath]));
         }
 
         @File::chmod($filePath);

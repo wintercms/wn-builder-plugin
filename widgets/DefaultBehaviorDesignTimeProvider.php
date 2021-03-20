@@ -1,16 +1,16 @@
-<?php namespace RainLab\Builder\Widgets;
+<?php namespace Winter\Builder\Widgets;
 
 use Lang;
-use RainLab\Builder\Classes\BehaviorDesignTimeProviderBase;
-use RainLab\Builder\Classes\ModelListModel;
-use RainLab\Builder\Classes\ModelFormModel;
+use Winter\Builder\Classes\BehaviorDesignTimeProviderBase;
+use Winter\Builder\Classes\ModelListModel;
+use Winter\Builder\Classes\ModelFormModel;
 use SystemException;
 use ApplicationException;
 
 /**
  * Default behavior design-time provider.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class DefaultBehaviorDesignTimeProvider extends BehaviorDesignTimeProviderBase
@@ -25,7 +25,7 @@ class DefaultBehaviorDesignTimeProvider extends BehaviorDesignTimeProviderBase
      * Renders behaivor body.
      * @param string $class Specifies the behavior class to render.
      * @param array $properties Behavior property values.
-     * @param  \RainLab\Builder\FormWidgets\ControllerBuilder $controllerBuilder ControllerBuilder widget instance.
+     * @param  \Winter\Builder\FormWidgets\ControllerBuilder $controllerBuilder ControllerBuilder widget instance.
      * @return string Returns HTML markup string.
      */
     public function renderBehaviorBody($class, $properties, $controllerBuilder)
@@ -76,7 +76,7 @@ class DefaultBehaviorDesignTimeProvider extends BehaviorDesignTimeProviderBase
     protected function getFormControllerDefaultConfiguration($controllerModel, $controllerGenerator)
     {
         if (!$controllerModel->baseModelClassName) {
-            throw new ApplicationException(Lang::get('rainlab.builder::lang.controller.error_behavior_requires_base_model', [
+            throw new ApplicationException(Lang::get('winter.builder::lang.controller.error_behavior_requires_base_model', [
                 'behavior' => 'Form Controller'
             ]));
         }
@@ -85,7 +85,7 @@ class DefaultBehaviorDesignTimeProvider extends BehaviorDesignTimeProviderBase
 
         $forms = ModelFormModel::listModelFiles($pluginCodeObj, $controllerModel->baseModelClassName);
         if (!$forms) {
-            throw new ApplicationException(Lang::get('rainlab.builder::lang.controller.error_model_doesnt_have_forms'));
+            throw new ApplicationException(Lang::get('winter.builder::lang.controller.error_model_doesnt_have_forms'));
         }
 
         $controllerUrl = $this->getControllerlUrl($pluginCodeObj, $controllerModel->controller);
@@ -111,7 +111,7 @@ class DefaultBehaviorDesignTimeProvider extends BehaviorDesignTimeProviderBase
     protected function getListControllerDefaultConfiguration($controllerModel, $controllerGenerator)
     {
         if (!$controllerModel->baseModelClassName) {
-            throw new ApplicationException(Lang::get('rainlab.builder::lang.controller.error_behavior_requires_base_model', [
+            throw new ApplicationException(Lang::get('winter.builder::lang.controller.error_behavior_requires_base_model', [
                 'behavior' => 'List Controller'
             ]));
         }
@@ -120,7 +120,7 @@ class DefaultBehaviorDesignTimeProvider extends BehaviorDesignTimeProviderBase
 
         $lists = ModelListModel::listModelFiles($pluginCodeObj, $controllerModel->baseModelClassName);
         if (!$lists) {
-            throw new ApplicationException(Lang::get('rainlab.builder::lang.controller.error_model_doesnt_have_lists'));
+            throw new ApplicationException(Lang::get('winter.builder::lang.controller.error_model_doesnt_have_lists'));
         }
 
         $result = [
@@ -161,7 +161,7 @@ class DefaultBehaviorDesignTimeProvider extends BehaviorDesignTimeProviderBase
     protected function getReorderControllerDefaultConfiguration($controllerModel, $controllerGenerator)
     {
         if (!$controllerModel->baseModelClassName) {
-            throw new ApplicationException(Lang::get('rainlab.builder::lang.controller.error_behavior_requires_base_model', [
+            throw new ApplicationException(Lang::get('winter.builder::lang.controller.error_behavior_requires_base_model', [
                 'behavior' => 'Reorder Controller'
             ]));
         }

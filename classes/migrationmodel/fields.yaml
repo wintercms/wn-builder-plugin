@@ -1,9 +1,9 @@
 fields:
     version:
-        label: rainlab.builder::lang.migration.field_version
+        label: winter.builder::lang.migration.field_version
     description:
-        label: rainlab.builder::lang.migration.field_description
+        label: winter.builder::lang.migration.field_description
     code:
-        label: rainlab.builder::lang.migration.field_code
+        label: winter.builder::lang.migration.field_code
         type: codeeditor
         language: php

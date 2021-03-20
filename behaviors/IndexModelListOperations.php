@@ -1,9 +1,9 @@
-<?php namespace RainLab\Builder\Behaviors;
+<?php namespace Winter\Builder\Behaviors;
 
-use RainLab\Builder\Classes\IndexOperationsBehaviorBase;
-use RainLab\Builder\Classes\ModelListModel;
-use RainLab\Builder\Classes\PluginCode;
-use RainLab\Builder\Classes\ModelModel;
+use Winter\Builder\Classes\IndexOperationsBehaviorBase;
+use Winter\Builder\Classes\ModelListModel;
+use Winter\Builder\Classes\PluginCode;
+use Winter\Builder\Classes\ModelModel;
 use ApplicationException;
 use Exception;
 use Request;
@@ -14,12 +14,12 @@ use Lang;
 /**
  * Model list management functionality for the Builder index controller
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class IndexModelListOperations extends IndexOperationsBehaviorBase
 {
-    protected $baseFormConfigFile = '~/plugins/rainlab/builder/classes/modellistmodel/fields.yaml';
+    protected $baseFormConfigFile = '~/plugins/winter/builder/classes/modellistmodel/fields.yaml';
 
     public function onModelListCreateOrOpen()
     {
@@ -37,7 +37,7 @@ class IndexModelListOperations extends IndexOperationsBehaviorBase
         $this->vars['fileName'] = $fileName;
 
         $result = [
-            'tabTitle' => $widget->model->getDisplayName(Lang::get('rainlab.builder::lang.list.tab_new_list')),
+            'tabTitle' => $widget->model->getDisplayName(Lang::get('winter.builder::lang.list.tab_new_list')),
             'tabIcon' => 'icon-list',
             'tabId' => $this->getTabId($modelClass, $fileName),
             'tab' => $this->makePartial('tab', [
@@ -59,13 +59,13 @@ class IndexModelListOperations extends IndexOperationsBehaviorBase
 
         $result = $this->controller->widget->modelList->updateList();
 
-        Flash::success(Lang::get('rainlab.builder::lang.list.saved'));
+        Flash::success(Lang::get('winter.builder::lang.list.saved'));
 
         $modelClass = Input::get('model_class');
         $result['builderResponseData'] = [
             'builderObjectName' => $model->fileName,
             'tabId' => $this->getTabId($modelClass, $model->fileName),
-            'tabTitle' => $model->getDisplayName(Lang::get('rainlab.builder::lang.list.tab_new_list'))
+            'tabTitle' => $model->getDisplayName(Lang::get('winter.builder::lang.list.tab_new_list'))
         ];
 
         $this->mergeRegistryDataIntoResult($result, $model, $modelClass);

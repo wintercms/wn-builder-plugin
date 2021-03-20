@@ -1,4 +1,4 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use ApplicationException;
 use SystemException;
@@ -8,7 +8,7 @@ use Lang;
 /**
  * Manages plugin permissions information.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class PermissionsModel extends PluginYamlModel
@@ -106,7 +106,7 @@ class PermissionsModel extends PluginYamlModel
                 if ($innerIndex != $outerIndex && $outerCode == $innerCode && strlen($outerCode)) {
                     throw new ValidationException([
                         'permissions' => Lang::get(
-                            'rainlab.builder::lang.permission.error_duplicate_code',
+                            'winter.builder::lang.permission.error_duplicate_code',
                             ['code' => $outerCode]
                         )
                     ]);
@@ -130,19 +130,19 @@ class PermissionsModel extends PluginYamlModel
 
             if (!strlen($permission['permission'])) {
                 throw new ValidationException([
-                    'permissions' => Lang::get('rainlab.builder::lang.permission.column_permission_required')
+                    'permissions' => Lang::get('winter.builder::lang.permission.column_permission_required')
                 ]);
             }
 
             if (!strlen($permission['label'])) {
                 throw new ValidationException([
-                    'permissions' => Lang::get('rainlab.builder::lang.permission.column_label_required')
+                    'permissions' => Lang::get('winter.builder::lang.permission.column_label_required')
                 ]);
             }
 
             if (!strlen($permission['tab'])) {
                 throw new ValidationException([
-                    'permissions' => Lang::get('rainlab.builder::lang.permission.column_tab_required')
+                    'permissions' => Lang::get('winter.builder::lang.permission.column_tab_required')
                 ]);
             }
         }

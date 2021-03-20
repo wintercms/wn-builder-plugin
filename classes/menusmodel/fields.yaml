@@ -5,7 +5,7 @@
 fields:
     toolbar:
         type: partial
-        path: $/rainlab/builder/behaviors/indexmenusoperations/partials/_toolbar.htm
+        path: $/winter/builder/behaviors/indexmenusoperations/partials/_toolbar.htm
         cssClass: collapse-visible
 
 secondaryTabs:
@@ -13,5 +13,5 @@ secondaryTabs:
     fields:
         menus:
             stretch: true
-            tab: rainlab.builder::lang.menu.items
-            type: RainLab\Builder\FormWidgets\MenuEditor
+            tab: winter.builder::lang.menu.items
+            type: Winter\Builder\FormWidgets\MenuEditor

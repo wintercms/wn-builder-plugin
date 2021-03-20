@@ -11,14 +11,14 @@ fields:
 
     toolbar:
         type: partial
-        path: $/rainlab/builder/behaviors/indexmodelformoperations/partials/_toolbar.htm
+        path: $/winter/builder/behaviors/indexmodelformoperations/partials/_toolbar.htm
         cssClass: collapse-visible
 
 secondaryTabs:
     stretch: true
     fields:
         formBuilder: 
-            type: RainLab\Builder\FormWidgets\FormBuilder
+            type: Winter\Builder\FormWidgets\FormBuilder
             stretch: true
             cssClass: layout
-            tab: rainlab.builder::lang.form.controls
+            tab: winter.builder::lang.form.controls

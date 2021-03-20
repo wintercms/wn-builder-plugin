@@ -3,13 +3,13 @@
  */
 +function ($) { "use strict";
 
-    if ($.oc.builder === undefined)
-        $.oc.builder = {}
+    if ($.wn.builder === undefined)
+        $.wn.builder = {}
 
-    if ($.oc.builder.entityControllers === undefined)
-        $.oc.builder.entityControllers = {}
+    if ($.wn.builder.entityControllers === undefined)
+        $.wn.builder.entityControllers = {}
 
-    var Base = $.oc.builder.entityControllers.base,
+    var Base = $.wn.builder.entityControllers.base,
         BaseProto = Base.prototype
 
     var DatabaseTable = function(indexController) {
@@ -68,9 +68,9 @@
     DatabaseTable.prototype.cmdSaveMigration = function(ev) {
         var $target = $(ev.currentTarget)
 
-        $.oc.stripeLoadIndicator.show()
+        $.wn.stripeLoadIndicator.show()
         $target.request('onDatabaseTableMigrationApply').always(
-            $.oc.builder.indexController.hideStripeIndicatorProxy
+            $.wn.builder.indexController.hideStripeIndicatorProxy
         ).done(
             this.proxy(this.saveMigrationDone)
         )
@@ -78,7 +78,7 @@
 
     DatabaseTable.prototype.cmdDeleteTable = function(ev) {
         var $target = $(ev.currentTarget)
-        $.oc.confirm($target.data('confirm'), this.proxy(this.deleteConfirmed))
+        $.wn.confirm($target.data('confirm'), this.proxy(this.deleteConfirmed))
     }
 
     DatabaseTable.prototype.cmdUnModifyForm = function() {
@@ -238,7 +238,7 @@
             this.forceCloseTab($masterTabPane)
         }
 
-        $.oc.builder.dataRegistry.clearCache(data.builderResponseData.pluginCode, 'model-columns')
+        $.wn.builder.dataRegistry.clearCache(data.builderResponseData.pluginCode, 'model-columns')
     }
 
     DatabaseTable.prototype.getTableList = function() {
@@ -358,6 +358,6 @@
     // REGISTRATION
     // ============================
 
-    $.oc.builder.entityControllers.databaseTable = DatabaseTable;
+    $.wn.builder.entityControllers.databaseTable = DatabaseTable;
 
 }(window.jQuery);

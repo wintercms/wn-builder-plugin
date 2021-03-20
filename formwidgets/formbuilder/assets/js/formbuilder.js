@@ -7,7 +7,7 @@
  */
 +function ($) { "use strict";
 
-    var Base = $.oc.foundation.base,
+    var Base = $.wn.foundation.base,
         BaseProto = Base.prototype
 
     var FormBuilder = function() {
@@ -82,19 +82,19 @@
 
     FormBuilder.prototype.loadModelFields = function(control, callback) {
         var $form = $(this.findForm(control)),
-            pluginCode = $.oc.builder.indexController.getFormPluginCode($form),
+            pluginCode = $.wn.builder.indexController.getFormPluginCode($form),
             modelClass = $form.find('input[name=model_class]').val()
 
-        $.oc.builder.dataRegistry.get($form, pluginCode, 'model-columns', modelClass, function(response){
+        $.wn.builder.dataRegistry.get($form, pluginCode, 'model-columns', modelClass, function(response){
             callback({
-                options: $.oc.builder.indexController.dataToInspectorArray(response)
+                options: $.wn.builder.indexController.dataToInspectorArray(response)
             })
         })
     }
 
     FormBuilder.prototype.getContainerFieldNames = function(control, callback) {
         var controlWrapper = this.findRootControlWrapper(control),
-            fieldNames = $.oc.builder.formbuilder.domToPropertyJson.getAllControlNames(controlWrapper),
+            fieldNames = $.wn.builder.formbuilder.domToPropertyJson.getAllControlNames(controlWrapper),
             options = []
 
         options.push({
@@ -148,35 +148,35 @@
             var item = items[i],
                 itemSpan = item.getAttribute('data-builder-span')
 
-            if ($.oc.foundation.element.hasClass(item, 'clear-row')) {
+            if ($.wn.foundation.element.hasClass(item, 'clear-row')) {
                 continue
             }
 
             if (itemSpan == 'auto') {
-                $.oc.foundation.element.removeClass(item, 'span-left')
-                $.oc.foundation.element.removeClass(item, 'span-full')
-                $.oc.foundation.element.removeClass(item, 'span-right')
+                $.wn.foundation.element.removeClass(item, 'span-left')
+                $.wn.foundation.element.removeClass(item, 'span-full')
+                $.wn.foundation.element.removeClass(item, 'span-right')
 
                 if (prevSpan == 'left') {
-                    $.oc.foundation.element.addClass(item, 'span-right')
+                    $.wn.foundation.element.addClass(item, 'span-right')
                     prevSpan = 'right'
                 }
                 else {
-                    if (!$.oc.foundation.element.hasClass(item, 'placeholder')) {
-                        $.oc.foundation.element.addClass(item, 'span-left')
+                    if (!$.wn.foundation.element.hasClass(item, 'placeholder')) {
+                        $.wn.foundation.element.addClass(item, 'span-left')
                     }
                     else {
-                        $.oc.foundation.element.addClass(item, 'span-full')
+                        $.wn.foundation.element.addClass(item, 'span-full')
                     }
 
                     prevSpan = 'left'
                 }
             }
             else {
-                $.oc.foundation.element.removeClass(item, 'span-left')
-                $.oc.foundation.element.removeClass(item, 'span-full')
-                $.oc.foundation.element.removeClass(item, 'span-right')
-                $.oc.foundation.element.addClass(item, 'span-' + itemSpan)
+                $.wn.foundation.element.removeClass(item, 'span-left')
+                $.wn.foundation.element.removeClass(item, 'span-full')
+                $.wn.foundation.element.removeClass(item, 'span-right')
+                $.wn.foundation.element.addClass(item, 'span-' + itemSpan)
 
                 prevSpan = itemSpan
             }
@@ -253,7 +253,7 @@
     FormBuilder.prototype.dropFromContainerToPlaceholderOrControl = function(ev, targetControl) {
         var targetElement = targetControl ? targetControl : ev.target
 
-        $.oc.foundation.event.stop(ev)
+        $.wn.foundation.event.stop(ev)
         this.stopHighlightingTargets(targetElement)
 
         var controlId = ev.dataTransfer.getData('builder/control/id'),
@@ -274,7 +274,7 @@
             $originalClearRow.remove()
         }
 
-        if (!$.oc.foundation.element.hasClass(originalControl, 'inspector-open')) {
+        if (!$.wn.foundation.element.hasClass(originalControl, 'inspector-open')) {
             this.patchControlSpan(originalControl, 'auto')
         }
 
@@ -288,7 +288,7 @@
     }
 
     FormBuilder.prototype.elementContainsPoint = function(point, element) {
-        var elementPosition = $.oc.foundation.element.absolutePosition(element),
+        var elementPosition = $.wn.foundation.element.absolutePosition(element),
             elementRight = elementPosition.left + element.offsetWidth,
             elementBottom = elementPosition.top + element.offsetHeight
 
@@ -302,7 +302,7 @@
 
         for (var i=controls.length-1; i>= 0; i--) {
             if (!excludeTarget || target !== controls[i]) {
-                $.oc.foundation.element.removeClass(controls[i], 'drag-over')
+                $.wn.foundation.element.removeClass(controls[i], 'drag-over')
             }
         }
     }
@@ -340,10 +340,10 @@
             controls = rootWrapper.querySelectorAll('li.control.updating-control')
 
         for (var i=controls.length-1; i>=0; i--) {
-            $.oc.foundation.element.removeClass(controls[i], 'updating-control')
+            $.wn.foundation.element.removeClass(controls[i], 'updating-control')
         }
 
-        $.oc.foundation.element.addClass(control, 'updating-control')
+        $.wn.foundation.element.addClass(control, 'updating-control')
 
         var controlType = control.getAttribute('data-control-type'),
             properties = this.getControlProperties(control),
@@ -358,7 +358,7 @@
         }).done(
             this.proxy(this.controlBodyMarkupLoaded)
         ).always(function(){
-            $.oc.foundation.element.removeClass(control, 'updating-control')
+            $.wn.foundation.element.removeClass(control, 'updating-control')
         })
     }
 
@@ -414,9 +414,9 @@
 
         // Replace the placeholder class with control
         // loading indicator
-        $.oc.foundation.element.removeClass(placeholder, 'placeholder')
-        $.oc.foundation.element.addClass(placeholder, 'loading-control')
-        $.oc.foundation.element.removeClass(placeholder, 'control-palette-open')
+        $.wn.foundation.element.removeClass(placeholder, 'placeholder')
+        $.wn.foundation.element.addClass(placeholder, 'loading-control')
+        $.wn.foundation.element.removeClass(placeholder, 'control-palette-open')
         placeholder.innerHTML = ''
         placeholder.removeAttribute('data-builder-placeholder')
 
@@ -454,11 +454,11 @@
         placeholder.setAttribute('data-inspector-description', responseData.description)
 
         placeholder.innerHTML = responseData.markup
-        $.oc.foundation.element.removeClass(placeholder, 'loading-control')
+        $.wn.foundation.element.removeClass(placeholder, 'loading-control')
     }
 
     FormBuilder.prototype.displayControlPaletteForPlaceholder = function(element) {
-        $.oc.builder.formbuilder.controlPalette.loadControlPalette(element, this.getControlId(element))
+        $.wn.builder.formbuilder.controlPalette.loadControlPalette(element, this.getControlId(element))
     }
 
     FormBuilder.prototype.addControlFromControlPalette = function(placeholderId, controlType, controlName) {
@@ -476,7 +476,7 @@
     FormBuilder.prototype.removeControl = function($control) {
         if ($control.hasClass('inspector-open')) {
             var $inspectorContainer = this.findInspectorContainer($control)
-            $.oc.foundation.controlUtils.disposeControls($inspectorContainer.get(0))
+            $.wn.foundation.controlUtils.disposeControls($inspectorContainer.get(0))
         }
 
         var $nextControl = $control.next() // Even if the removed element was alone, there's always a placeholder element
@@ -537,7 +537,7 @@
         for (var i=children.length-1; i>=0; i--) {
             var element = children[i]
 
-            if (element.tagName === 'LI' && $.oc.foundation.element.hasClass(element, 'placeholder')) {
+            if (element.tagName === 'LI' && $.wn.foundation.element.hasClass(element, 'placeholder')) {
                 return element
             }
         }
@@ -566,7 +566,7 @@
     }
 
     FormBuilder.prototype.elementIsControl = function(element) {
-        return element.tagName === 'LI' && element.hasAttribute('data-control-type') && $.oc.foundation.element.hasClass(element, 'control')
+        return element.tagName === 'LI' && element.hasAttribute('data-control-type') && $.wn.foundation.element.hasClass(element, 'control')
     }
 
     FormBuilder.prototype.getClosestControl = function(element) {
@@ -617,7 +617,7 @@
 
             // Dragging from container over a placeholder or another control.
             // Allow the drop.
-            $.oc.foundation.event.stop(ev)
+            $.wn.foundation.event.stop(ev)
             ev.dataTransfer.dropEffect = 'move'
             return
         }
@@ -646,7 +646,7 @@
 
             // Dragging from a container over a placeholder.
             // Highlight the placeholder.
-            $.oc.foundation.element.addClass(ev.target, 'drag-over')
+            $.wn.foundation.element.addClass(ev.target, 'drag-over')
             return
         }
 
@@ -662,7 +662,7 @@
 
             // Dragging from a container over another control.
             // Highlight the other control.
-            $.oc.foundation.element.addClass(targetLi, 'drag-over')
+            $.wn.foundation.element.addClass(targetLi, 'drag-over')
 
             this.stopHighlightingTargets(targetLi, true)
 
@@ -692,7 +692,7 @@
         if (this.elementIsControl(targetLi) && this.sourceIsContainer(ev)) {
             // Dragging from a container over another control.
             // Stop highlighting the other control.
-            var mousePosition = $.oc.foundation.event.pageCoordinates(ev)
+            var mousePosition = $.wn.foundation.event.pageCoordinates(ev)
 
             if (!this.elementContainsPoint(mousePosition, targetLi)) {
                 this.stopHighlightingTargets(targetLi)
@@ -795,7 +795,7 @@
     $(document).ready(function(){
         // There is a single instance of the form builder. All operations
         // are stateless, so instance properties or DOM references are not needed.
-        $.oc.builder.formbuilder.controller = new FormBuilder()
+        $.wn.builder.formbuilder.controller = new FormBuilder()
     })
 
 }(window.jQuery);

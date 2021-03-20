@@ -1,4 +1,4 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use SystemException;
 use ApplicationException;
@@ -20,7 +20,7 @@ use Lang;
  *  - longText
  *  - float
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class MigrationColumnType extends BaseModel
@@ -140,13 +140,13 @@ class MigrationColumnType extends BaseModel
 
         if (in_array($type, self::getDecimalTypes())) {
             if (!preg_match(self::REGEX_LENGTH_DOUBLE, $value)) {
-                throw new ApplicationException(Lang::get('rainlab.builder::lang.database.error_table_decimal_length', [
+                throw new ApplicationException(Lang::get('winter.builder::lang.database.error_table_decimal_length', [
                     'type' => $type
                 ]));
             }
         } else {
             if (!preg_match(self::REGEX_LENGTH_SINGLE, $value)) {
-                throw new ApplicationException(Lang::get('rainlab.builder::lang.database.error_table_length', [
+                throw new ApplicationException(Lang::get('winter.builder::lang.database.error_table_length', [
                     'type' => $type
                 ]));
             }
@@ -174,7 +174,7 @@ class MigrationColumnType extends BaseModel
             $matches = [];
 
             if (!preg_match(self::REGEX_LENGTH_DOUBLE, $length, $matches)) {
-                throw new ApplicationException(Lang::get('rainlab.builder::lang.database.error_table_length', [
+                throw new ApplicationException(Lang::get('winter.builder::lang.database.error_table_length', [
                     'type' => $type
                 ]));
             }
@@ -187,7 +187,7 @@ class MigrationColumnType extends BaseModel
 
         if (in_array($type, self::getIntegerTypes())) {
             if (!preg_match(self::REGEX_LENGTH_SINGLE, $length)) {
-                throw new ApplicationException(Lang::get('rainlab.builder::lang.database.error_table_length', [
+                throw new ApplicationException(Lang::get('winter.builder::lang.database.error_table_length', [
                     'type' => $type
                 ]));
             }

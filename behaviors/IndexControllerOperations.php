@@ -1,8 +1,8 @@
-<?php namespace RainLab\Builder\Behaviors;
+<?php namespace Winter\Builder\Behaviors;
 
-use RainLab\Builder\Classes\IndexOperationsBehaviorBase;
-use RainLab\Builder\Classes\ControllerModel;
-use RainLab\Builder\Classes\PluginCode;
+use Winter\Builder\Classes\IndexOperationsBehaviorBase;
+use Winter\Builder\Classes\ControllerModel;
+use Winter\Builder\Classes\PluginCode;
 use ApplicationException;
 use Exception;
 use Request;
@@ -13,12 +13,12 @@ use Lang;
 /**
  * Plugin controller management functionality for the Builder index controller
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class IndexControllerOperations extends IndexOperationsBehaviorBase
 {
-    protected $baseFormConfigFile = '~/plugins/rainlab/builder/classes/controllermodel/fields.yaml';
+    protected $baseFormConfigFile = '~/plugins/winter/builder/classes/controllermodel/fields.yaml';
 
     public function onControllerOpen()
     {
@@ -93,7 +93,7 @@ class IndexControllerOperations extends IndexOperationsBehaviorBase
         $model->fill($_POST);
         $model->save();
 
-        Flash::success(Lang::get('rainlab.builder::lang.controller.saved'));
+        Flash::success(Lang::get('winter.builder::lang.controller.saved'));
 
         $result['builderResponseData'] = [];
 
@@ -108,7 +108,7 @@ class IndexControllerOperations extends IndexOperationsBehaviorBase
             'pluginCode' => $pluginCodeObj->toCode()
         ];
 
-        $this->baseFormConfigFile = '~/plugins/rainlab/builder/classes/controllermodel/new-controller-fields.yaml';
+        $this->baseFormConfigFile = '~/plugins/winter/builder/classes/controllermodel/new-controller-fields.yaml';
         $widget = $this->makeBaseFormWidget(null, $options);
 
         return $this->makePartial('create-controller-popup-form', [

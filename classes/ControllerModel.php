@@ -1,4 +1,4 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use ApplicationException;
 use Symfony\Component\Yaml\Dumper as YamlDumper;
@@ -12,7 +12,7 @@ use File;
 /**
  * Represents and manages plugin controllers.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class ControllerModel extends BaseModel
@@ -217,7 +217,7 @@ class ControllerModel extends BaseModel
 
         $controllerPath = $this->getControllerFilePath();
         if (!File::isFile($controllerPath)) {
-            throw new ApplicationException(Lang::get('rainlab.builder::lang.controller.error_controller_not_found'));
+            throw new ApplicationException(Lang::get('winter.builder::lang.controller.error_controller_not_found'));
         }
 
         if (!is_array($this->behaviors)) {
@@ -230,7 +230,7 @@ class ControllerModel extends BaseModel
 
         $behaviors = $parser->listBehaviors();
         if (!$behaviors) {
-            throw new ApplicationException(Lang::get('rainlab.builder::lang.controller.error_controller_has_no_behaviors'));
+            throw new ApplicationException(Lang::get('winter.builder::lang.controller.error_controller_has_no_behaviors'));
         }
 
         $library = ControllerBehaviorLibrary::instance();
@@ -256,7 +256,7 @@ class ControllerModel extends BaseModel
     protected function generateController()
     {
         $this->validationMessages = [
-            'controller.regex' => Lang::get('rainlab.builder::lang.controller.error_controller_name_invalid')
+            'controller.regex' => Lang::get('winter.builder::lang.controller.error_controller_name_invalid')
         ];
 
         $this->validationRules['controller'][] = 'required';
@@ -271,7 +271,7 @@ class ControllerModel extends BaseModel
     {
         $filePath = $this->getControllerFilePath();
         if (!File::isFile($filePath)) {
-            throw new ApplicationException(Lang::get('rainlab.builder::lang.controller.error_controller_not_found'));
+            throw new ApplicationException(Lang::get('winter.builder::lang.controller.error_controller_not_found'));
         }
 
         $fileContents = File::get($filePath);
@@ -280,7 +280,7 @@ class ControllerModel extends BaseModel
 
         $behaviors = $parser->listBehaviors();
         if (!$behaviors) {
-            throw new ApplicationException(Lang::get('rainlab.builder::lang.controller.error_controller_has_no_behaviors'));
+            throw new ApplicationException(Lang::get('winter.builder::lang.controller.error_controller_has_no_behaviors'));
         }
 
         $library = ControllerBehaviorLibrary::instance();
@@ -329,19 +329,19 @@ class ControllerModel extends BaseModel
             return Yaml::parse(File::get($filePath));
         }
         catch (Exception $ex) {
-            throw new ApplicationException(Lang::get('rainlab.builder::lang.controller.error_invalid_yaml_configuration', ['file'=>$fileName]));
+            throw new ApplicationException(Lang::get('winter.builder::lang.controller.error_invalid_yaml_configuration', ['file'=>$fileName]));
         }
     }
 
     protected function saveBehaviorConfiguration($fileName, $configuration, $behaviorClass)
     {
         if (!preg_match('/^[a-z0-9\.\-_]+$/i', $fileName)) {
-            throw new ApplicationException(Lang::get('rainlab.builder::lang.controller.error_invalid_config_file_name', ['file'=>$fileName, 'class'=>$behaviorClass]));
+            throw new ApplicationException(Lang::get('winter.builder::lang.controller.error_invalid_config_file_name', ['file'=>$fileName, 'class'=>$behaviorClass]));
         }
 
         $extension = pathinfo($fileName, PATHINFO_EXTENSION);
         if (strlen($extension) && $extension != 'yaml') {
-            throw new ApplicationException(Lang::get('rainlab.builder::lang.controller.error_file_not_yaml', ['file'=>$fileName, 'class'=>$behaviorClass]));
+            throw new ApplicationException(Lang::get('winter.builder::lang.controller.error_file_not_yaml', ['file'=>$fileName, 'class'=>$behaviorClass]));
         }
 
         $controllerPath = $this->getControllerFilePath(true);
@@ -350,7 +350,7 @@ class ControllerModel extends BaseModel
         $fileDirectory = dirname($filePath);
         if (!File::isDirectory($fileDirectory)) {
             if (!File::makeDirectory($fileDirectory, 0777, true, true)) {
-                throw new ApplicationException(Lang::get('rainlab.builder::lang.common.error_make_dir', ['name'=>$fileDirectory]));
+                throw new ApplicationException(Lang::get('winter.builder::lang.common.error_make_dir', ['name'=>$fileDirectory]));
             }
         }
 
@@ -363,7 +363,7 @@ class ControllerModel extends BaseModel
         }
 
         if (@File::put($filePath, $yamlData) === false) {
-            throw new ApplicationException(Lang::get('rainlab.builder::lang.yaml.save_error', ['name'=>$filePath]));
+            throw new ApplicationException(Lang::get('winter.builder::lang.yaml.save_error', ['name'=>$filePath]));
         }
 
         @File::chmod($filePath);

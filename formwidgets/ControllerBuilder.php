@@ -1,13 +1,13 @@
-<?php namespace RainLab\Builder\FormWidgets;
+<?php namespace Winter\Builder\FormWidgets;
 
 use Backend\Classes\FormWidgetBase;
-use RainLab\Builder\Classes\ControllerBehaviorLibrary;
+use Winter\Builder\Classes\ControllerBehaviorLibrary;
 use ApplicationException;
 
 /**
  * Controller builder widget.
  *
- * @package october\backend
+ * @package winter\backend
  * @author Alexey Bobkov, Samuel Georges
  */
 class ControllerBuilder extends FormWidgetBase

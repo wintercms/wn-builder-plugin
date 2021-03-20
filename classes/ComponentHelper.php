@@ -1,15 +1,15 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use Cache;
 use Input;
 use Exception;
-use October\Rain\Support\Traits\Singleton;
+use Winter\Storm\Support\Traits\Singleton;
 use ApplicationException;
 
 /**
  * Provides helper methods for Builder CMS components.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class ComponentHelper

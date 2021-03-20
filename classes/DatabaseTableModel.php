@@ -1,4 +1,4 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use Doctrine\DBAL\Types\Type;
 use ApplicationException;
@@ -14,7 +14,7 @@ use Db;
 /**
  * Manages plugin database tables.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class DatabaseTableModel extends BaseModel
@@ -96,12 +96,12 @@ class DatabaseTableModel extends BaseModel
         $prefix = $pluginDbPrefix.'_';
 
         $this->validationMessages = [
-            'name.table_prefix' => Lang::get('rainlab.builder::lang.database.error_table_name_invalid_prefix', [
+            'name.table_prefix' => Lang::get('winter.builder::lang.database.error_table_name_invalid_prefix', [
                 'prefix' => $prefix
             ]),
-            'name.regex' => Lang::get('rainlab.builder::lang.database.error_table_name_invalid_characters'),
-            'name.unique_table_name' => Lang::get('rainlab.builder::lang.database.error_table_already_exists', ['name'=>$this->name]),
-            'name.max' => Lang::get('rainlab.builder::lang.database.error_table_name_too_long')
+            'name.regex' => Lang::get('winter.builder::lang.database.error_table_name_invalid_characters'),
+            'name.unique_table_name' => Lang::get('winter.builder::lang.database.error_table_already_exists', ['name'=>$this->name]),
+            'name.max' => Lang::get('winter.builder::lang.database.error_table_name_too_long')
         ];
 
         Validator::extend('tablePrefix', function ($attribute, $value, $parameters) use ($prefix) {
@@ -190,7 +190,7 @@ class DatabaseTableModel extends BaseModel
             if (Str::length($name) > 64) {
                 throw new ValidationException([
                     'columns' => Lang::get(
-                        'rainlab.builder::lang.database.error_column_name_too_long',
+                        'winter.builder::lang.database.error_column_name_too_long',
                         ['column' => $name]
                     )
                 ]);
@@ -205,7 +205,7 @@ class DatabaseTableModel extends BaseModel
                 if ($innerIndex != $outerIndex && $innerColumn['name'] == $outerColumn['name']) {
                     throw new ValidationException([
                         'columns' => Lang::get(
-                            'rainlab.builder::lang.database.error_table_duplicate_column',
+                            'winter.builder::lang.database.error_table_duplicate_column',
                             ['column' => $outerColumn['name']]
                         )
                     ]);
@@ -230,7 +230,7 @@ class DatabaseTableModel extends BaseModel
 
         if ($keysFound > 1 && $autoIncrementsFound) {
             throw new ValidationException([
-                'columns' => Lang::get('rainlab.builder::lang.database.error_table_auto_increment_in_compound_pk')
+                'columns' => Lang::get('winter.builder::lang.database.error_table_auto_increment_in_compound_pk')
             ]);
         }
     }
@@ -245,7 +245,7 @@ class DatabaseTableModel extends BaseModel
 
             if ($autoIncrement) {
                 throw new ValidationException([
-                    'columns' => Lang::get('rainlab.builder::lang.database.error_table_mutliple_auto_increment')
+                    'columns' => Lang::get('winter.builder::lang.database.error_table_mutliple_auto_increment')
                 ]);
             }
 
@@ -258,7 +258,7 @@ class DatabaseTableModel extends BaseModel
 
         if (!in_array($autoIncrement['type'], MigrationColumnType::getIntegerTypes())) {
             throw new ValidationException([
-                'columns' => Lang::get('rainlab.builder::lang.database.error_table_auto_increment_non_integer')
+                'columns' => Lang::get('winter.builder::lang.database.error_table_auto_increment_non_integer')
             ]);
         }
     }
@@ -272,7 +272,7 @@ class DatabaseTableModel extends BaseModel
 
             if (!in_array($column['type'], MigrationColumnType::getIntegerTypes())) {
                 throw new ValidationException([
-                    'columns' => Lang::get('rainlab.builder::lang.database.error_unsigned_type_not_int', ['column'=>$column['name']])
+                    'columns' => Lang::get('winter.builder::lang.database.error_unsigned_type_not_int', ['column'=>$column['name']])
                 ]);
             }
         }
@@ -307,13 +307,13 @@ class DatabaseTableModel extends BaseModel
             if (in_array($column['type'], MigrationColumnType::getIntegerTypes())) {
                 if (!preg_match('/^\-?[0-9]+$/', $default)) {
                     throw new ValidationException([
-                        'columns' => Lang::get('rainlab.builder::lang.database.error_integer_default_value', ['column'=>$column['name']])
+                        'columns' => Lang::get('winter.builder::lang.database.error_integer_default_value', ['column'=>$column['name']])
                     ]);
                 }
 
                 if ($column['unsigned'] && $default < 0) {
                     throw new ValidationException([
-                        'columns' => Lang::get('rainlab.builder::lang.database.error_unsigned_negative_value', ['column'=>$column['name']])
+                        'columns' => Lang::get('winter.builder::lang.database.error_unsigned_negative_value', ['column'=>$column['name']])
                     ]);
                 }
 
@@ -323,7 +323,7 @@ class DatabaseTableModel extends BaseModel
             if (in_array($column['type'], MigrationColumnType::getDecimalTypes())) {
                 if (!preg_match('/^\-?([0-9]+\.[0-9]+|[0-9]+)$/', $default)) {
                     throw new ValidationException([
-                        'columns' => Lang::get('rainlab.builder::lang.database.error_decimal_default_value', ['column'=>$column['name']])
+                        'columns' => Lang::get('winter.builder::lang.database.error_decimal_default_value', ['column'=>$column['name']])
                     ]);
                 }
 
@@ -333,7 +333,7 @@ class DatabaseTableModel extends BaseModel
             if ($column['type'] == MigrationColumnType::TYPE_BOOLEAN) {
                 if (!preg_match('/^0|1|true|false$/i', $default)) {
                     throw new ValidationException([
-                        'columns' => Lang::get('rainlab.builder::lang.database.error_boolean_default_value', ['column'=>$column['name']])
+                        'columns' => Lang::get('winter.builder::lang.database.error_boolean_default_value', ['column'=>$column['name']])
                     ]);
                 }
             }
@@ -345,7 +345,7 @@ class DatabaseTableModel extends BaseModel
         if (!self::$schemaManager) {
             self::$schemaManager = Schema::getConnection()->getDoctrineSchemaManager();
 
-            Type::addType('enumdbtype', 'RainLab\Builder\Classes\EnumDbType');
+            Type::addType('enumdbtype', 'Winter\Builder\Classes\EnumDbType');
 
             // Fixes the problem with enum column type not supported
             // by Doctrine (https://github.com/laravel/framework/issues/1346)
@@ -373,7 +373,7 @@ class DatabaseTableModel extends BaseModel
             $typeName = $column->getType()->getName();
 
             if ($typeName == EnumDbType::TYPENAME) {
-                throw new ApplicationException(Lang::get('rainlab.builder::lang.database.error_enum_not_supported'));
+                throw new ApplicationException(Lang::get('winter.builder::lang.database.error_enum_not_supported'));
             }
 
             $item = [

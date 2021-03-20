@@ -3,13 +3,13 @@
  */
 +function ($) { "use strict";
 
-    if ($.oc.builder === undefined)
-        $.oc.builder = {}
+    if ($.wn.builder === undefined)
+        $.wn.builder = {}
 
-    if ($.oc.builder.entityControllers === undefined)
-        $.oc.builder.entityControllers = {}
+    if ($.wn.builder.entityControllers === undefined)
+        $.wn.builder.entityControllers = {}
 
-    var Base = $.oc.builder.entityControllers.base,
+    var Base = $.wn.builder.entityControllers.base,
         BaseProto = Base.prototype
 
     var Version = function(indexController) {
@@ -53,7 +53,7 @@
 
     Version.prototype.cmdDeleteVersion = function(ev) {
         var $target = $(ev.currentTarget)
-        $.oc.confirm($target.data('confirm'), this.proxy(this.deleteConfirmed))
+        $.wn.confirm($target.data('confirm'), this.proxy(this.deleteConfirmed))
     }
 
     Version.prototype.cmdApplyVersion = function(ev) {
@@ -186,9 +186,9 @@
         var $masterTabPane = this.getMasterTabsActivePane(),
             $form = $masterTabPane.find('form')
 
-        $.oc.stripeLoadIndicator.show()
+        $.wn.stripeLoadIndicator.show()
         $form.request('onVersionDelete').always(
-            $.oc.builder.indexController.hideStripeIndicatorProxy
+            $.wn.builder.indexController.hideStripeIndicatorProxy
         ).done(
             this.proxy(this.deleteDone)
         )
@@ -267,6 +267,6 @@
     // REGISTRATION
     // ============================
 
-    $.oc.builder.entityControllers.version = Version;
+    $.wn.builder.entityControllers.version = Version;
 
 }(window.jQuery);

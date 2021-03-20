@@ -3,10 +3,10 @@
  */
 +function ($) { "use strict";
 
-    if ($.oc.builder === undefined)
-        $.oc.builder = {}
+    if ($.wn.builder === undefined)
+        $.wn.builder = {}
 
-    var Base = $.oc.foundation.base,
+    var Base = $.wn.foundation.base,
         BaseProto = Base.prototype
 
     var LocalizationInput = function(input, form, options) {
@@ -87,7 +87,7 @@
     LocalizationInput.prototype.loadDataAndBuild = function() {
         this.showLoadingIndicator()
 
-        var result = $.oc.builder.dataRegistry.get(this.form, this.options.plugin, 'localization', null, this.proxy(this.dataLoaded)),
+        var result = $.wn.builder.dataRegistry.get(this.form, this.options.plugin, 'localization', null, this.proxy(this.dataLoaded)),
             self = this
 
         if (result) {
@@ -98,7 +98,7 @@
     }
 
     LocalizationInput.prototype.reload = function() {
-        $.oc.builder.dataRegistry.get(this.form, this.options.plugin, 'localization', null, this.proxy(this.dataLoaded))
+        $.wn.builder.dataRegistry.get(this.form, this.options.plugin, 'localization', null, this.proxy(this.dataLoaded))
     }
 
     LocalizationInput.prototype.dataLoaded = function(data) {
@@ -163,12 +163,12 @@
 
     LocalizationInput.prototype.loadAndShowPopup = function() {
         if (this.newStringPopupMarkup === null) {
-            $.oc.stripeLoadIndicator.show()
+            $.wn.stripeLoadIndicator.show()
             $(this.input).request('onLanguageLoadAddStringForm')
                 .done(
                     this.proxy(this.popupMarkupLoaded)
                 ).always(function(){
-                    $.oc.stripeLoadIndicator.hide()
+                    $.wn.stripeLoadIndicator.hide()
                 })
         }
         else {
@@ -192,7 +192,7 @@
         var $content = $input.data('oc.popup').$content,
             $keyInput = $content.find('#language_string_key')
 
-        $.oc.builder.dataRegistry.get(this.form, this.options.plugin, 'localization', 'sections', function(data){
+        $.wn.builder.dataRegistry.get(this.form, this.options.plugin, 'localization', 'sections', function(data){
             $keyInput.autocomplete({
                 source: data,
                 matchWidth: true
@@ -211,8 +211,8 @@
 
         $input.val(data.localizationData.key)
 
-        $.oc.builder.dataRegistry.set(this.options.plugin, 'localization', null, data.registryData.strings)
-        $.oc.builder.dataRegistry.set(this.options.plugin, 'localization', 'sections', data.registryData.sections)
+        $.wn.builder.dataRegistry.set(this.options.plugin, 'localization', null, data.registryData.strings)
+        $.wn.builder.dataRegistry.set(this.options.plugin, 'localization', 'sections', data.registryData.sections)
 
         $input.data('oc.popup').hide()
 
@@ -222,7 +222,7 @@
     LocalizationInput.prototype.onSubmitPopupForm = function(ev) {
         var $form = $(ev.target)
 
-        $.oc.stripeLoadIndicator.show()
+        $.wn.stripeLoadIndicator.show()
         $form.request('onLanguageCreateString', {
             data: {
                 plugin_code: this.options.plugin
@@ -231,7 +231,7 @@
         .done(
             this.proxy(this.stringCreated)
         ).always(function(){
-            $.oc.stripeLoadIndicator.hide()
+            $.wn.stripeLoadIndicator.hide()
         })
 
         ev.preventDefault()
@@ -294,6 +294,6 @@
         afterPopupHideCallback: null
     }
 
-    $.oc.builder.localizationInput = LocalizationInput
+    $.wn.builder.localizationInput = LocalizationInput
 
 }(window.jQuery);

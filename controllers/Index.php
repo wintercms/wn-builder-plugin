@@ -1,13 +1,13 @@
-<?php namespace RainLab\Builder\Controllers;
+<?php namespace Winter\Builder\Controllers;
 
 use Backend\Classes\Controller;
 use Backend\Traits\InspectableContainer;
-use RainLab\Builder\Widgets\PluginList;
-use RainLab\Builder\Widgets\DatabaseTableList;
-use RainLab\Builder\Widgets\ModelList;
-use RainLab\Builder\Widgets\VersionList;
-use RainLab\Builder\Widgets\LanguageList;
-use RainLab\Builder\Widgets\ControllerList;
+use Winter\Builder\Widgets\PluginList;
+use Winter\Builder\Widgets\DatabaseTableList;
+use Winter\Builder\Widgets\ModelList;
+use Winter\Builder\Widgets\VersionList;
+use Winter\Builder\Widgets\LanguageList;
+use Winter\Builder\Widgets\ControllerList;
 use Backend;
 use BackendMenu;
 use Config;
@@ -15,7 +15,7 @@ use Config;
 /**
  * Builder index controller
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class Index extends Controller
@@ -23,20 +23,20 @@ class Index extends Controller
     use InspectableContainer;
 
     public $implement = [
-        'RainLab.Builder.Behaviors.IndexPluginOperations',
-        'RainLab.Builder.Behaviors.IndexDatabaseTableOperations',
-        'RainLab.Builder.Behaviors.IndexModelOperations',
-        'RainLab.Builder.Behaviors.IndexModelFormOperations',
-        'RainLab.Builder.Behaviors.IndexModelListOperations',
-        'RainLab.Builder.Behaviors.IndexPermissionsOperations',
-        'RainLab.Builder.Behaviors.IndexMenusOperations',
-        'RainLab.Builder.Behaviors.IndexVersionsOperations',
-        'RainLab.Builder.Behaviors.IndexLocalizationOperations',
-        'RainLab.Builder.Behaviors.IndexControllerOperations',
-        'RainLab.Builder.Behaviors.IndexDataRegistry'
+        'Winter.Builder.Behaviors.IndexPluginOperations',
+        'Winter.Builder.Behaviors.IndexDatabaseTableOperations',
+        'Winter.Builder.Behaviors.IndexModelOperations',
+        'Winter.Builder.Behaviors.IndexModelFormOperations',
+        'Winter.Builder.Behaviors.IndexModelListOperations',
+        'Winter.Builder.Behaviors.IndexPermissionsOperations',
+        'Winter.Builder.Behaviors.IndexMenusOperations',
+        'Winter.Builder.Behaviors.IndexVersionsOperations',
+        'Winter.Builder.Behaviors.IndexLocalizationOperations',
+        'Winter.Builder.Behaviors.IndexControllerOperations',
+        'Winter.Builder.Behaviors.IndexDataRegistry'
     ];
 
-    public $requiredPermissions = ['rainlab.builder.manage_plugins'];
+    public $requiredPermissions = ['winter.builder.manage_plugins'];
 
     /**
      * Constructor.
@@ -45,10 +45,10 @@ class Index extends Controller
     {
         parent::__construct();
 
-        BackendMenu::setContext('RainLab.Builder', 'builder', 'database');
+        BackendMenu::setContext('Winter.Builder', 'builder', 'database');
 
         $this->bodyClass = 'compact-container';
-        $this->pageTitle = 'rainlab.builder::lang.plugin.name';
+        $this->pageTitle = 'winter.builder::lang.plugin.name';
 
         new PluginList($this, 'pluginList');
         new DatabaseTableList($this, 'databaseTabelList');
@@ -60,20 +60,20 @@ class Index extends Controller
 
     public function index()
     {
-        $this->addCss('/plugins/rainlab/builder/assets/css/builder.css', 'RainLab.Builder');
+        $this->addCss('/plugins/winter/builder/assets/css/builder.css', 'Winter.Builder');
 
         // The table widget scripts should be preloaded
         $this->addJs('/modules/backend/widgets/table/assets/js/build-min.js', 'core');
 
         if (Config::get('develop.decompileBackendAssets', false)) {
-            // Allow decompiled backend assets for RainLab Builder
-            $assets = Backend::decompileAsset('../../plugins/rainlab/builder/assets/js/build.js', true);
+            // Allow decompiled backend assets for Winter Builder
+            $assets = Backend::decompileAsset('../../plugins/winter/builder/assets/js/build.js', true);
 
             foreach ($assets as $asset) {
-                $this->addJs($asset, 'RainLab.Builder');
+                $this->addJs($asset, 'Winter.Builder');
             }
         } else {
-            $this->addJs('/plugins/rainlab/builder/assets/js/build-min.js', 'RainLab.Builder');
+            $this->addJs('/plugins/winter/builder/assets/js/build-min.js', 'Winter.Builder');
         }
 
         $this->pageTitleTemplate = '%s Builder';

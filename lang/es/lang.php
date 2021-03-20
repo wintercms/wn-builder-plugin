@@ -3,7 +3,7 @@
 return [
     'plugin' => [
         'name' => 'Builder',
-        'description' => 'Proporciona herramientas visuales para la construcción de plugins de October.',
+        'description' => 'Proporciona herramientas visuales para la construcción de plugins de Winter CMS.',
         'add' => 'Crear plugin',
         'no_records' => 'No se encuentran plugins',
         'no_name' => 'Sin nombre',
@@ -574,7 +574,7 @@ return [
     ],
     'common' => [
         'error_file_exists' => "El archivo ya existe: ':path'.",
-        'field_icon_description' => 'October usa Font Autumn icons: http://octobercms.com/docs/ui/icon',
+        'field_icon_description' => 'Winter CMS usa Font Autumn icons: http://octobercms.com/docs/ui/icon',
         'destination_dir_not_exists' => "El directorio de destino no existe: ':path'.",
         'error_make_dir' => "Error al crear directorio: ':name'.",
         'error_dir_exists' => "El directorio ya existe!: ':path'.",

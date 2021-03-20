@@ -1,8 +1,8 @@
 {
-    "name": "rainlab/builder-plugin",
-    "type": "october-plugin",
-    "description": "Builder plugin for October CMS",
-    "homepage": "https://octobercms.com/plugin/rainlab-builder",
+    "name": "winter/builder-plugin",
+    "type": "winter-plugin",
+    "description": "Builder plugin for Winter CMS",
+    "homepage": "https://github.com/wintercms/wn-builder-plugin",
     "keywords": ["october", "octobercms", "builder"],
     "license": "MIT",
     "authors": [
@@ -23,6 +23,9 @@
     },
     "require-dev": {
       "phpunit/phpunit": "~4.0"
+    },
+    "extra": {
+        "installer-name": "builder"
     },
     "minimum-stability": "dev"
 }

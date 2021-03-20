@@ -11,7 +11,7 @@
                         <?php if (strlen(trans($plugin['description']))): ?>
                             <span data-localization-key="<?= e($plugin['description']) ?>" data-plugin="<?= e($code) ?>"><?= e(trans($plugin['description'])) ?></span>
                         <?php else: ?>
-                            <span data-localization-key="<?= e($plugin['description']) ?>" data-plugin="<?= e($code) ?>"><?= e(trans('rainlab.builder::lang.plugin.no_description')) ?></span>
+                            <span data-localization-key="<?= e($plugin['description']) ?>" data-plugin="<?= e($code) ?>"><?= e(trans('winter.builder::lang.plugin.no_description')) ?></span>
                         <?php endif ?>
                     </span>
 
@@ -22,10 +22,10 @@
                     <a
                         href="javascript:;"
                         class="control icon btn-primary oc-icon-cog" 
-                        title="<?= e(trans('rainlab.builder::lang.plugin.settings')) ?>"
+                        title="<?= e(trans('winter.builder::lang.plugin.settings')) ?>"
                         data-builder-command="plugin:cmdEditPluginSettings"
                         data-plugin-code="<?= e($code) ?>"
-                    ><?= e(trans('rainlab.builder::lang.plugin.settings')) ?></a>
+                    ><?= e(trans('winter.builder::lang.plugin.settings')) ?></a>
                 </div>
             </li>
         <?php endforeach ?>

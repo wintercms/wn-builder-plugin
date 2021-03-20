@@ -3,11 +3,11 @@
  */
 +function ($) { "use strict";
 
-    if ($.oc.builder === undefined)
-        $.oc.builder = {}
+    if ($.wn.builder === undefined)
+        $.wn.builder = {}
 
-    if ($.oc.builder.formbuilder === undefined)
-        $.oc.builder.formbuilder = {}
+    if ($.wn.builder.formbuilder === undefined)
+        $.wn.builder.formbuilder = {}
 
     function getControlPropertyValues(item)  {
         for (var i=0, len=item.children.length; i<len; i++) {
@@ -140,7 +140,7 @@
 
             /*
              The check is disabled, because repeaters don't have list names. --ab Aug 7, 2016
-             See https://github.com/rainlab/builder-plugin/issues/74
+             See https://github.com/wintercms/wn-builder-plugin/issues/74
 
             if (currentListName.length === 0 || (listName !== null && currentListName != listName)) {
                 throw new Error('Lists in control list containers should have names, and the name should be equal for all lists in a container.')
@@ -184,11 +184,11 @@
         }
 
         var controlLists = getControlListContainerLists(container),
-            globalTabsProperties = $.oc.builder.formbuilder.tabManager.getGlobalTabsProperties(container)
+            globalTabsProperties = $.wn.builder.formbuilder.tabManager.getGlobalTabsProperties(container)
 
         for (var i=0, len=controlLists.length; i<len; i++) {
             var controlList = controlLists[i],
-                tabTitle = $.oc.builder.formbuilder.tabManager.getElementTabTitle(controlList),
+                tabTitle = $.wn.builder.formbuilder.tabManager.getElementTabTitle(controlList),
                 injectProperties = {
                     tab: tabTitle
                 },
@@ -325,6 +325,6 @@
     }
 
 
-    $.oc.builder.formbuilder.domToPropertyJson = DomToJson
+    $.wn.builder.formbuilder.domToPropertyJson = DomToJson
 
 }(window.jQuery);

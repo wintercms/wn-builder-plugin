@@ -1,7 +1,7 @@
-<?php namespace RainLab\Builder\Behaviors;
+<?php namespace Winter\Builder\Behaviors;
 
-use RainLab\Builder\Classes\IndexOperationsBehaviorBase;
-use RainLab\Builder\Classes\PluginBaseModel;
+use Winter\Builder\Classes\IndexOperationsBehaviorBase;
+use Winter\Builder\Classes\PluginBaseModel;
 use Backend\Behaviors\FormController;
 use ApplicationException;
 use Exception;
@@ -10,12 +10,12 @@ use Input;
 /**
  * Plugin management functionality for the Builder index controller
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class IndexPluginOperations extends IndexOperationsBehaviorBase
 {
-    protected $baseFormConfigFile = '~/plugins/rainlab/builder/classes/pluginbasemodel/fields.yaml';
+    protected $baseFormConfigFile = '~/plugins/winter/builder/classes/pluginbasemodel/fields.yaml';
 
     public function onPluginLoadPopup()
     {

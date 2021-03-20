@@ -1,42 +1,43 @@
-<?php namespace RainLab\Builder;
+<?php namespace Winter\Builder;
 
 use Event;
 use Lang;
 use Backend;
 use System\Classes\PluginBase;
 use System\Classes\CombineAssets;
-use RainLab\Builder\Classes\StandardControlsRegistry;
-use RainLab\Builder\Classes\StandardBehaviorsRegistry;
+use Winter\Builder\Classes\StandardControlsRegistry;
+use Winter\Builder\Classes\StandardBehaviorsRegistry;
 use Illuminate\Support\Facades\Validator;
-use RainLab\Builder\Rules\Reserved;
+use Winter\Builder\Rules\Reserved;
 
 class Plugin extends PluginBase
 {
     public function pluginDetails()
     {
         return [
-            'name'        => 'rainlab.builder::lang.plugin.name',
-            'description' => 'rainlab.builder::lang.plugin.description',
+            'name'        => 'winter.builder::lang.plugin.name',
+            'description' => 'winter.builder::lang.plugin.description',
             'author'      => 'Alexey Bobkov, Samuel Georges',
             'icon'        => 'icon-wrench',
-            'homepage'    => 'https://github.com/rainlab/builder-plugin'
+            'homepage'    => 'https://github.com/wintercms/wn-builder-plugin',
+            'replaces'    => 'RainLab.Builder'
         ];
     }
 
     public function registerComponents()
     {
         return [
-            'RainLab\Builder\Components\RecordList'       => 'builderList',
-            'RainLab\Builder\Components\RecordDetails'    => 'builderDetails'
+            'Winter\Builder\Components\RecordList'       => 'builderList',
+            'Winter\Builder\Components\RecordDetails'    => 'builderDetails'
         ];
     }
 
     public function registerPermissions()
     {
         return [
-            'rainlab.builder.manage_plugins' => [
-                'tab' => 'rainlab.builder::lang.plugin.name',
-                'label' => 'rainlab.builder::lang.plugin.manage_plugins']
+            'winter.builder.manage_plugins' => [
+                'tab' => 'winter.builder::lang.plugin.name',
+                'label' => 'winter.builder::lang.plugin.manage_plugins']
         ];
     }
 
@@ -44,62 +45,62 @@ class Plugin extends PluginBase
     {
         return [
             'builder' => [
-                'label'       => 'rainlab.builder::lang.plugin.name',
-                'url'         => Backend::url('rainlab/builder'),
+                'label'       => 'winter.builder::lang.plugin.name',
+                'url'         => Backend::url('winter/builder'),
                 'icon'        => 'icon-wrench',
-                'iconSvg'     => 'plugins/rainlab/builder/assets/images/builder-icon.svg',
-                'permissions' => ['rainlab.builder.manage_plugins'],
+                'iconSvg'     => 'plugins/winter/builder/assets/images/builder-icon.svg',
+                'permissions' => ['winter.builder.manage_plugins'],
                 'order'       => 400,
 
                 'sideMenu' => [
                     'database' => [
-                        'label'       => 'rainlab.builder::lang.database.menu_label',
+                        'label'       => 'winter.builder::lang.database.menu_label',
                         'icon'        => 'icon-hdd-o',
                         'url'         => 'javascript:;',
                         'attributes'  => ['data-menu-item'=>'database'],
-                        'permissions' => ['rainlab.builder.manage_plugins']
+                        'permissions' => ['winter.builder.manage_plugins']
                     ],
                     'models' => [
-                        'label'       => 'rainlab.builder::lang.model.menu_label',
+                        'label'       => 'winter.builder::lang.model.menu_label',
                         'icon'        => 'icon-random',
                         'url'         => 'javascript:;',
                         'attributes'  => ['data-menu-item'=>'models'],
-                        'permissions' => ['rainlab.builder.manage_plugins']
+                        'permissions' => ['winter.builder.manage_plugins']
                     ],
                     'permissions' => [
-                        'label'       => 'rainlab.builder::lang.permission.menu_label',
+                        'label'       => 'winter.builder::lang.permission.menu_label',
                         'icon'        => 'icon-unlock-alt',
                         'url'         => '#',
                         'attributes'  => ['data-no-side-panel'=>'true', 'data-builder-command'=>'permission:cmdOpenPermissions', 'data-menu-item'=>'permissions'],
-                        'permissions' => ['rainlab.builder.manage_plugins']
+                        'permissions' => ['winter.builder.manage_plugins']
                     ],
                     'menus' => [
-                        'label'       => 'rainlab.builder::lang.menu.menu_label',
+                        'label'       => 'winter.builder::lang.menu.menu_label',
                         'icon'        => 'icon-location-arrow',
                         'url'         => 'javascript:;',
                         'attributes'  => ['data-no-side-panel'=>'true', 'data-builder-command'=>'menus:cmdOpenMenus', 'data-menu-item'=>'menus'],
-                        'permissions' => ['rainlab.builder.manage_plugins']
+                        'permissions' => ['winter.builder.manage_plugins']
                     ],
                     'controllers' => [
-                        'label'       => 'rainlab.builder::lang.controller.menu_label',
+                        'label'       => 'winter.builder::lang.controller.menu_label',
                         'icon'        => 'icon-asterisk',
                         'url'         => 'javascript:;',
                         'attributes'  => ['data-menu-item'=>'controllers'],
-                        'permissions' => ['rainlab.builder.manage_plugins']
+                        'permissions' => ['winter.builder.manage_plugins']
                     ],
                     'versions' => [
-                        'label'       => 'rainlab.builder::lang.version.menu_label',
+                        'label'       => 'winter.builder::lang.version.menu_label',
                         'icon'        => 'icon-code-fork',
                         'url'         => 'javascript:;',
                         'attributes'  => ['data-menu-item'=>'version'],
-                        'permissions' => ['rainlab.builder.manage_plugins']
+                        'permissions' => ['winter.builder.manage_plugins']
                     ],
                     'localization' => [
-                        'label'       => 'rainlab.builder::lang.localization.menu_label',
+                        'label'       => 'winter.builder::lang.localization.menu_label',
                         'icon'        => 'icon-globe',
                         'url'         => 'javascript:;',
                         'attributes'  => ['data-menu-item'=>'localization'],
-                        'permissions' => ['rainlab.builder.manage_plugins']
+                        'permissions' => ['winter.builder.manage_plugins']
                     ]
                 ]
 
@@ -114,8 +115,8 @@ class Plugin extends PluginBase
                 'label'       => 'Builder',
                 'icon'        => 'icon-wrench',
                 'description' => 'Set your author name and namespace for plugin creation.',
-                'class'       => 'RainLab\Builder\Models\Settings',
-                'permissions' => ['rainlab.builder.manage_plugins'],
+                'class'       => 'Winter\Builder\Models\Settings',
+                'permissions' => ['winter.builder.manage_plugins'],
                 'order'       => 600
             ]
         ];
@@ -134,7 +135,7 @@ class Plugin extends PluginBase
         // Register reserved keyword validation
         Event::listen('translator.beforeResolve', function ($key, $replaces, $locale) {
             if ($key === 'validation.reserved') {
-                return Lang::get('rainlab.builder::lang.validation.reserved');
+                return Lang::get('winter.builder::lang.validation.reserved');
             }
         });
 
@@ -151,7 +152,7 @@ class Plugin extends PluginBase
          * Register asset bundles
          */
         CombineAssets::registerCallback(function ($combiner) {
-            $combiner->registerBundle('$/rainlab/builder/assets/js/build.js');
+            $combiner->registerBundle('$/winter/builder/assets/js/build.js');
         });
     }
 }

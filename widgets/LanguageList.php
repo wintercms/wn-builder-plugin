@@ -1,21 +1,21 @@
-<?php namespace RainLab\Builder\Widgets;
+<?php namespace Winter\Builder\Widgets;
 
 use Str;
 use Input;
 use Backend\Classes\WidgetBase;
-use RainLab\Builder\Classes\LocalizationModel;
+use Winter\Builder\Classes\LocalizationModel;
 
 /**
  * Plugin language list widget.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class LanguageList extends WidgetBase
 {
     use \Backend\Traits\SearchableWidget;
 
-    public $noRecordsMessage = 'rainlab.builder::lang.localization.no_records';
+    public $noRecordsMessage = 'winter.builder::lang.localization.no_records';
 
     public function __construct($controller, $alias)
     {

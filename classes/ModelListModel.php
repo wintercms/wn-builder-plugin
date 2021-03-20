@@ -1,4 +1,4 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use ApplicationException;
 use SystemException;
@@ -8,7 +8,7 @@ use Lang;
 /**
  * Represents and manages model lists.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class ModelListModel extends ModelYamlModel
@@ -82,7 +82,7 @@ class ModelListModel extends ModelYamlModel
                 if ($innerIndex != $outerIndex && $innerColumn['field'] == $outerColumn['field']) {
                     throw new ValidationException([
                         'columns' => Lang::get(
-                            'rainlab.builder::lang.list.error_duplicate_column',
+                            'winter.builder::lang.list.error_duplicate_column',
                             ['column' => $outerColumn['field']]
                         )
                     ]);

@@ -1,21 +1,21 @@
-<?php namespace RainLab\Builder\Widgets;
+<?php namespace Winter\Builder\Widgets;
 
 use Str;
 use Input;
 use Backend\Classes\WidgetBase;
-use RainLab\Builder\Classes\ControllerModel;
+use Winter\Builder\Classes\ControllerModel;
 
 /**
  * Plugin controller list widget.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class ControllerList extends WidgetBase
 {
     use \Backend\Traits\SearchableWidget;
 
-    public $noRecordsMessage = 'rainlab.builder::lang.controller.no_records';
+    public $noRecordsMessage = 'winter.builder::lang.controller.no_records';
 
     public function __construct($controller, $alias)
     {

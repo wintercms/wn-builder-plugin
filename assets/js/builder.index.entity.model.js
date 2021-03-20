@@ -3,13 +3,13 @@
  */
 +function ($) { "use strict";
 
-    if ($.oc.builder === undefined)
-        $.oc.builder = {}
+    if ($.wn.builder === undefined)
+        $.wn.builder = {}
 
-    if ($.oc.builder.entityControllers === undefined)
-        $.oc.builder.entityControllers = {}
+    if ($.wn.builder.entityControllers === undefined)
+        $.wn.builder.entityControllers = {}
 
-    var Base = $.oc.builder.entityControllers.base,
+    var Base = $.wn.builder.entityControllers.base,
         BaseProto = Base.prototype
 
     var Model = function(indexController) {
@@ -36,9 +36,9 @@
         var $form = $(ev.currentTarget),
             self = this
 
-        $.oc.stripeLoadIndicator.show()
+        $.wn.stripeLoadIndicator.show()
         $form.request('onModelSave').always(
-            $.oc.builder.indexController.hideStripeIndicatorProxy
+            $.wn.builder.indexController.hideStripeIndicatorProxy
         ).done(function(data){
             $form.trigger('close.oc.popup')
 
@@ -60,13 +60,13 @@
         if (data.builderResponseData.registryData !== undefined) {
             var registryData = data.builderResponseData.registryData
 
-            $.oc.builder.dataRegistry.set(registryData.pluginCode, 'model-classes', null, registryData.models)
+            $.wn.builder.dataRegistry.set(registryData.pluginCode, 'model-classes', null, registryData.models)
         }
     }
 
     // REGISTRATION
     // ============================
 
-    $.oc.builder.entityControllers.model = Model;
+    $.wn.builder.entityControllers.model = Model;
 
 }(window.jQuery);

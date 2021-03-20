@@ -3,10 +3,10 @@
  */
 +function ($) { "use strict";
 
-    if ($.oc.builder === undefined)
-        $.oc.builder = {}
+    if ($.wn.builder === undefined)
+        $.wn.builder = {}
 
-    var Base = $.oc.foundation.base,
+    var Base = $.wn.foundation.base,
         BaseProto = Base.prototype
 
     var Builder = function() {
@@ -39,7 +39,7 @@
 
         var requestData = data === undefined ? {} : data
 
-        $.oc.stripeLoadIndicator.show()
+        $.wn.stripeLoadIndicator.show()
         var promise = $form.request(
                 serverHandlerName, 
                 { data: requestData }
@@ -84,19 +84,19 @@
 
         this.masterTabsObj = this.$masterTabs.data('oc.tab')
         this.hideStripeIndicatorProxy = this.proxy(this.hideStripeIndicator)
-        new $.oc.tabFormExpandControls(this.$masterTabs)
+        new $.wn.tabFormExpandControls(this.$masterTabs)
 
         this.createEntityControllers()
         this.registerHandlers()
     }
 
     Builder.prototype.createEntityControllers = function() {
-        for (var controller in $.oc.builder.entityControllers) {
+        for (var controller in $.wn.builder.entityControllers) {
             if (controller == "base") {
                 continue
             }
 
-            this.entityControllers[controller] = new $.oc.builder.entityControllers[controller](this)
+            this.entityControllers[controller] = new $.wn.builder.entityControllers[controller](this)
         }
     }
 
@@ -120,7 +120,7 @@
     }
 
     Builder.prototype.hideStripeIndicator = function() {
-        $.oc.stripeLoadIndicator.hide()
+        $.wn.stripeLoadIndicator.hide()
     }
 
     Builder.prototype.addMasterTab = function(data) {
@@ -150,7 +150,7 @@
         })
 
         $.each(counters, function(type, data){
-            $.oc.sideNav.setCounter('builder/' + data.menu, data.count);
+            $.wn.sideNav.setCounter('builder/' + data.menu, data.count);
         })
     }
 
@@ -167,7 +167,7 @@
     }
 
     Builder.prototype.setPageTitle = function(title) {
-        $.oc.layout.setPageTitle(title.length ? (title + ' | ') : title)
+        $.wn.layout.setPageTitle(title.length ? (title + ' | ') : title)
     }
 
     Builder.prototype.getFileLists = function() {
@@ -276,7 +276,7 @@
                 subtype = data.values[subtypeProperty]
             }
 
-            $.oc.builder.dataRegistry.get($(ev.target), this.getFormPluginCode(ev.target), data.propertyDefinition.fillFrom, subtype, function(response){
+            $.wn.builder.dataRegistry.get($(ev.target), this.getFormPluginCode(ev.target), data.propertyDefinition.fillFrom, subtype, function(response){
                 data.callback({
                     options: self.dataToInspectorArray(response)
                 })
@@ -288,7 +288,7 @@
     // ============================
 
     $(document).ready(function(){
-        $.oc.builder.indexController = new Builder()
+        $.wn.builder.indexController = new Builder()
     })
 
 }(window.jQuery);

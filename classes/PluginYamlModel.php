@@ -1,4 +1,4 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use ApplicationException;
 use Lang;
@@ -7,7 +7,7 @@ use File;
 /**
  * A base class for models that keep data in the plugin.yaml file.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 abstract class PluginYamlModel extends YamlModel
@@ -20,7 +20,7 @@ abstract class PluginYamlModel extends YamlModel
 
         $filePath = self::pluginSettingsFileExists($pluginCodeObj);
         if ($filePath === false) {
-            throw new ApplicationException(Lang::get('rainlab.builder::lang.plugin.error_settings_not_editable'));
+            throw new ApplicationException(Lang::get('winter.builder::lang.plugin.error_settings_not_editable'));
         }
 
         $this->initPropertiesFromPluginCodeObject($pluginCodeObj);

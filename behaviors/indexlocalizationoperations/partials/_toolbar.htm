@@ -15,13 +15,13 @@
         data-handler="onLanguageShowCopyStringsPopup"
         data-stripe-load-indicator
     >
-        <?= e(trans('rainlab.builder::lang.localization.add_missing_strings')) ?>
+        <?= e(trans('winter.builder::lang.localization.add_missing_strings')) ?>
     </a>
     
     <button
         type="button"
         class="btn btn-default empty oc-icon-trash-o <?php if (!strlen($originalLanguage)): ?>hide<?php endif ?>"
         data-builder-command="localization:cmdDeleteLanguage"
-        data-confirm="<?= e(trans('rainlab.builder::lang.localization.confirm_delete')) ?>"
+        data-confirm="<?= e(trans('winter.builder::lang.localization.confirm_delete')) ?>"
         data-control="delete-button"></button>
 </div>

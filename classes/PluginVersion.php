@@ -1,4 +1,4 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use SystemException;
 use File;
@@ -7,7 +7,7 @@ use Yaml;
 /**
  * Helper class for managing plugin versions
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class PluginVersion extends BaseModel

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="October CMS Plugins">
-    <description>The coding standard for October CMS Plugins.</description>
+<ruleset name="Winter CMS Plugins">
+    <description>The coding standard for Winter CMS Plugins.</description>
     <rule ref="PSR2">
         <!--
         Exceptions to the PSR-2 guidelines as per our Developer Guide:

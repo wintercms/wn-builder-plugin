@@ -1,22 +1,22 @@
-<?php namespace RainLab\Builder\Widgets;
+<?php namespace Winter\Builder\Widgets;
 
 use Str;
 use Input;
 use Backend\Classes\WidgetBase;
-use RainLab\Builder\Classes\PluginVersion;
+use Winter\Builder\Classes\PluginVersion;
 use System\Classes\VersionManager;
 
 /**
  * Plugin version list widget.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class VersionList extends WidgetBase
 {
     use \Backend\Traits\SearchableWidget;
 
-    public $noRecordsMessage = 'rainlab.builder::lang.version.no_records';
+    public $noRecordsMessage = 'winter.builder::lang.version.no_records';
 
     public function __construct($controller, $alias)
     {

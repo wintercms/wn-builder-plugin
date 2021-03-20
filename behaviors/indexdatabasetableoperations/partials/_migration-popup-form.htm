@@ -4,7 +4,7 @@
 ]) ?>
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="popup">&times;</button>
-        <h4 class="modal-title"><?= e(trans('rainlab.builder::lang.migration.entity_name')) ?></h4>
+        <h4 class="modal-title"><?= e(trans('winter.builder::lang.migration.entity_name')) ?></h4>
     </div>
 
     <?php if (!isset($noChanges)): ?>
@@ -15,7 +15,7 @@
             <button
                 type="submit"
                 class="btn btn-primary">
-                <?= e(trans('rainlab.builder::lang.migration.save_and_apply')) ?>
+                <?= e(trans('winter.builder::lang.migration.save_and_apply')) ?>
             </button>
             <button
                 type="button"
@@ -30,7 +30,7 @@
         <input type="hidden" name="plugin_code" value="<?= e($pluginCode) ?>">
     <?php else: ?>
         <div class="modal-body">
-            <p><?= e(trans('rainlab.builder::lang.migration.no_changes_to_save')) ?></p>
+            <p><?= e(trans('winter.builder::lang.migration.no_changes_to_save')) ?></p>
         </div>
 
         <div class="modal-footer">
@@ -43,7 +43,7 @@
         </div>
 
         <script>
-            $.oc.builder.indexController.triggerCommand('databaseTable:cmdUnModifyForm')
+            $.wn.builder.indexController.triggerCommand('databaseTable:cmdUnModifyForm')
         </script>
     <?php endif ?>
 <?= Form::close() ?>

@@ -1,4 +1,4 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use Doctrine\DBAL\Schema\Table;
 
@@ -7,7 +7,7 @@ use Doctrine\DBAL\Schema\Table;
  *
  * The class is used by DatabaseTableModel class.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 class DatabaseTableSchemaCreator extends BaseModel

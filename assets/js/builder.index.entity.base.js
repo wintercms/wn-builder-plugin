@@ -3,13 +3,13 @@
  */
 +function ($) { "use strict";
 
-    if ($.oc.builder === undefined)
-        $.oc.builder = {}
+    if ($.wn.builder === undefined)
+        $.wn.builder = {}
 
-    if ($.oc.builder.entityControllers === undefined)
-        $.oc.builder.entityControllers = {}
+    if ($.wn.builder.entityControllers === undefined)
+        $.wn.builder.entityControllers = {}
 
-    var Base = $.oc.foundation.base,
+    var Base = $.wn.foundation.base,
         BaseProto = Base.prototype
 
     var EntityBase = function(typeName, indexController) {
@@ -96,5 +96,5 @@
         this.indexController.unchangeTab($tabPane)
     }
 
-    $.oc.builder.entityControllers.base = EntityBase;
+    $.wn.builder.entityControllers.base = EntityBase;
 }(window.jQuery);

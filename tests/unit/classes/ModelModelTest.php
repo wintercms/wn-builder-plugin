@@ -1,7 +1,7 @@
 <?php
 
-use RainLab\Builder\Classes\ModelModel;
-use RainLab\Builder\Classes\PluginCode;
+use Winter\Builder\Classes\ModelModel;
+use Winter\Builder\Classes\PluginCode;
 
 class ModelModelTest extends TestCase
 {
@@ -16,10 +16,10 @@ class ModelModelTest extends TestCase
         $unQualifiedClassName = 'MyClassName';
         $this->assertTrue(ModelModel::validateModelClassName($unQualifiedClassName));
 
-        $qualifiedClassName = 'RainLab\Builder\Models\Settings';
+        $qualifiedClassName = 'Winter\Builder\Models\Settings';
         $this->assertTrue(ModelModel::validateModelClassName($qualifiedClassName));
 
-        $fullyQualifiedClassName = '\RainLab\Builder\Models\Settings';
+        $fullyQualifiedClassName = '\Winter\Builder\Models\Settings';
         $this->assertTrue(ModelModel::validateModelClassName($fullyQualifiedClassName));
 
         $qualifiedClassNameStartingWithLowerCase = 'rainLab\Builder\Models\Settings';
@@ -53,16 +53,16 @@ class ModelModelTest extends TestCase
         $this->assertEquals([], ModelModel::getModelFields($pluginCodeObj, 'MyClassName'));
 
         // Directory Found, but Class Not Found
-        $pluginCodeObj = PluginCode::createFromNamespace('RainLab\Builder\Models\MyClassName');
+        $pluginCodeObj = PluginCode::createFromNamespace('Winter\Builder\Models\MyClassName');
         $this->assertEquals([], ModelModel::getModelFields($pluginCodeObj, 'MyClassName'));
 
         // Model without Table Name
-        $pluginCodeObj = PluginCode::createFromNamespace('RainLab\Builder\Models\Settings');
+        $pluginCodeObj = PluginCode::createFromNamespace('Winter\Builder\Models\Settings');
         $this->assertEquals([], ModelModel::getModelFields($pluginCodeObj, 'Settings'));
 
         // Model with Table Name
         copy(__DIR__."/../../fixtures/MyMock.php", __DIR__."/../../../models/MyMock.php");
-        $pluginCodeObj = PluginCode::createFromNamespace('RainLab\Builder\Models\MyMock');
+        $pluginCodeObj = PluginCode::createFromNamespace('Winter\Builder\Models\MyMock');
         $this->assertEquals([], ModelModel::getModelFields($pluginCodeObj, 'MyMock'));
     }
 }

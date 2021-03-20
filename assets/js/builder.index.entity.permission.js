@@ -3,13 +3,13 @@
  */
 +function ($) { "use strict";
 
-    if ($.oc.builder === undefined)
-        $.oc.builder = {}
+    if ($.wn.builder === undefined)
+        $.wn.builder = {}
 
-    if ($.oc.builder.entityControllers === undefined)
-        $.oc.builder.entityControllers = {}
+    if ($.wn.builder.entityControllers === undefined)
+        $.wn.builder.entityControllers = {}
 
-    var Base = $.oc.builder.entityControllers.base,
+    var Base = $.wn.builder.entityControllers.base,
         BaseProto = Base.prototype
 
     var Permission = function(indexController) {
@@ -90,7 +90,7 @@
         var $masterTabPane = this.getMasterTabsActivePane()
 
         this.getIndexController().unchangeTab($masterTabPane)
-        $.oc.builder.dataRegistry.clearCache(data.builderResponseData.pluginCode, 'permissions')
+        $.wn.builder.dataRegistry.clearCache(data.builderResponseData.pluginCode, 'permissions')
     }
 
     // EVENT HANDLERS
@@ -117,6 +117,6 @@
     // REGISTRATION
     // ============================
 
-    $.oc.builder.entityControllers.permission = Permission;
+    $.wn.builder.entityControllers.permission = Permission;
 
 }(window.jQuery);

@@ -1,4 +1,4 @@
-<?php namespace RainLab\Builder\Classes;
+<?php namespace Winter\Builder\Classes;
 
 use ValidationException;
 use SystemException;
@@ -10,7 +10,7 @@ use Validator;
  * Builder models manage various types of records - database metadata objects,
  * YAML files, etc.
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  */
 abstract class BaseModel

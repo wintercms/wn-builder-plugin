@@ -2,28 +2,28 @@ tabs:
     fields:
         content:
             type: hint
-            path: $/rainlab/builder/behaviors/indexpluginoperations/partials/_plugin-update-hint.htm
-            tab: rainlab.builder::lang.plugin.tab_general
+            path: $/winter/builder/behaviors/indexpluginoperations/partials/_plugin-update-hint.htm
+            tab: winter.builder::lang.plugin.tab_general
             context: [update]
 
         name:
             span: left
-            label: rainlab.builder::lang.plugin.field_name
+            label: winter.builder::lang.plugin.field_name
             required: true
-            tab: rainlab.builder::lang.plugin.tab_general
+            tab: winter.builder::lang.plugin.tab_general
 
         author:
             span: right
-            label: rainlab.builder::lang.plugin.field_author
-            tab: rainlab.builder::lang.plugin.tab_general
+            label: winter.builder::lang.plugin.field_author
+            tab: winter.builder::lang.plugin.tab_general
             required: true
 
         namespace:
             context: [create]
             span: left
-            label: rainlab.builder::lang.plugin.field_plugin_namespace
-            commentAbove: rainlab.builder::lang.plugin.field_namespace_description
-            tab: rainlab.builder::lang.plugin.tab_general
+            label: winter.builder::lang.plugin.field_plugin_namespace
+            commentAbove: winter.builder::lang.plugin.field_namespace_description
+            tab: winter.builder::lang.plugin.tab_general
             required: true
             preset:
                 field: name
@@ -32,9 +32,9 @@ tabs:
         author_namespace:
             context: [create]
             span: right
-            label: rainlab.builder::lang.plugin.field_author_namespace
-            commentAbove: rainlab.builder::lang.plugin.field_author_namespace_description
-            tab: rainlab.builder::lang.plugin.tab_general
+            label: winter.builder::lang.plugin.field_author_namespace
+            commentAbove: winter.builder::lang.plugin.field_author_namespace_description
+            tab: winter.builder::lang.plugin.tab_general
             required: true
             preset:
                 field: author
@@ -42,16 +42,16 @@ tabs:
 
         icon:
             type: dropdown
-            label: rainlab.builder::lang.plugin.field_icon
-            commentAbove: rainlab.builder::lang.common.field_icon_description
-            tab: rainlab.builder::lang.plugin.tab_general
+            label: winter.builder::lang.plugin.field_icon
+            commentAbove: winter.builder::lang.common.field_icon_description
+            tab: winter.builder::lang.plugin.tab_general
 
         description:
-            label: rainlab.builder::lang.plugin.field_description
+            label: winter.builder::lang.plugin.field_description
             type: textarea
             size: tiny
-            tab: rainlab.builder::lang.plugin.tab_description
+            tab: winter.builder::lang.plugin.tab_description
 
         homepage:
-            label: rainlab.builder::lang.plugin.field_homepage
-            tab: rainlab.builder::lang.plugin.tab_description
+            label: winter.builder::lang.plugin.field_homepage
+            tab: winter.builder::lang.plugin.tab_description

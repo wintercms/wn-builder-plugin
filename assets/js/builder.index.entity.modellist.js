@@ -3,13 +3,13 @@
  */
 +function ($) { "use strict";
 
-    if ($.oc.builder === undefined)
-        $.oc.builder = {}
+    if ($.wn.builder === undefined)
+        $.wn.builder = {}
 
-    if ($.oc.builder.entityControllers === undefined)
-        $.oc.builder.entityControllers = {}
+    if ($.wn.builder.entityControllers === undefined)
+        $.wn.builder.entityControllers = {}
 
-    var Base = $.oc.builder.entityControllers.base,
+    var Base = $.wn.builder.entityControllers.base,
         BaseProto = Base.prototype
 
     var ModelList = function(indexController) {
@@ -74,17 +74,17 @@
 
     ModelList.prototype.cmdDeleteList = function(ev) {
         var $target = $(ev.currentTarget)
-        $.oc.confirm($target.data('confirm'), this.proxy(this.deleteConfirmed))
+        $.wn.confirm($target.data('confirm'), this.proxy(this.deleteConfirmed))
     }
 
     ModelList.prototype.cmdAddDatabaseColumns = function(ev) {
         var $target = $(ev.currentTarget)
 
-        $.oc.stripeLoadIndicator.show()
+        $.wn.stripeLoadIndicator.show()
         $target.request('onModelListLoadDatabaseColumns').done(
             this.proxy(this.databaseColumnsLoaded)
         ).always(
-            $.oc.builder.indexController.hideStripeIndicatorProxy
+            $.wn.builder.indexController.hideStripeIndicatorProxy
         )
     }
 
@@ -112,9 +112,9 @@
         var $masterTabPane = this.getMasterTabsActivePane(),
             $form = $masterTabPane.find('form')
 
-        $.oc.stripeLoadIndicator.show()
+        $.wn.stripeLoadIndicator.show()
         $form.request('onModelListDelete').always(
-            $.oc.builder.indexController.hideStripeIndicatorProxy
+            $.wn.builder.indexController.hideStripeIndicatorProxy
         ).done(
             this.proxy(this.deleteDone)
         )
@@ -192,9 +192,9 @@
         if (data.builderResponseData.registryData !== undefined) {
             var registryData = data.builderResponseData.registryData
 
-            $.oc.builder.dataRegistry.set(registryData.pluginCode, 'model-lists', registryData.modelClass, registryData.lists)
+            $.wn.builder.dataRegistry.set(registryData.pluginCode, 'model-lists', registryData.modelClass, registryData.lists)
 
-            $.oc.builder.dataRegistry.clearCache(registryData.pluginCode, 'plugin-lists')
+            $.wn.builder.dataRegistry.clearCache(registryData.pluginCode, 'plugin-lists')
         }
     }
 
@@ -299,6 +299,6 @@
     // REGISTRATION
     // ============================
 
-    $.oc.builder.entityControllers.modelList = ModelList;
+    $.wn.builder.entityControllers.modelList = ModelList;
 
 }(window.jQuery);

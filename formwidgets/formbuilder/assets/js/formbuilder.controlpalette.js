@@ -3,7 +3,7 @@
  */
 +function ($) { "use strict";
 
-    var Base = $.oc.foundation.base,
+    var Base = $.wn.foundation.base,
         BaseProto = Base.prototype
 
     var ControlPalette = function() {
@@ -27,13 +27,13 @@
                 controlId: controlId
             }
 
-            $.oc.stripeLoadIndicator.show()
+            $.wn.stripeLoadIndicator.show()
             $(element).request('onModelFormLoadControlPalette', {
                 data: data
             }).done(
                 this.proxy(this.controlPaletteMarkupLoaded)
             ).always(function(){
-                $.oc.stripeLoadIndicator.hide()
+                $.wn.stripeLoadIndicator.hide()
             })
         }
         else {
@@ -73,11 +73,11 @@
     }
 
     ControlPalette.prototype.getContainerPreference = function() {
-        return $.oc.inspector.manager.getContainerPreference()
+        return $.wn.inspector.manager.getContainerPreference()
     }
 
     ControlPalette.prototype.setContainerPreference = function(value) {
-        return $.oc.inspector.manager.setContainerPreference(value)
+        return $.wn.inspector.manager.setContainerPreference(value)
     }
 
     ControlPalette.prototype.addControl = function(ev) {
@@ -102,12 +102,12 @@
 
         $target.trigger('close.oc.popover')
 
-        var promise = $.oc.builder.formbuilder.controller.addControlFromControlPalette(controlId, 
+        var promise = $.wn.builder.formbuilder.controller.addControlFromControlPalette(controlId, 
             $target.data('builderControlType'), 
             $target.data('builderControlName'))
 
         promise.done(function() {
-            $.oc.inspector.manager.createInspector(control)
+            $.wn.inspector.manager.createInspector(control)
             $(control).trigger('change')  // Set modified state for the form
         })
 
@@ -184,7 +184,7 @@
             return
         }
 
-        var inspectorManager = $.oc.inspector.manager,
+        var inspectorManager = $.wn.inspector.manager,
             $container = inspectorManager.getContainerElement($(control))
 
         // If the container is already in use, apply values to the inspectable elements
@@ -193,7 +193,7 @@
         }
 
         // Dispose existing Inspector
-        $.oc.foundation.controlUtils.disposeControls($container.get(0))
+        $.wn.foundation.controlUtils.disposeControls($container.get(0))
 
         this.markPlaceholderPaletteOpen(control)
 
@@ -257,7 +257,7 @@
 
     $(document).ready(function(){
         // There is a single instance of the control palette manager.
-        $.oc.builder.formbuilder.controlPalette = new ControlPalette()
+        $.wn.builder.formbuilder.controlPalette = new ControlPalette()
     })
 
 }(window.jQuery);

@@ -1,21 +1,21 @@
-<?php namespace RainLab\Builder\Models;
+<?php namespace Winter\Builder\Models;
 
-use October\Rain\Database\Model;
+use Winter\Storm\Database\Model;
 
 /**
  * Builder settings model
  *
- * @package rainlab\builder
+ * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
  *
  */
 class Settings extends Model
 {
-    use \October\Rain\Database\Traits\Validation;
+    use \Winter\Storm\Database\Traits\Validation;
 
     public $implement = ['System.Behaviors.SettingsModel'];
 
-    public $settingsCode = 'rainlab_builder_settings';
+    public $settingsCode = 'winter_builder_settings';
 
     public $settingsFields = 'fields.yaml';
 

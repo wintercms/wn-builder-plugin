@@ -1,4 +1,4 @@
-<?php namespace RainLab\Builder\Rules;
+<?php namespace Winter\Builder\Rules;
 
 use Lang;
 use Illuminate\Contracts\Validation\Rule;
@@ -135,6 +135,6 @@ class Reserved implements Rule
      */
     public function message()
     {
-        return Lang::get('rainlab.builder::lang.validation.reserved');
+        return Lang::get('winter.builder::lang.validation.reserved');
     }
 }

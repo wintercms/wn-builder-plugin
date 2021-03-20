@@ -19,7 +19,7 @@ return [
         'field_plugin_namespace' => 'نیم اسپیس افزونه',
         'field_author_namespace' => 'نیم اسپیس صاحب امتیاز',
         'field_namespace_description' => 'نیم اسپیس میتواند شامل حروف لاتین و اعداد باشد و باید با یک حرف لاتین آغاز شود مانند: Blog',
-        'field_author_namespace_description' => 'امکان تغییر نیم پس از ایجاد آن توسط افزونه ساز وجود ندارد نمونه ای از نیم اسپیس صاحب امتیاز: OctoberFa',
+        'field_author_namespace_description' => 'امکان تغییر نیم پس از ایجاد آن توسط افزونه ساز وجود ندارد نمونه ای از نیم اسپیس صاحب امتیاز: Winter CMSFa',
         'tab_general' => 'پارامتر های عمومی',
         'tab_description' => 'توضیحات',
         'field_homepage' => 'آدرس وب افزونه',
