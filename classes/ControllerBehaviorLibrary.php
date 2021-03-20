@@ -35,7 +35,7 @@ class ControllerBehaviorLibrary
      * @param string $description Specifies the behavior description.
      * @param array $properties Specifies the behavior properties.
      * The property definitions should be compatible with Inspector properties, similarly
-     * to the Component properties: http://octobercms.com/docs/plugin/components#component-properties
+     * to the Component properties: https://wintercms.com/docs/plugin/components#component-properties
      * @param string $configFilePropertyName Specifies the name of the controller property that contains the configuration file name for the behavior.
      * @param string $designTimeProviderClass Specifies the behavior design-time provider class name.
      * The class should extend Winter\Builder\Classes\BehaviorDesignTimeProviderBase. If the class is not provided,

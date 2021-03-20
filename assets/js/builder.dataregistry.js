@@ -17,10 +17,10 @@
         Base.call(this)
     }
 
-    /* 
-     * Example: 
-     * $.wn.builder.dataRegistry.set('rainlab.blog', 'model.forms', 'Categories', formsArray)
-     * $.wn.builder.dataRegistry.set('rainlab.blog', 'localization', null, stringsArray) // The registry contains only default language
+    /*
+     * Example:
+     * $.wn.builder.dataRegistry.set('winter.blog', 'model.forms', 'Categories', formsArray)
+     * $.wn.builder.dataRegistry.set('winter.blog', 'localization', null, stringsArray) // The registry contains only default language
      */
     DataRegistry.prototype.set = function(plugin, type, subtype, data, params) {
         this.storeData(plugin, type, subtype, data)
@@ -30,13 +30,13 @@
         }
     }
 
-    /* 
-     * Example: 
-     * $.wn.builder.dataRegistry.get($form, 'rainlab.blog', 'model.forms', 'Categories', function(data){ ... })
+    /*
+     * Example:
+     * $.wn.builder.dataRegistry.get($form, 'winter.blog', 'model.forms', 'Categories', function(data){ ... })
      */
     DataRegistry.prototype.get = function($formElement, plugin, type, subtype, callback) {
-        if (this.data[plugin] === undefined 
-            || this.data[plugin][type] === undefined 
+        if (this.data[plugin] === undefined
+            || this.data[plugin][type] === undefined
             || this.data[plugin][type][subtype] === undefined
             || this.isCacheObsolete(this.data[plugin][type][subtype].timestamp)) {
 

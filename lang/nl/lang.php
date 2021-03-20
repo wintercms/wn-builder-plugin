@@ -570,7 +570,7 @@ return [
     ],
     'common' => [
         'error_file_exists' => "Het bestand bestaat reeds: ':path'.",
-        'field_icon_description' => 'Winter CMS gebruikt Font Autumn iconen, zie: http://octobercms.com/docs/ui/icon',
+        'field_icon_description' => 'Winter CMS gebruikt Font Autumn iconen, zie: https://wintercms.com/docs/ui/icon',
         'destination_dir_not_exists' => "De doel directory bestaat niet: ':path'.",
         'error_make_dir' => "Fout bij aanmaken van directory: ':name'.",
         'error_dir_exists' => "Directory bestaat reeds: ':path'.",

@@ -22,7 +22,7 @@ class ModelModelTest extends TestCase
         $fullyQualifiedClassName = '\Winter\Builder\Models\Settings';
         $this->assertTrue(ModelModel::validateModelClassName($fullyQualifiedClassName));
 
-        $qualifiedClassNameStartingWithLowerCase = 'rainLab\Builder\Models\Settings';
+        $qualifiedClassNameStartingWithLowerCase = 'winter\Builder\Models\Settings';
         $this->assertTrue(ModelModel::validateModelClassName($qualifiedClassNameStartingWithLowerCase));
     }
 

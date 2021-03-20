@@ -11,7 +11,7 @@
          syntaxCheck="false"
 >
     <testsuites>
-        <testsuite name="Winter CMS Builder Test Suite">
+        <testsuite name="Winter.Builder Plugin Test Suite">
           <directory>./tests/unit</directory>
         </testsuite>
     </testsuites>

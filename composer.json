@@ -1,31 +1,40 @@
 {
-    "name": "winter/builder-plugin",
+    "name": "winter/wn-builder-plugin",
     "type": "winter-plugin",
     "description": "Builder plugin for Winter CMS",
     "homepage": "https://github.com/wintercms/wn-builder-plugin",
-    "keywords": ["october", "octobercms", "builder"],
+    "keywords": ["winter", "wintercms", "builder"],
     "license": "MIT",
     "authors": [
         {
             "name": "Alexey Bobkov",
             "email": "aleksey.bobkov@gmail.com",
-            "role": "Co-founder"
+            "role": "Original Author"
         },
         {
             "name": "Samuel Georges",
             "email": "daftspunky@gmail.com",
-            "role": "Co-founder"
+            "role": "Original Author"
+        },
+        {
+            "name": "Winter CMS Maintainers",
+            "homepage": "https://wintercms.com",
+            "role": "Maintainer"
         }
     ],
+    "support": {
+        "issues": "https://github.com/wintercms/wn-builder-plugin/issues",
+        "discord": "https://discord.gg/D5MFSPH6Ux",
+        "source": "https://github.com/wintercms/wn-builder-plugin"
+    },
     "require": {
         "php": ">=7.0",
         "composer/installers": "~1.0"
     },
     "require-dev": {
-      "phpunit/phpunit": "~4.0"
+        "phpunit/phpunit": "~4.0"
     },
     "extra": {
         "installer-name": "builder"
-    },
-    "minimum-stability": "dev"
+    }
 }
