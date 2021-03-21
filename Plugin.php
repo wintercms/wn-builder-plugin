@@ -17,7 +17,7 @@ class Plugin extends PluginBase
         return [
             'name'        => 'winter.builder::lang.plugin.name',
             'description' => 'winter.builder::lang.plugin.description',
-            'author'      => 'Alexey Bobkov, Samuel Georges',
+            'author'      => 'Winter CMS',
             'icon'        => 'icon-wrench',
             'homepage'    => 'https://github.com/wintercms/wn-builder-plugin',
             'replaces'    => 'RainLab.Builder'
