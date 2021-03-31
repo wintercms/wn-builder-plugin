@@ -5,7 +5,7 @@ use Winter\Builder\Classes\PluginCode;
 
 class ModelModelTest extends TestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         // Ensure cleanup for testGetModelFields
         @unlink(__DIR__.'/../../../models/MyMock.php');
