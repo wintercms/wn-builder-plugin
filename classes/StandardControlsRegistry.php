@@ -734,6 +734,22 @@ class StandardControlsRegistry
                 'type' => 'string',
                 'ignoreIfEmpty' => true,
                 'sortOrder' => 85
+            ],
+            'firstDay' => [
+                'title' => Lang::get('winter.builder::lang.form.property_datepicker_first_day'),
+                'type' => 'dropdown',
+                'default' => 'datetime',
+                'options' => [
+                    '0' => Lang::get('winter.builder::lang.form.property_datepicker_first_day_sunday'),
+                    '1' => Lang::get('winter.builder::lang.form.property_datepicker_first_day_monday'),
+                    '2' => Lang::get('winter.builder::lang.form.property_datepicker_first_day_tuesday'),
+                    '3' => Lang::get('winter.builder::lang.form.property_datepicker_first_day_wednesday'),
+                    '4' => Lang::get('winter.builder::lang.form.property_datepicker_first_day_thursday'),
+                    '5' => Lang::get('winter.builder::lang.form.property_datepicker_first_day_friday'),
+                    '6' => Lang::get('winter.builder::lang.form.property_datepicker_first_day_saturday')
+                ],
+                'ignoreIfEmpty' => true,
+                'sortOrder' => 86
             ]
         ];
 
