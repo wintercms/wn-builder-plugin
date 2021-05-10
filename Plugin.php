@@ -172,7 +172,6 @@ class Plugin extends PluginBase
             \Winter\Builder\FormWidgets\ControllerBuilder::class             => \RainLab\Builder\FormWidgets\ControllerBuilder::class,
             \Winter\Builder\FormWidgets\FormBuilder::class                   => \RainLab\Builder\FormWidgets\FormBuilder::class,
             \Winter\Builder\FormWidgets\MenuEditor::class                    => \RainLab\Builder\FormWidgets\MenuEditor::class,
-            \Winter\Builder\Models\MyMock::class                             => \RainLab\Builder\Models\MyMock::class,
             \Winter\Builder\Models\Settings::class                           => \RainLab\Builder\Models\Settings::class,
             \Winter\Builder\Widgets\DatabaseTableList::class                 => \RainLab\Builder\Widgets\DatabaseTableList::class,
             \Winter\Builder\Widgets\ControllerList::class                    => \RainLab\Builder\Widgets\ControllerList::class,
