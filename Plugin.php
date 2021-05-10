@@ -151,8 +151,6 @@ class Plugin extends PluginBase
             \Winter\Builder\Classes\ComponentHelper::class                   => \RainLab\Builder\Classes\ComponentHelper::class,
             \Winter\Builder\Classes\IconList::class                          => \RainLab\Builder\Classes\IconList::class,
             \Winter\Builder\Classes\TableMigrationCodeGenerator::class       => \RainLab\Builder\Classes\TableMigrationCodeGenerator::class,
-            \Winter\Builder\Classes\instancd::class                          => \RainLab\Builder\Classes\instancd::class,
-            \Winter\Builder\Classes\is::class                                => \RainLab\Builder\Classes\is::class,
             \Winter\Builder\Classes\MigrationColumnType::class               => \RainLab\Builder\Classes\MigrationColumnType::class,
             \Winter\Builder\Classes\ModelListModel::class                    => \RainLab\Builder\Classes\ModelListModel::class,
             \Winter\Builder\Classes\PluginBaseModel::class                   => \RainLab\Builder\Classes\PluginBaseModel::class,
