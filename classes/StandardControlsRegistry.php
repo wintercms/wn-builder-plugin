@@ -746,7 +746,7 @@ class StandardControlsRegistry
                     '3' => Lang::get('winter.builder::lang.form.property_datepicker_first_day_wednesday'),
                     '4' => Lang::get('winter.builder::lang.form.property_datepicker_first_day_thursday'),
                     '5' => Lang::get('winter.builder::lang.form.property_datepicker_first_day_friday'),
-                    '6' => Lang::get('winter.builder::lang.form.property_datepicker_first_day_saturday')
+                    '6' => Lang::get('winter.builder::lang.form.property_datepicker_first_day_saturday'),
                 ],
                 'ignoreIfEmpty' => true,
                 'sortOrder' => 86,
