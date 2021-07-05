@@ -59,7 +59,7 @@ class PluginBaseModel extends PluginYamlModel
 
     public function initDefaults()
     {
-        $settings =  PluginSettings::instance();
+        $settings = PluginSettings::instance();
         $this->author = $settings->author_name;
         $this->author_namespace = $settings->author_namespace;
     }
@@ -106,7 +106,7 @@ class PluginBaseModel extends PluginYamlModel
         $this->name = $this->getArrayKeySafe($array, 'name');
         $this->description = $this->getArrayKeySafe($array, 'description');
         $this->author = $this->getArrayKeySafe($array, 'author');
-        $this->icon = $this->getArrayKeySafe($array, 'icon');
+        $this->icon = preg_replace('/^oc\-/', 'wn-', $this->getArrayKeySafe($array, 'icon'));
         $this->homepage = $this->getArrayKeySafe($array, 'homepage');
     }
 
