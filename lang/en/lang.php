@@ -645,7 +645,7 @@ return [
     ],
     'common' => [
         'error_file_exists' => "File already exists: ':path'.",
-        'field_icon_description' => 'Winter CMS uses Font Autumn icons: https://wintercms.com/docs/ui/icon',
+        'field_icon_description' => 'Winter CMS uses a wrapper around Font Awesome icons: https://wintercms.com/docs/ui/icon',
         'destination_dir_not_exists' => "The destination directory doesn't exist: ':path'.",
         'error_make_dir' => "Error creating directory: ':name'.",
         'error_dir_exists' => "Directory already exists: ':path'.",
