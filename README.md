@@ -21,5 +21,5 @@ The Builder plugin works gracefully with your own work tools and methodologies, 
 You can install the plugin using Composer. As this is a development plugin, it should be defined as a "dev" dependency.
 
 ```
-composer require --dev wintercms/wn-builder-plugin
+composer require --dev winter/wn-builder-plugin
 ```
