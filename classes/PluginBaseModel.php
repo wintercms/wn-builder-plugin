@@ -27,6 +27,8 @@ class PluginBaseModel extends PluginYamlModel
     public $author_namespace;
 
     public $homepage;
+    
+    public $replaces;
 
     protected $localizedName;
 
@@ -41,7 +43,8 @@ class PluginBaseModel extends PluginYamlModel
         'author_namespace',
         'description',
         'icon',
-        'homepage'
+        'homepage',
+        'replaces',
     ];
 
     protected $validationRules = [
@@ -49,7 +52,8 @@ class PluginBaseModel extends PluginYamlModel
         'author'   => ['required'],
         'namespace'   => ['required', 'regex:/^[a-z]+[a-z0-9]+$/i', 'reserved'],
         'author_namespace' => ['required', 'regex:/^[a-z]+[a-z0-9]+$/i', 'reserved'],
-        'homepage' => 'url'
+        'homepage' => 'url',
+        'replaces' => 'array',
     ];
 
     public function getIconOptions()
@@ -88,13 +92,22 @@ class PluginBaseModel extends PluginYamlModel
      */
     protected function modelToYamlArray()
     {
-        return [
-            'name' => $this->name,
-            'description' => $this->description,
-            'author' => $this->author,
-            'icon' => $this->icon,
-            'homepage' => $this->homepage
+        $array = [];
+        $attributes = [
+            'name',
+            'description',
+            'author',
+            'icon',
+            'homepage',
+            'replaces',
         ];
+        foreach ($attributes as $attribute) {
+            if (!empty($this->{$attribute})) {
+                $array[$attribute] = $this->{$attribute};
+            }
+        }
+        
+        return $array;
     }
 
     /**
@@ -108,6 +121,7 @@ class PluginBaseModel extends PluginYamlModel
         $this->author = $this->getArrayKeySafe($array, 'author');
         $this->icon = preg_replace('/^oc\-/', 'wn-', $this->getArrayKeySafe($array, 'icon'));
         $this->homepage = $this->getArrayKeySafe($array, 'homepage');
+        $this->replaces = $this->getArrayKeySafe($array, 'replaces');
     }
 
     protected function beforeCreate()
