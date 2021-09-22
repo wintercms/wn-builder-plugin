@@ -28,7 +28,7 @@ class PluginBaseModel extends PluginYamlModel
 
     public $homepage;
     
-    public $replaces;
+    public $replaces = [];
 
     protected $localizedName;
 
