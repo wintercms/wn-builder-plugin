@@ -55,3 +55,18 @@ tabs:
         homepage:
             label: winter.builder::lang.plugin.field_homepage
             tab: winter.builder::lang.plugin.tab_description
+
+        replaces:
+            label: winter.builder::lang.plugin.replaces
+            tab: winter.builder::lang.plugin.tab_replaces
+            type: repeater
+            prompt: winter.builder::lang.plugin.replaces_prompt
+            fields:
+                plugin_code:
+                    label: winter.builder::lang.plugin.replaces_plugin_code
+                    type: text
+                    span: left
+                version_constraint:
+                    label: winter.builder::lang.plugin.replaces_plugin_constraint
+                    type: text
+                    span: right
