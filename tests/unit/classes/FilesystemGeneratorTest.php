@@ -1,17 +1,18 @@
-<?php
+<?php namespace Winter\Builder\Tests\Unit\Classes;
 
+use File;
 use Winter\Builder\Classes\FilesystemGenerator;
 
-class FilesystemGeneratorTest extends TestCase
+class FilesystemGeneratorTest extends \TestCase
 {
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 
         $this->cleanUp();
     }
 
-    public function tearDown() : void
+    public function tearDown(): void
     {
         $this->cleanUp();
     }
@@ -47,27 +48,25 @@ class FilesystemGeneratorTest extends TestCase
         $this->assertFileExists($generatedDir.'/author/plugin/classes');
 
         $content = file_get_contents($generatedDir.'/author/plugin/plugin.php');
-        $this->assertContains('Author\Plugin', $content);
-        $this->assertContains('TestClass', $content);
+        $this->assertStringContainsString('Author\Plugin', $content);
+        $this->assertStringContainsString('TestClass', $content);
     }
 
-    /**
-     * @expectedException        Winter\Storm\Exception\SystemException
-     * @expectedExceptionMessage exists
-     */
     public function testDestNotExistsException()
     {
+        $this->expectException(\Winter\Storm\Exception\SystemException::class);
+        $this->expectExceptionMessageMatches('/exists/');
+
         $dir = $this->getFixturesDir('temporary/null');
         $generator = new FilesystemGenerator($dir, []);
         $generator->generate();
     }
 
-    /**
-     * @expectedException        Winter\Storm\Exception\ApplicationException
-     * @expectedExceptionMessage exists
-     */
     public function testDirExistsException()
     {
+        $this->expectException(\Winter\Storm\Exception\ApplicationException::class);
+        $this->expectExceptionMessageMatches('/exists/');
+
         $generatedDir = $this->getFixturesDir('temporary/generated');
         $this->assertFileNotExists($generatedDir);
 
@@ -82,12 +81,11 @@ class FilesystemGeneratorTest extends TestCase
         $generator->generate();
     }
 
-    /**
-     * @expectedException        Winter\Storm\Exception\ApplicationException
-     * @expectedExceptionMessage exists
-     */
     public function testFileExistsException()
     {
+        $this->expectException(\Winter\Storm\Exception\ApplicationException::class);
+        $this->expectExceptionMessageMatches('/exists/');
+
         $generatedDir = $this->getFixturesDir('temporary/generated');
         $this->assertFileNotExists($generatedDir);
 
@@ -105,12 +103,11 @@ class FilesystemGeneratorTest extends TestCase
         $generator->generate();
     }
 
-    /**
-     * @expectedException        Winter\Storm\Exception\SystemException
-     * @expectedExceptionMessage found
-     */
     public function testTemplateNotFound()
     {
+        $this->expectException(\Winter\Storm\Exception\SystemException::class);
+        $this->expectExceptionMessageMatches('/found/');
+
         $generatedDir = $this->getFixturesDir('temporary/generated');
         $this->assertFileNotExists($generatedDir);
 

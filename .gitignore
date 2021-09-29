@@ -1,0 +1,15 @@
+# Composer ignores
+/vendor
+composer.phar
+composer.lock
+
+# Framework ignores
+.phpunit.result.cache
+
+# Editor ignores
+nbproject
+.idea
+.vscode
+
+# Other ignores
+.DS_Store

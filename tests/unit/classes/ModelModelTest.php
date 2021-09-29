@@ -1,9 +1,10 @@
-<?php
+<?php namespace Winter\Builder\Tests\Unit\Classes;
 
+use SystemException;
 use Winter\Builder\Classes\ModelModel;
 use Winter\Builder\Classes\PluginCode;
 
-class ModelModelTest extends TestCase
+class ModelModelTest extends \TestCase
 {
     public function tearDown(): void
     {
