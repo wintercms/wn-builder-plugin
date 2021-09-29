@@ -27,7 +27,7 @@ class PluginBaseModel extends PluginYamlModel
     public $author_namespace;
 
     public $homepage;
-    
+
     public $replaces = [];
 
     protected $localizedName;
@@ -101,12 +101,19 @@ class PluginBaseModel extends PluginYamlModel
             'homepage',
             'replaces',
         ];
+
         foreach ($attributes as $attribute) {
-            if (!empty($this->{$attribute})) {
+            if ($attribute === 'replaces') {
+                $array[$attribute] = [];
+
+                foreach ($this->{$attribute} as $replace) {
+                    $array[$attribute][$replace['plugin_code']] = $replace['version_constraint'];
+                }
+            } elseif (!empty($this->{$attribute})) {
                 $array[$attribute] = $this->{$attribute};
             }
         }
-        
+
         return $array;
     }
 
@@ -121,7 +128,16 @@ class PluginBaseModel extends PluginYamlModel
         $this->author = $this->getArrayKeySafe($array, 'author');
         $this->icon = preg_replace('/^oc\-/', 'wn-', $this->getArrayKeySafe($array, 'icon'));
         $this->homepage = $this->getArrayKeySafe($array, 'homepage');
-        $this->replaces = $this->getArrayKeySafe($array, 'replaces');
+        $this->replaces = array_map(
+            function ($pluginCode, $versionConstraint) {
+                return [
+                    'plugin_code' => $pluginCode,
+                    'version_constraint' => $versionConstraint,
+                ];
+            },
+            array_keys($this->getArrayKeySafe($array, 'replaces', [])),
+            array_values($this->getArrayKeySafe($array, 'replaces', []))
+        );
     }
 
     protected function beforeCreate()

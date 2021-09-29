@@ -1,11 +1,11 @@
 <?php namespace Winter\Builder\Behaviors;
 
+use Input;
+use Request;
+use ApplicationException;
 use Winter\Builder\Classes\IndexOperationsBehaviorBase;
 use Winter\Builder\Classes\PluginBaseModel;
-use Backend\Behaviors\FormController;
-use ApplicationException;
-use Exception;
-use Input;
+use Winter\Builder\Controllers\Index;
 
 /**
  * Plugin management functionality for the Builder index controller
@@ -17,12 +17,29 @@ class IndexPluginOperations extends IndexOperationsBehaviorBase
 {
     protected $baseFormConfigFile = '~/plugins/winter/builder/classes/pluginbasemodel/fields.yaml';
 
+    /**
+     * Form instance
+     *
+     * @var Form
+     */
+    protected $formInstance;
+
+    public function __construct($controller)
+    {
+        parent::__construct($controller);
+
+        if (Request::ajax()) {
+            $this->formInstance = $this->makeBaseFormWidget(Input::get('pluginCode'), [], 'pluginPopup');
+            $this->formInstance->bindToController();
+        }
+    }
+
     public function onPluginLoadPopup()
     {
         $pluginCode = Input::get('pluginCode');
 
         try {
-            $this->vars['form'] = $this->makeBaseFormWidget($pluginCode);
+            $this->vars['form'] = $this->formInstance;
             $this->vars['pluginCode'] = $pluginCode;
         }
         catch (ApplicationException $ex) {
@@ -37,7 +54,9 @@ class IndexPluginOperations extends IndexOperationsBehaviorBase
         $pluginCode = Input::get('pluginCode');
 
         $model = $this->loadOrCreateBaseModel($pluginCode);
-        $model->fill($_POST);
+        $model->fill(array_replace([
+            'replaces' => [],
+        ], $_POST));
         $model->save();
 
         if (!$pluginCode) {

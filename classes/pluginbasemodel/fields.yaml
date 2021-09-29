@@ -61,12 +61,13 @@ tabs:
             tab: winter.builder::lang.plugin.tab_replaces
             type: repeater
             prompt: winter.builder::lang.plugin.replaces_prompt
-            fields:
-                plugin_code:
-                    label: winter.builder::lang.plugin.replaces_plugin_code
-                    type: text
-                    span: left
-                version_constraint:
-                    label: winter.builder::lang.plugin.replaces_plugin_constraint
-                    type: text
-                    span: right
+            form:
+                fields:
+                    plugin_code:
+                        label: winter.builder::lang.plugin.replaces_plugin_code
+                        type: text
+                        span: left
+                    version_constraint:
+                        label: winter.builder::lang.plugin.replaces_plugin_constraint
+                        type: text
+                        span: right
