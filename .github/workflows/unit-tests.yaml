@@ -78,4 +78,4 @@ jobs:
       - name: Run unit tests
         run: |
           cd plugins/winter/builder
-          ../../../vendor/bin/phpunit
+          ../../../vendor/bin/phpunit --testdox
