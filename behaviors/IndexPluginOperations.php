@@ -5,13 +5,13 @@ use Request;
 use ApplicationException;
 use Winter\Builder\Classes\IndexOperationsBehaviorBase;
 use Winter\Builder\Classes\PluginBaseModel;
-use Winter\Builder\Controllers\Index;
 
 /**
  * Plugin management functionality for the Builder index controller
  *
  * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
+ * @author Winter CMS
  */
 class IndexPluginOperations extends IndexOperationsBehaviorBase
 {
@@ -29,14 +29,14 @@ class IndexPluginOperations extends IndexOperationsBehaviorBase
         parent::__construct($controller);
 
         if (Request::ajax()) {
-            $this->formInstance = $this->makeBaseFormWidget(Input::get('pluginCode'), [], 'pluginPopup');
+            $this->formInstance = $this->makeBaseFormWidget(post('pluginCode'), [], 'pluginPopup');
             $this->formInstance->bindToController();
         }
     }
 
     public function onPluginLoadPopup()
     {
-        $pluginCode = Input::get('pluginCode');
+        $pluginCode = post('pluginCode');
 
         try {
             $this->vars['form'] = $this->formInstance;
@@ -56,7 +56,7 @@ class IndexPluginOperations extends IndexOperationsBehaviorBase
         $model = $this->loadOrCreateBaseModel($pluginCode);
         $model->fill(array_replace([
             'replaces' => [],
-        ], $_POST));
+        ], post()));
         $model->save();
 
         if (!$pluginCode) {
