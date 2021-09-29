@@ -1,6 +1,5 @@
 <?php namespace Winter\Builder\Behaviors;
 
-use Input;
 use Request;
 use ApplicationException;
 use Winter\Builder\Classes\IndexOperationsBehaviorBase;
@@ -51,7 +50,7 @@ class IndexPluginOperations extends IndexOperationsBehaviorBase
 
     public function onPluginSave()
     {
-        $pluginCode = Input::get('pluginCode');
+        $pluginCode = post('pluginCode');
 
         $model = $this->loadOrCreateBaseModel($pluginCode);
         $model->fill(array_replace([
@@ -81,8 +80,8 @@ class IndexPluginOperations extends IndexOperationsBehaviorBase
 
     public function onPluginSetActive()
     {
-        $pluginCode = Input::get('pluginCode');
-        $updatePluginList = Input::get('updatePluginList');
+        $pluginCode = post('pluginCode');
+        $updatePluginList = post('updatePluginList');
 
         $result = $this->controller->setBuilderActivePlugin($pluginCode, false);
 
