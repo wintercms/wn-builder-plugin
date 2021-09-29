@@ -64,6 +64,10 @@ class MigrationFileParser
             return null;
         }
 
+        if (PHP_VERSION_ID >= 80000) {
+            return $stream->getNextExpectedTerminated([T_NAME_QUALIFIED], [T_WHITESPACE, ';']);
+        }
+
         return $stream->getNextExpectedTerminated([T_STRING, T_NS_SEPARATOR], [T_WHITESPACE, ';']);
     }
 }
