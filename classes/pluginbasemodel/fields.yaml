@@ -67,7 +67,9 @@ tabs:
                         label: winter.builder::lang.plugin.replaces_plugin_code
                         type: text
                         span: left
+                        required: true
                     version_constraint:
                         label: winter.builder::lang.plugin.replaces_plugin_constraint
                         type: text
                         span: right
+                        required: true
