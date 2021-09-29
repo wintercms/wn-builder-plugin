@@ -1,0 +1,15 @@
+* text=auto
+
+# Diff definitions
+*.css diff=css
+*.htm diff=html
+*.md diff=markdown
+*.php diff=php
+
+# Ignored files for export (releases)
+/.github export-ignore
+/tests export-ignore
+.editorconfig export-ignore
+.gitattributes export-ignore
+phpcs.xml export-ignore
+phpunit.xml export-ignore
