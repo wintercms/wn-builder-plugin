@@ -1,6 +1,6 @@
 tabs:
     fields:
-        content:
+        _content:
             type: hint
             path: $/winter/builder/behaviors/indexpluginoperations/partials/_plugin-update-hint.htm
             tab: winter.builder::lang.plugin.tab_general
@@ -55,3 +55,26 @@ tabs:
         homepage:
             label: winter.builder::lang.plugin.field_homepage
             tab: winter.builder::lang.plugin.tab_description
+
+        _replaces_hint:
+            type: hint
+            path: $/winter/builder/behaviors/indexpluginoperations/partials/_plugin-replacements-hint.htm
+            tab: winter.builder::lang.plugin.tab_replaces
+
+        replaces:
+            label: winter.builder::lang.plugin.replaces
+            tab: winter.builder::lang.plugin.tab_replaces
+            type: repeater
+            prompt: winter.builder::lang.plugin.replaces_prompt
+            form:
+                fields:
+                    plugin_code:
+                        label: winter.builder::lang.plugin.replaces_plugin_code
+                        type: text
+                        span: left
+                        required: true
+                    version_constraint:
+                        label: winter.builder::lang.plugin.replaces_plugin_constraint
+                        type: text
+                        span: right
+                        required: true

@@ -14,7 +14,7 @@ abstract class IndexOperationsBehaviorBase extends ControllerBehavior
 {
     protected $baseFormConfigFile = null;
 
-    protected function makeBaseFormWidget($modelCode, $options = [])
+    protected function makeBaseFormWidget($modelCode, $options = [], $aliasSuffix = null)
     {
         if (!strlen($this->baseFormConfigFile)) {
             throw new ApplicationException(sprintf('Base form configuration file is not specified for %s behavior', get_class($this)));
@@ -23,7 +23,7 @@ abstract class IndexOperationsBehaviorBase extends ControllerBehavior
         $widgetConfig = $this->makeConfig($this->baseFormConfigFile);
 
         $widgetConfig->model = $this->loadOrCreateBaseModel($modelCode, $options);
-        $widgetConfig->alias = 'form_'.md5(get_class($this)).uniqid();
+        $widgetConfig->alias = 'form_' . md5(get_class($this)) . ($aliasSuffix ?? uniqid());
 
         $form = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
         $form->context = strlen($modelCode) ? FormController::CONTEXT_UPDATE : FormController::CONTEXT_CREATE;

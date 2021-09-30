@@ -1,28 +1,44 @@
 <?php namespace Winter\Builder\Behaviors;
 
+use Request;
+use ApplicationException;
 use Winter\Builder\Classes\IndexOperationsBehaviorBase;
 use Winter\Builder\Classes\PluginBaseModel;
-use Backend\Behaviors\FormController;
-use ApplicationException;
-use Exception;
-use Input;
 
 /**
  * Plugin management functionality for the Builder index controller
  *
  * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
+ * @author Winter CMS
  */
 class IndexPluginOperations extends IndexOperationsBehaviorBase
 {
     protected $baseFormConfigFile = '~/plugins/winter/builder/classes/pluginbasemodel/fields.yaml';
 
+    /**
+     * Form instance
+     *
+     * @var Form
+     */
+    protected $formInstance;
+
+    public function __construct($controller)
+    {
+        parent::__construct($controller);
+
+        if (Request::ajax()) {
+            $this->formInstance = $this->makeBaseFormWidget(post('pluginCode'), [], 'pluginPopup');
+            $this->formInstance->bindToController();
+        }
+    }
+
     public function onPluginLoadPopup()
     {
-        $pluginCode = Input::get('pluginCode');
+        $pluginCode = post('pluginCode');
 
         try {
-            $this->vars['form'] = $this->makeBaseFormWidget($pluginCode);
+            $this->vars['form'] = $this->formInstance;
             $this->vars['pluginCode'] = $pluginCode;
         }
         catch (ApplicationException $ex) {
@@ -34,10 +50,12 @@ class IndexPluginOperations extends IndexOperationsBehaviorBase
 
     public function onPluginSave()
     {
-        $pluginCode = Input::get('pluginCode');
+        $pluginCode = post('pluginCode');
 
         $model = $this->loadOrCreateBaseModel($pluginCode);
-        $model->fill($_POST);
+        $model->fill(array_replace([
+            'replaces' => [],
+        ], post()));
         $model->save();
 
         if (!$pluginCode) {
@@ -62,8 +80,8 @@ class IndexPluginOperations extends IndexOperationsBehaviorBase
 
     public function onPluginSetActive()
     {
-        $pluginCode = Input::get('pluginCode');
-        $updatePluginList = Input::get('updatePluginList');
+        $pluginCode = post('pluginCode');
+        $updatePluginList = post('updatePluginList');
 
         $result = $this->controller->setBuilderActivePlugin($pluginCode, false);
 
