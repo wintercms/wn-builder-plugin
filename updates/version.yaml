@@ -30,3 +30,4 @@
     - "Fixes namespace parsing on php >= 8.0"
     - v2.0.0/convert_data.php
 "2.0.1": Fixed missing icons in icon selection, rebranded icons to Winter.
+"2.0.2": Added fields to control plugin replacement, PHP8 compatibility fixes.
