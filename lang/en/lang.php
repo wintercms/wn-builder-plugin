@@ -408,6 +408,7 @@ return [
         'column_type_required' => 'Please provide the column type',
         'column_type_text' => 'Text',
         'column_type_number' => 'Number',
+        'column_type_image' => 'Image',
         'column_type_switch' => 'Switch',
         'column_type_datetime' => 'Datetime',
         'column_type_date' => 'Date',
