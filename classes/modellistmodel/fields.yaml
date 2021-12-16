@@ -48,6 +48,7 @@ tabs:
                     options: 
                         text: winter.builder::lang.list.column_type_text
                         number: winter.builder::lang.list.column_type_number
+                        image: winter.builder::lang.list.column_type_image
                         switch: winter.builder::lang.list.column_type_switch
                         datetime: winter.builder::lang.list.column_type_datetime
                         date: winter.builder::lang.list.column_type_date
