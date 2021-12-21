@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Builder plugin
 
 A user-friendly, visual plugin scaffolding tool that makes it trivial to get a new plugin running in Winter CMS. This plugin takes away the leg-work in setting up the necessary structure for a plugin by providing several simple tools that manage all facets of your plugin's definitions and files.
