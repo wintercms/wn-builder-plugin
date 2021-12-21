@@ -5,7 +5,9 @@ use Winter\Builder\Classes\ModelFormModel;
 use Winter\Builder\Classes\PluginCode;
 use Winter\Builder\FormWidgets\FormBuilder;
 use Winter\Builder\Classes\ModelModel;
+use Winter\Builder\Classes\ControlLibrary;
 use Backend\Classes\FormField;
+use Backend\FormWidgets\DataTable;
 use ApplicationException;
 use Exception;
 use Request;
@@ -127,6 +129,24 @@ class IndexModelFormOperations extends IndexOperationsBehaviorBase
         ];
     }
 
+    public function onModelShowAddDatabaseFieldsPopup()
+    {
+        $columns = ModelModel::getModelColumnsAndTypes($this->getPluginCode(), Input::get('model_class'));
+        $config = $this->makeConfig($this->getAddDatabaseFieldsDataTableConfig());
+
+        $field = new FormField('add_database_fields_datatable', 'add_database_fields_datatable');
+        $field->value = $this->getAddDatabaseFieldsDataTableValue($columns);
+
+        $datatable = new DataTable($this->controller, $field, $config);
+        $datatable->alias = 'add_database_fields_datatable';
+        $datatable->bindToController();
+
+        return $this->makePartial('add-database-fields-popup-form', [
+            'datatable'  => $datatable,
+            'pluginCode' => $this->getPluginCode()->toCode(),
+        ]);
+    }
+
     protected function loadOrCreateFormFromPost()
     {
         $pluginCode = Request::input('plugin_code');
@@ -182,5 +202,79 @@ class IndexModelFormOperations extends IndexOperationsBehaviorBase
             'pluginCode' => $pluginCode,
             'modelClass' => $fullClassName
         ];
+    }
+
+    /**
+     * Returns the configuration for the DataTable widget that
+     * is used in the "add database fields" popup.
+     *
+     * @return array
+     */
+    protected function getAddDatabaseFieldsDataTableConfig()
+    {
+        // Get all registered controls and build an array that uses the control types as key and value for each entry.
+        $controls   = ControlLibrary::instance()->listControls();
+        $fieldTypes = array_merge(array_keys($controls['Standard']), array_keys($controls['Widgets']));
+        $options    = array_combine($fieldTypes, $fieldTypes);
+
+        return [
+            'toolbar' => false,
+            'columns' => [
+                'add'    => [
+                    'title' => 'winter.builder::lang.common.add',
+                    'type'  => 'checkbox',
+                    'width' => '50px',
+                ],
+                'column' => [
+                    'title'    => 'winter.builder::lang.database.column_name_name',
+                    'readOnly' => true,
+                ],
+                'label'  => [
+                    'title' => 'winter.builder::lang.list.column_name_label',
+                ],
+                'type'   => [
+                    'title'   => 'winter.builder::lang.form.control_widget_type',
+                    'type'    => 'dropdown',
+                    'options' => $options,
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Returns the initial value for the DataTable widget that
+     * is used in the "add database columns" popup.
+     *
+     * @param array $columns
+     *
+     * @return array
+     */
+    protected function getAddDatabaseFieldsDataTableValue(array $columns)
+    {
+        // Map database column types to widget types.
+        $typeMap = [
+            'string'       => 'text',
+            'integer'      => 'number',
+            'text'         => 'textarea',
+            'timestamp'    => 'datepicker',
+            'smallInteger' => 'number',
+            'bigInteger'   => 'number',
+            'date'         => 'datepicker',
+            'time'         => 'datepicker',
+            'dateTime'     => 'datepicker',
+            'binary'       => 'checkbox',
+            'boolean'      => 'checkbox',
+            'decimal'      => 'number',
+            'double'       => 'number',
+        ];
+
+        return array_map(function ($column) use ($typeMap) {
+            return [
+                'column' => $column['name'],
+                'label'  => str_replace('_', ' ', ucfirst($column['name'])),
+                'type'   => $typeMap[$column['type']] ?? $column['type'],
+                'add'    => false,
+            ];
+        }, $columns);
     }
 }

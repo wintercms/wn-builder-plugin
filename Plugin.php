@@ -20,7 +20,7 @@ class Plugin extends PluginBase
             'author'      => 'Winter CMS',
             'icon'        => 'icon-wrench',
             'homepage'    => 'https://github.com/wintercms/wn-builder-plugin',
-            'replaces'    => ['RainLab.Builder' => '<= 1.0.27'],
+            'replaces'    => ['RainLab.Builder' => '<= 1.1.0'],
         ];
     }
 
@@ -37,7 +37,8 @@ class Plugin extends PluginBase
         return [
             'winter.builder.manage_plugins' => [
                 'tab' => 'winter.builder::lang.plugin.name',
-                'label' => 'winter.builder::lang.plugin.manage_plugins']
+                'label' => 'winter.builder::lang.plugin.manage_plugins',
+            ],
         ];
     }
 
