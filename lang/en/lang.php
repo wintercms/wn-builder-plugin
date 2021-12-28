@@ -736,5 +736,8 @@ return [
     ],
     'validation' => [
         'reserved' => ':attribute cannot be a PHP reserved keyword'
-    ]
+    ],
+    'settings' => [
+        'menu_desc' => 'Set your author name and namespace for plugin creation.'
+    ],
 ];

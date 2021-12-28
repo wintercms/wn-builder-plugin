@@ -113,9 +113,9 @@ class Plugin extends PluginBase
     {
         return [
             'config' => [
-                'label'       => 'Builder',
+                'label'       => 'winter.builder::lang.plugin.name',
                 'icon'        => 'icon-wrench',
-                'description' => 'Set your author name and namespace for plugin creation.',
+                'description' => 'winter.builder::lang.settings.menu_desc',
                 'class'       => 'Winter\Builder\Models\Settings',
                 'permissions' => ['winter.builder.manage_plugins'],
                 'order'       => 600
