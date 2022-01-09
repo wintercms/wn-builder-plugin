@@ -328,14 +328,14 @@ public function boot()
 }
 ```
 
-> Note: See the `getStandardProperties()` method in the `rainlab/builder/classes/ControlLibrary.php` file for more examples.
+> Note: See the `getStandardProperties()` method in the `winter/builder/classes/ControlLibrary.php` file for more examples.
 
 Now, we need the `ControlDesignTimeProvider` class referenced above. Save the following as `classes/ControlDesignTimeProvider.php` within your plugin's directory (replacing `'yourwidgetname'` with what you used in your Plugin registration class `boot()` method).
 
 ```php
 <?php namespace Acme\Blog\Classes;
 
-use RainLab\Builder\Widgets\DefaultControlDesignTimeProvider;
+use Winter\Builder\Widgets\DefaultControlDesignTimeProvider;
 
 class ControlDesignTimeProvider extends DefaultControlDesignTimeProvider
 {
