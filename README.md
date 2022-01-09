@@ -6,7 +6,7 @@ A user-friendly, visual plugin scaffolding tool that makes it trivial to get a n
 
 You can install the plugin using Composer. As this is a development plugin, it should be defined as a "dev" dependency.
 
-```
+```bash
 composer require --dev winter/wn-builder-plugin
 ```
 
@@ -76,14 +76,14 @@ When Builder initializes a plugin, it creates the following files and directorie
 
 ```css
  📂 myauthor              /* Author name */
- ┣ 📂 myplugin            /* Plugin name */
- ┃ ┣ 📂 lang              /* Localization files */
- ┃ ┃ ┗ 📂 en              /* Specific locale folder */
- ┃ ┃ ┃ ┗ 📜 lang.php      /* Translations */
- ┃ ┣ 📂 updates           /* Database migrations */
- ┃ ┃ ┗ 📜 version.yaml    /* Changelog */
- ┃ ┣ 📜 Plugin.php        /* Plugin registration class */
- ┃ ┗ 📜 plugin.yaml       /* Basic plugin information in YAML format in order to edit with Builder */
+ ┗ 📂 myplugin            /* Plugin name */
+   ┣ 📂 lang              /* Localization files */
+   ┃ ┗ 📂 en              /* Specific locale folder */
+   ┃   ┗ 📜 lang.php      /* Translations */
+   ┣ 📂 updates           /* Database migrations */
+   ┃ ┗ 📜 version.yaml    /* Changelog */
+   ┣ 📜 Plugin.php        /* Plugin registration class */
+   ┗ 📜 plugin.yaml       /* Basic plugin information in YAML format in order to edit with Builder */
  ```
 
 The file **plugin.yaml** contains the basic plugin information - name, description, permissions and backend navigation. This file is managed by the Builder user interface.
@@ -224,7 +224,7 @@ Builder tries to keep the user interface synchronized with your default language
 
 In many cases you can create new localization strings on-the-fly from the Builder editors - the Form Builder, Menu Builder, etc. The localization input field has the plus icon on the right side. Clicking the plus icon opens a popup window that allows you to enter the localization string key and value. The string key can contain dots to mark the localization file sections. For example - if you add a string with the key `plugin.posts.category` and value "Enter a category name", Builder will create the following structure in the language file:
 
-```
+```yaml
 plugin:
     posts:
         category: Enter a category name
@@ -232,7 +232,7 @@ plugin:
 
 If you create a new localization string from the Inspector or other editor while you have the default language file tab open in the Builder, it will try to update the tab contents or merge the updated file contents from the server. It's a good idea to keep the default localization file always saved in the Builder to avoid possible content conflicts when you edit localization from another place.
 
-> Protip: In YAML a single quote is escaped with two single quotes (http://yaml.org/spec/current.html#id2534365).
+> Protip: In YAML a single quote is escaped with two single quotes (https://yaml.org/spec/1.2.2).
 
 ## Displaying plugin records on the front-end pages
 
@@ -328,14 +328,14 @@ public function boot()
 }
 ```
 
-> Note: See the `getStandardProperties()` method in the `rainlab/builder/classes/ControlLibrary.php` file for more examples.
+> Note: See the `getStandardProperties()` method in the `winter/builder/classes/ControlLibrary.php` file for more examples.
 
 Now, we need the `ControlDesignTimeProvider` class referenced above. Save the following as `classes/ControlDesignTimeProvider.php` within your plugin's directory (replacing `'yourwidgetname'` with what you used in your Plugin registration class `boot()` method).
 
 ```php
 <?php namespace Acme\Blog\Classes;
 
-use RainLab\Builder\Widgets\DefaultControlDesignTimeProvider;
+use Winter\Builder\Widgets\DefaultControlDesignTimeProvider;
 
 class ControlDesignTimeProvider extends DefaultControlDesignTimeProvider
 {
