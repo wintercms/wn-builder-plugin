@@ -42,7 +42,7 @@ class ControllerModel extends BaseModel
     public function load($controller)
     {
         if (!$this->validateFileName($controller)) {
-            throw new SystemException(Lang::get('winter.builder::lang.controller.error_invalid_controller_file_name', ['language'=>$language]));
+            throw new SystemException(Lang::get('winter.builder::lang.controller.error_invalid_controller_file_name', ['language' => $language]));
         }
 
         $this->controller = $this->trimExtension($controller);

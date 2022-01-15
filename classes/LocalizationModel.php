@@ -333,7 +333,7 @@ class LocalizationModel extends BaseModel
         }
 
         if (!$this->validateLanguage($language)) {
-            throw new SystemException(Lang::get('winter.builder::lang.localization.error_invalid_language_file_name'), ['lang'=>$language]);
+            throw new SystemException(Lang::get('winter.builder::lang.localization.error_invalid_language_file_name'), ['lang' => $language]);
         }
 
         $path = $this->getPluginCodeObj()->toPluginDirectoryPath().'/lang/'.$language.'/lang.php';
@@ -364,7 +364,7 @@ class LocalizationModel extends BaseModel
             return "<?php return ".$phpData.";";
         }
         catch (Exception $ex) {
-            throw new ApplicationException(Lang::get('winter.builder::lang.localization.error_cannot_parse_yaml'), ['message'=>$ex->getMessage()]);
+            throw new ApplicationException(Lang::get('winter.builder::lang.localization.error_cannot_parse_yaml'), ['message' => $ex->getMessage()]);
         }
     }
 

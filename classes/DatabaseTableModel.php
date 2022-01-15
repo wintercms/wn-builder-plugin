@@ -74,7 +74,7 @@ class DatabaseTableModel extends BaseModel
     public function load($name)
     {
         if (!self::tableExists($name)) {
-            throw new SystemException(Lang::get('winter.builder::lang.database.error_table_with_name_doesnt_exist', ['name'=>$name]));
+            throw new SystemException(Lang::get('winter.builder::lang.database.error_table_with_name_doesnt_exist', ['name' => $name]));
         }
 
         $schema = self::getSchemaManager()->createSchema();

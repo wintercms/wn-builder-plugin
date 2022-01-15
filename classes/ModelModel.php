@@ -161,7 +161,7 @@ class ModelModel extends BaseModel
     private static function getTableNameFromModelClass($pluginCodeObj, $modelClassName)
     {
         if (!self::validateModelClassName($modelClassName)) {
-            throw new SystemException(Lang::get('winter.builder::lang.model.error_invalid_model_class_name', ['class'=>$modelClassName]));
+            throw new SystemException(Lang::get('winter.builder::lang.model.error_invalid_model_class_name', ['class' => $modelClassName]));
         }
 
         $modelsDirectoryPath = File::symbolizePath($pluginCodeObj->toPluginDirectoryPath().'/models');
@@ -198,7 +198,7 @@ class ModelModel extends BaseModel
         $tableName = self::getTableNameFromModelClass($pluginCodeObj, $modelClassName);
 
         if (!DatabaseTableModel::tableExists($tableName)) {
-            throw new ApplicationException(Lang::get('winter.builder::lang.model.error_db_table_not_found', ['table'=>$tableName]));
+            throw new ApplicationException(Lang::get('winter.builder::lang.model.error_db_table_not_found', ['table' => $tableName]));
         }
 
         $schema = DatabaseTableModel::getSchema();
