@@ -102,14 +102,14 @@ abstract class YamlModel extends BaseModel
         $filePath = File::symbolizePath($filePath);
 
         if (!File::isFile($filePath)) {
-            throw new ApplicationException('Cannot load the model - the original file is not found: '.basename($filePath));
+            throw new ApplicationException(Lang::get('winter.builder::lang.yaml.error_cannot_load_model_file_is_not_found', ['path'=>basename($filePath)]));
         }
 
         try {
             $data = Yaml::parse(File::get($filePath));
         }
         catch (Exception $ex) {
-            throw new ApplicationException(sprintf('Cannot parse the YAML file %s: %s', basename($filePath), $ex->getMessage()));
+            throw new ApplicationException(Lang::get('winter.builder::lang.yaml.error_cannot_parse_yaml_file', ['path'=>basename($filePath), 'message'=>$ex->getMessage()]));
         }
 
         $this->originalFilePath = $filePath;
@@ -134,11 +134,11 @@ abstract class YamlModel extends BaseModel
     public function deleteModel()
     {
         if (!File::isFile($this->originalFilePath)) {
-            throw new ApplicationException('Cannot load the model - the original file is not found: '.$filePath);
+            throw new ApplicationException(Lang::get('winter.builder::lang.yaml.error_cannot_load_model_file_is_not_found', ['path'=>$filePath]));
         }
 
         if (strtolower(substr($this->originalFilePath, -5)) !== '.yaml') {
-            throw new ApplicationException('Cannot delete the model - the original file should be a YAML document');
+            throw new ApplicationException(Lang::get('winter.builder::lang.yaml.error_cannot_delete_model_file_should_be_yaml'));
         }
 
         File::delete($this->originalFilePath);

@@ -64,7 +64,7 @@ class ComponentHelper
         $modelClass = trim(Input::get('modelClass'));
 
         if ($modelClass && !is_scalar($modelClass)) {
-            throw new ApplicationException('Model class name should be a string.');
+            throw new ApplicationException(Lang::get('winter.builder::lang.components.error_model_class_name_should_be_a_string'));
         }
 
         if (!strlen($modelClass)) {
@@ -73,7 +73,7 @@ class ComponentHelper
         }
 
         if (!ModelModel::validateModelClassName($modelClass)) {
-            throw new ApplicationException('Invalid model class name.');
+            throw new ApplicationException(Lang::get('winter.builder::lang.components.error_invalid_model_class_name'));
         }
 
         return $modelClass;

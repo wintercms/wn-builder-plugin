@@ -68,7 +68,7 @@ class PhpSourceStream
     {
         $head = array_pop($this->headBookmarks);
         if ($head === null) {
-            throw new SystemException("Can't restore PHP token stream bookmark - the bookmark doesn't exist");
+            throw new SystemException(Lang::get('winter.builder::lang.stream.error_cant_restore_token_stream_bookmark'));
         }
 
         return $this->setHead($head);
@@ -81,7 +81,7 @@ class PhpSourceStream
     {
         $head = array_pop($this->headBookmarks);
         if ($head === null) {
-            throw new SystemException("Can't discard PHP token stream bookmark - the bookmark doesn't exist");
+            throw new SystemException(Lang::get('winter.builder::lang.stream.error_cant_discard_token_stream_bookmark'));
         }
     }
 

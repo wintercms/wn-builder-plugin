@@ -28,7 +28,7 @@ class LanguageMixer
             $destArray = Yaml::parse($destContents);
         }
         catch (Exception $ex) {
-            throw new ApplicationException(sprintf('Cannot parse the YAML content: %s', $ex->getMessage()));
+            throw new ApplicationException(Lang::get('winter.builder::lang.localization.error_cannot_parse_yaml', ['message'=>$ex->getMessage()]));
         }
 
         if (!$destArray) {

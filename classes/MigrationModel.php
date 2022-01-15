@@ -100,7 +100,7 @@ class MigrationModel extends BaseModel
 
         $versionNumbers = [];
         if (!preg_match('/^([0-9]+)\.([0-9]+)\.([0-9]+)$/', $latestVersion, $versionNumbers)) {
-            throw new SystemException(sprintf('Cannot parse the latest plugin version number: %s.', $latestVersion));
+            throw new SystemException(Lang::get('winter.builder::lang.migration.error_cannot_parse_latest_plugin_version', ['version'=>$latestVersion]));
         }
 
         return $versionNumbers[1].'.'.$versionNumbers[2].'.'.($versionNumbers[3]+1);
@@ -151,12 +151,12 @@ class MigrationModel extends BaseModel
         $versionNumber = trim($versionNumber);
 
         if (!strlen($versionNumber)) {
-            throw new ApplicationException('Cannot load the the version model - the version number should not be empty.');
+            throw new ApplicationException(Lang::get('winter.builder::lang.migration.error_cannot_load_version_model_should_not_be_empty'));
         }
 
         $pluginVersions = $this->getPluginVersionInformation();
         if (!array_key_exists($versionNumber, $pluginVersions)) {
-            throw new ApplicationException('The requested version does not exist in the version information file.');
+            throw new ApplicationException(Lang::get('winter.builder::lang.migration.error_requested_version_does_not_exist'));
         }
 
         $this->version = $versionNumber;
@@ -171,7 +171,7 @@ class MigrationModel extends BaseModel
             $cnt = count($versionInformation);
 
             if ($cnt > 2) {
-                throw new ApplicationException('The requested version cannot be edited with Builder as it refers to multiple PHP scripts.');
+                throw new ApplicationException(Lang::get('winter.builder::lang.migration.error_requested_version_cannot_be_edited'));
             }
 
             if ($cnt > 0) {
@@ -192,7 +192,7 @@ class MigrationModel extends BaseModel
         $versionTypes = ['migration', 'seeder', 'custom'];
 
         if (!in_array($versionType, $versionTypes)) {
-            throw new SystemException('Unknown version type.');
+            throw new SystemException(Lang::get('winter.builder::lang.migration.error_unknown_version_type'));
         }
 
         $this->version = $this->getNextVersion();
@@ -340,7 +340,7 @@ class MigrationModel extends BaseModel
             $scriptFilePath = $this->getPluginUpdatesPath($this->scriptFileName.'.php');
 
             if (!File::put($scriptFilePath, $this->code)) {
-                throw new SystemException(sprintf('Error saving file %s', $scriptFilePath));
+                throw new SystemException(Lang::get('winter.builder::lang.migration.error_saving_file', ['path'=>$scriptFilePath]));
             }
 
             @File::chmod($scriptFilePath);
@@ -373,7 +373,7 @@ class MigrationModel extends BaseModel
         $scriptFilePath = $this->getPluginUpdatesPath($this->scriptFileName.'.php');
 
         if (!File::isFile($scriptFilePath)) {
-            throw new ApplicationException(sprintf('Version file %s is not found.', $scriptFilePath));
+            throw new ApplicationException(Lang::get('winter.builder::lang.migration.error_version_file_is_not_found', ['path'=>$scriptFilePath]));
         }
 
         return File::get($scriptFilePath);
@@ -424,7 +424,7 @@ class MigrationModel extends BaseModel
 
         $originalFileContents = File::get($versionFilePath);
         if (!$originalFileContents) {
-            throw new SystemException(sprintf('Error loading file %s', $versionFilePath));
+            throw new SystemException(Lang::get('winter.builder::lang.migration.error_loading_file', ['path'=>$scriptFilePath]));
         }
 
         $versionInformation[$this->version] = [
@@ -444,7 +444,7 @@ class MigrationModel extends BaseModel
         $yamlData = Yaml::render($versionInformation);
 
         if (!File::put($versionFilePath, $yamlData)) {
-            throw new SystemException(sprintf('Error saving file %s', $versionFilePath));
+            throw new SystemException(Lang::get('winter.builder::lang.migration.error_saving_file', ['path'=>$scriptFilePath]));
         }
 
         @File::chmod($versionFilePath);
@@ -467,7 +467,7 @@ class MigrationModel extends BaseModel
         $yamlData = Yaml::render($versionInformation);
 
         if (!File::put($versionFilePath, $yamlData)) {
-            throw new SystemException(sprintf('Error saving file %s', $versionFilePath));
+            throw new SystemException(Lang::get('winter.builder::lang.migration.error_saving_file', ['path'=>$scriptFilePath]));
         }
 
         @File::chmod($versionFilePath);

@@ -118,7 +118,7 @@ class LocalizationModel extends BaseModel
     public function deleteModel()
     {
         if ($this->isNewModel()) {
-            throw new ApplicationException('Cannot delete language file which is not saved yet.');
+            throw new ApplicationException(Lang::get('winter.builder::lang.localization.error_cannot_delete_lang_file_which_is_not_saved'));
         }
 
         $filePath = File::symbolizePath($this->getFilePath());
@@ -227,7 +227,7 @@ class LocalizationModel extends BaseModel
         $language = Config::get('app.locale');
 
         if (!$language) {
-            throw new ApplicationException('The default language is not defined in the application configuration (app.locale).');
+            throw new ApplicationException(Lang::get('winter.builder::lang.localization.error_default_language_is_not_defined'));
         }
 
         return $language;
@@ -329,11 +329,11 @@ class LocalizationModel extends BaseModel
         $language = trim($language);
 
         if (!strlen($language)) {
-            throw new SystemException('The form model language is not set.');
+            throw new SystemException(Lang::get('winter.builder::lang.localization.error_form_language_is_not_set'));
         }
 
         if (!$this->validateLanguage($language)) {
-            throw new SystemException('Invalid language file name: '.$language);
+            throw new SystemException(Lang::get('winter.builder::lang.localization.error_invalid_language_file_name'), ['lang'=>$language]);
         }
 
         $path = $this->getPluginCodeObj()->toPluginDirectoryPath().'/lang/'.$language.'/lang.php';
@@ -364,7 +364,7 @@ class LocalizationModel extends BaseModel
             return "<?php return ".$phpData.";";
         }
         catch (Exception $ex) {
-            throw new ApplicationException(sprintf('Cannot parse the YAML content: %s', $ex->getMessage()));
+            throw new ApplicationException(Lang::get('winter.builder::lang.localization.error_cannot_parse_yaml'), ['message'=>$ex->getMessage()]);
         }
     }
 

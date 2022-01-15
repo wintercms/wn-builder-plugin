@@ -37,7 +37,7 @@ class ModelListModel extends ModelYamlModel
             $attributes['columns'] = json_decode($attributes['columns'], true);
 
             if ($attributes['columns'] === null) {
-                throw new SystemException('Cannot decode columns JSON string.');
+                throw new SystemException(Lang::get('winter.builder::lang.list.error_cannot_decode_columns_json_string'));
             }
         }
 
@@ -66,7 +66,7 @@ class ModelListModel extends ModelYamlModel
         $this->validateDupicateColumns();
 
         if (!$this->columns) {
-            throw new ValidationException(['columns' => 'Please create at least one column.']);
+            throw new ValidationException(['columns' => Lang::get('winter.builder::lang.list.validation_columns_create_at_least_one_column')]);
         }
     }
 
@@ -101,7 +101,7 @@ class ModelListModel extends ModelYamlModel
 
         foreach ($this->columns as $column) {
             if (!isset($column['field'])) {
-                throw new ApplicationException('Cannot save the list - the column field name should not be empty.');
+                throw new ApplicationException(Lang::get('winter.builder::lang.list.error_name_should_not_be_empty'));
             }
 
             $columnName = $column['field'];

@@ -35,7 +35,7 @@ class ModelFormModel extends ModelYamlModel
             $attributes['controls'] = json_decode($attributes['controls'], true);
 
             if ($attributes['controls'] === null) {
-                throw new SystemException('Cannot decode controls JSON string.');
+                throw new SystemException(Lang::get('winter.builder::lang.form.error_cannot_decode_controls_json_string'));
             }
         }
 
@@ -64,7 +64,7 @@ class ModelFormModel extends ModelYamlModel
         parent::validate();
 
         if (!$this->controls) {
-            throw new ValidationException(['controls' => 'Please create at least one field.']);
+            throw new ValidationException(['controls' => Lang::get('winter.builder::lang.form.validation_create_at_least_one_field')]);
         }
     }
 

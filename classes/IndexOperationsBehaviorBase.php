@@ -17,7 +17,7 @@ abstract class IndexOperationsBehaviorBase extends ControllerBehavior
     protected function makeBaseFormWidget($modelCode, $options = [], $aliasSuffix = null)
     {
         if (!strlen($this->baseFormConfigFile)) {
-            throw new ApplicationException(sprintf('Base form configuration file is not specified for %s behavior', get_class($this)));
+            throw new ApplicationException(Lang::get('winter.builder::lang.behavior.error_base_form_configuration_file_is_not_specified', ['class'=>get_class($this)]));
         }
 
         $widgetConfig = $this->makeConfig($this->baseFormConfigFile);
@@ -36,7 +36,7 @@ abstract class IndexOperationsBehaviorBase extends ControllerBehavior
         $vector = $this->controller->getBuilderActivePluginVector();
 
         if (!$vector) {
-            throw new ApplicationException('Cannot determine the currently active plugin.');
+            throw new ApplicationException(Lang::get('winter.builder::lang.behavior.error_cannot_determine_currently_active_plugin'));
         }
 
         return $vector->pluginCodeObj;

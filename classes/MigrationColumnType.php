@@ -90,7 +90,7 @@ class MigrationColumnType extends BaseModel
         $typeMap = self::getDoctrineTypeMap();
 
         if (!array_key_exists($type, $typeMap)) {
-            throw new SystemException(sprintf('Unknown column type: %s', $type));
+            throw new SystemException(Lang::get('winter.builder::lang.migration.error_unknown_column_type', ['type'=>$type]));
         }
 
         return $typeMap[$type];
@@ -104,7 +104,7 @@ class MigrationColumnType extends BaseModel
         $typeMap = self::getDoctrineTypeMap();
 
         if (!in_array($type, $typeMap)) {
-            throw new SystemException(sprintf('Unknown column type: %s', $type));
+            throw new SystemException(Lang::get('winter.builder::lang.migration.error_unknown_column_type', ['type'=>$type]));
         }
 
         // Some Doctrine types map to multiple migration types, for example

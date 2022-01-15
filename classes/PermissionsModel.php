@@ -48,7 +48,7 @@ class PermissionsModel extends PluginYamlModel
             }
 
             if (!isset($permission['permission'])) {
-                throw new ApplicationException('Cannot save permissions - the permission code should not be empty.');
+                throw new ApplicationException(Lang::get('winter.builder::lang.permission.error_save_permissions_code_should_not_be_empty'));
             }
 
             $code = $permission['permission'];
@@ -188,7 +188,7 @@ class PermissionsModel extends PluginYamlModel
     protected function getFilePath()
     {
         if ($this->pluginCodeObj === null) {
-            throw new SystemException('Error saving plugin permission model - the plugin code object is not set.');
+            throw new SystemException(Lang::get('winter.builder::lang.permission.error_saving_permission_code_is_not_set'));
         }
 
         return $this->pluginCodeObj->toPluginFilePath();

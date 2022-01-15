@@ -20,7 +20,7 @@ class PluginVersion extends BaseModel
         $filePath = $this->getPluginUpdatesPath($pluginCodeObj, 'version.yaml');
 
         if (!File::isFile($filePath)) {
-            throw new SystemException('Plugin version.yaml file is not found.');
+            throw new SystemException(Lang::get('winter.builder::lang.version.error_plugin_version_yaml_file_is_not_found'));
         }
 
         $versionInfo = Yaml::parseFile($filePath);

@@ -74,7 +74,7 @@ class DatabaseTableModel extends BaseModel
     public function load($name)
     {
         if (!self::tableExists($name)) {
-            throw new SystemException(sprintf('The table with name %s doesn\'t exist', $name));
+            throw new SystemException(Lang::get('winter.builder::lang.database.error_table_with_name_doesnt_exist', ['name'=>$name]));
         }
 
         $schema = self::getSchemaManager()->createSchema();
@@ -90,7 +90,7 @@ class DatabaseTableModel extends BaseModel
         $pluginDbPrefix = $this->getPluginCodeObj()->toDatabasePrefix();
 
         if (!strlen($pluginDbPrefix)) {
-            throw new SystemException('Error saving the table model - the plugin database prefix is not set for the object.');
+            throw new SystemException(Lang::get('winter.builder::lang.database.error_saving_table_model_plugin_database_prefix_is_not_set_for_object'));
         }
 
         $prefix = $pluginDbPrefix.'_';
