@@ -3,6 +3,7 @@
 use Yaml;
 use Symfony\Component\Yaml\Dumper as YamlDumper;
 use ApplicationException;
+use Lang;
 
 class LanguageMixer
 {

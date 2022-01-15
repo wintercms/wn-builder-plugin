@@ -3,6 +3,7 @@
 use ValidationException;
 use SystemException;
 use Validator;
+use Lang;
 
 /**
  * Base class for Builder models.

@@ -2,6 +2,7 @@
 
 use SystemException;
 use ValidationException;
+use Lang;
 
 /**
  * Represents and manages model forms.

@@ -3,6 +3,7 @@
 use SystemException;
 use File;
 use Yaml;
+use Lang;
 
 /**
  * Helper class for managing plugin versions

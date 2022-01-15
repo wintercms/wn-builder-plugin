@@ -1,6 +1,7 @@
 <?php namespace Winter\Builder\Classes;
 
 use ApplicationException;
+use Lang;
 
 /**
  * Represents a plugin code and provides basic code operations.

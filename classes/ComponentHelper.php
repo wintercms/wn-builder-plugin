@@ -5,6 +5,7 @@ use Input;
 use Exception;
 use Winter\Storm\Support\Traits\Singleton;
 use ApplicationException;
+use Lang;
 
 /**
  * Provides helper methods for Builder CMS components.

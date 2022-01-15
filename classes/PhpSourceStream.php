@@ -1,6 +1,7 @@
 <?php namespace Winter\Builder\Classes;
 
 use SystemException;
+use Lang;
 
 /**
  * Represents a PHP source code token stream.
