@@ -150,6 +150,17 @@ class ModelModel extends BaseModel
         parent::validate();
     }
 
+    public function deleteModel()
+    {
+        if (File::exists('$/' . $this->getFilePath())) {
+            File::delete('$/' . $this->getFilePath());
+        }
+
+        if (File::exists('$/' . $this->getAssetPath())) {
+            File::deleteDirectory('$/' . $this->getAssetPath());
+        }
+    }
+
     public function getDatabaseTableOptions()
     {
         $pluginCode = $this->getPluginCodeObj()->toCode();
@@ -271,7 +282,12 @@ class ModelModel extends BaseModel
 
     protected function getFilePath()
     {
-        return $this->getPluginCodeObj()->toFilesystemPath().'/models/'.$this->className.'.php';
+        return $this->getPluginCodeObj()->toFilesystemPath() . '/models/' . $this->className . '.php';
+    }
+
+    protected function getAssetPath()
+    {
+        return $this->getPluginCodeObj()->toFilesystemPath() . '/models/' . strtolower($this->className);
     }
 
     protected function validateColumnsExist($value, $columns, $columnsToCheck)

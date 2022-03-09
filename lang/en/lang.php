@@ -108,6 +108,9 @@ return [
         'error_deleted_at_column_must_exist' => 'The database table must have deleted_at column.',
         'add_form' => 'Add form',
         'add_list' => 'Add list',
+        'delete_model' => 'Delete model :model',
+        'delete_model_confirm' => 'Are you sure you wish to delete the ":model" model? This will also remove any forms and lists connected to the model.',
+        'deleted' => 'Model ":model" successfully deleted.',
     ],
     'form' => [
         'saved' => 'Form saved',

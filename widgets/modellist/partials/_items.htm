@@ -13,22 +13,39 @@
             $formsGroupStatus = $this->getCollapseStatus($formsGroup);
             $listsGroupStatus = $this->getCollapseStatus($listsGroup);
         ?>
-            <li class="group model" 
-                data-id="<?= e($dataId) ?>" 
+            <li class="group model"
+                data-id="<?= e($dataId) ?>"
                 data-status="<?= $modelGroupStatus ? 'expanded' : 'collapsed' ?>"
                 data-group-id="<?= e($modelGroup) ?>"
             >
-                <h4><a href="#" data-id="<?= e($model->className) ?>"><?= e($model->className) ?></a></h4>
+                <h4>
+                    <a href="#" data-id="<?= e($model->className) ?>"><?= e($model->className) ?></a>
+                </h4>
+
+                <div class="controls">
+                    <a
+                        href="javascript:;"
+                        class="control icon btn-primary oc-icon-trash"
+                        data-builder-command="model:cmdDeleteModel"
+                        data-model-class="<?= e($model->className) ?>"
+                        data-confirm="<?= e(trans('winter.builder::lang.model.delete_model_confirm', ['model' => $model->className])) ?>"
+                        title="<?= e(trans('winter.builder::lang.model.delete_model', ['model' => $model->className])) ?>"
+                    ><?= e(trans('winter.builder::lang.model.delete_model', ['model' => $model->className])) ?></a>
+                </div>
+
                 <ul>
                     <li class="group form"
                         data-status="<?= $formsGroupStatus ? 'expanded' : 'collapsed' ?>"
                         data-group-id="<?= e($formsGroup) ?>"
                     >
-                        <h4><a href="#"><?= e(trans('winter.builder::lang.model.forms')) ?></a></h4>
+                        <h4>
+                            <a href="#"><?= e(trans('winter.builder::lang.model.forms')) ?></a>
+                        </h4>
+
                         <div class="controls">
                             <a
                                 href="javascript:;"
-                                class="control icon btn-primary oc-icon-plus" 
+                                class="control icon btn-primary oc-icon-plus"
                                 data-builder-command="modelForm:cmdCreateForm"
                                 data-model-class="<?= e($model->className) ?>"
                                 title="<?= e(trans('winter.builder::lang.model.add_form')) ?>"
@@ -40,9 +57,9 @@
                                 $formDataId = 'modelForm-'.$model->className.'-'.$modelForm;
                             ?>
                                 <li class="item"
-                                    data-id="<?= e($formDataId) ?>" 
+                                    data-id="<?= e($formDataId) ?>"
                                 >
-                                    <a 
+                                    <a
                                         href="javascript:;"
                                         data-builder-command="modelForm:cmdOpenForm"
                                         data-model-class="<?= e($model->className) ?>"
@@ -56,11 +73,14 @@
                         data-status="<?= $listsGroupStatus ? 'expanded' : 'collapsed' ?>"
                         data-group-id="<?= e($listsGroup) ?>"
                     >
-                        <h4><a href="#"><?= e(trans('winter.builder::lang.model.lists')) ?></a></h4>
+                        <h4>
+                            <a href="#"><?= e(trans('winter.builder::lang.model.lists')) ?></a>
+                        </h4>
+
                         <div class="controls">
                             <a
                                 href="javascript:;"
-                                class="control icon btn-primary oc-icon-plus" 
+                                class="control icon btn-primary oc-icon-plus"
                                 data-builder-command="modelList:cmdCreateList"
                                 data-model-class="<?= e($model->className) ?>"
                                 title="<?= e(trans('winter.builder::lang.model.add_list')) ?>"
@@ -72,9 +92,9 @@
                                 $formDataId = 'modelList-'.$model->className.'-'.$modelList;
                             ?>
                                 <li class="item"
-                                    data-id="<?= e($formDataId) ?>" 
+                                    data-id="<?= e($formDataId) ?>"
                                 >
-                                    <a 
+                                    <a
                                         href="javascript:;"
                                         data-builder-command="modelList:cmdOpenList"
                                         data-model-class="<?= e($model->className) ?>"
@@ -85,7 +105,7 @@
                         </ul>
                     </li>
                 </ul>
-                
+
             </li>
         <?php endforeach ?>
     </ul>
