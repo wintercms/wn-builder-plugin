@@ -215,6 +215,7 @@ class Plugin extends PluginBase
          * Register asset bundles
          */
         CombineAssets::registerCallback(function ($combiner) {
+            $combiner->registerBundle('$/winter/builder/assets/less/builder.less');
             $combiner->registerBundle('$/winter/builder/assets/js/build.js');
         });
     }
