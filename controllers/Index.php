@@ -51,7 +51,7 @@ class Index extends Controller
         $this->pageTitle = 'winter.builder::lang.plugin.name';
 
         new PluginList($this, 'pluginList');
-        new DatabaseTableList($this, 'databaseTabelList');
+        new DatabaseTableList($this, 'databaseTableList');
         new ModelList($this, 'modelList');
         new VersionList($this, 'versionList');
         new LanguageList($this, 'languageList');
@@ -90,7 +90,7 @@ class Index extends Controller
 
         $result = array_merge(
             $result,
-            $this->widget->databaseTabelList->refreshActivePlugin(),
+            $this->widget->databaseTableList->refreshActivePlugin(),
             $this->widget->modelList->refreshActivePlugin(),
             $this->widget->versionList->refreshActivePlugin(),
             $this->widget->languageList->refreshActivePlugin(),
