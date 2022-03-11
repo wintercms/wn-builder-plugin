@@ -49,4 +49,16 @@ class ModelFileParserTest extends \TestCase
 
         $this->assertStringContainsString('public $jsonable = [\'field_1\', \'field_2\'];', $source);
     }
+
+    public function testSetJsonableAddProperty()
+    {
+        $parser = new ModelFileParser(__DIR__ . '/../../fixtures/pluginfixture/models/SimpleModel.php');
+        $parser->setJsonable([
+            'field_1',
+            'field_2',
+        ]);
+        $source = $parser->getSource();
+
+        $this->assertStringContainsString('public $jsonable = [\'field_1\', \'field_2\'];', $source);
+    }
 }

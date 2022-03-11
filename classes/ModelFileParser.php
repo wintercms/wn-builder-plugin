@@ -1,6 +1,7 @@
 <?php namespace Winter\Builder\Classes;
 
 use ApplicationException;
+use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
@@ -8,7 +9,9 @@ use PhpParser\Node\Expr\Cast\Bool_;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Namespace_;
+use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\PropertyProperty;
 use PhpParser\Node\VarLikeIdentifier;
 use PhpParser\NodeFinder;
@@ -151,8 +154,60 @@ class ModelFileParser extends PhpFileParser
         });
 
         if ($jsonable === null) {
-            // We must create the property
+            // We must create the property - we'll need to traverse the property list, find the first method definition, and
+            // add $jsonable before it
 
+            // Create an array of items
+            $arrayItems = [];
+            foreach ($columns as $column) {
+                $arrayItems[] = new ArrayItem(
+                    new String_($column)
+                );
+            }
+
+            // Create a property
+            $property = new Property(
+                Class_::MODIFIER_PUBLIC,
+                [
+                    new PropertyProperty(
+                        new VarLikeIdentifier('jsonable'),
+                        new Array_($arrayItems, [
+                            'kind' => Array_::KIND_SHORT
+                        ])
+                    )
+                ]
+            );
+
+            // Set the docblock for the property
+            $property->setDocComment(new Doc(
+                "\n"
+                . "/**\n"
+                . " * JSONable fields.\n"
+                . " *\n"
+                . " * @var array\n"
+                . " */"
+            ));
+
+            $firstMethodIndex = null;
+
+            foreach ($class->stmts as $i => $stmt) {
+                if ($stmt instanceof ClassMethod) {
+                    $firstMethodIndex = $i;
+                    break;
+                }
+            }
+
+            if ($firstMethodIndex !== null) {
+                array_splice(
+                    $class->stmts,
+                    $firstMethodIndex,
+                    0,
+                    [$property]
+                );
+                return;
+            }
+
+            $class->stmts[] = $property;
             return;
         }
 

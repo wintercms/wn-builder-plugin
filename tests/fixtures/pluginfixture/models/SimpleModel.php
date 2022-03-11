@@ -10,4 +10,14 @@ class SimpleModel extends Model
      * @var string
      */
     public $table = 'plugin_fixture_simple_model';
+
+    /**
+     * Used to make sure that the "setJsonable" method doesn't mess with the source code too much
+     *
+     * @return void
+     */
+    public function methodName()
+    {
+        return 'This is a test method';
+    }
 }
