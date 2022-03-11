@@ -10,26 +10,45 @@ use DirectoryIterator;
 use ApplicationException;
 
 /**
- * Manages plugin models.
+ * Model representation.
+ *
+ * Manages model classes.
  *
  * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
+ * @author Winter CMS
  */
 class ModelModel extends BaseModel
 {
+    /**
+     * Regex pattern for the main class name
+     */
     const UNQUALIFIED_CLASS_NAME_PATTERN = '/^[A-Z]+[a-zA-Z0-9_]+$/';
 
+    /**
+     * @var string|null The class name of the model that this record represents.
+     */
     public $className;
 
+    /**
+     * @var string|null The database table in use for the model that this record represents.
+     */
     public $databaseTable;
 
+    /**
+     * @inheritDoc
+     */
     protected static $fillable = [
         'className',
         'databaseTable',
         'addTimestamps',
-        'addSoftDeleting'
+        'addSoftDeleting',
+        'jsonable',
     ];
 
+    /**
+     * @inheritDoc
+     */
     protected $validationRules = [
         'className' => ['required', 'regex:' . self::UNQUALIFIED_CLASS_NAME_PATTERN, 'uniqModelName'],
         'databaseTable' => ['required'],
@@ -37,6 +56,14 @@ class ModelModel extends BaseModel
         'addSoftDeleting' => ['deletedAtColumnMustExist']
     ];
 
+    /**
+     * Lists all models available in a particular project.
+     *
+     * Returns an array of model representations.
+     *
+     * @param \Winter\Builder\Classes\PluginCode $pluginCodeObj
+     * @return static[]
+     */
     public static function listPluginModels($pluginCodeObj)
     {
         $modelsDirectoryPath = $pluginCodeObj->toPluginDirectoryPath().'/models';
@@ -80,6 +107,11 @@ class ModelModel extends BaseModel
         return $result;
     }
 
+    /**
+     * Saves the model to the filesystem.
+     *
+     * @return void
+     */
     public function save()
     {
         $this->validate();
@@ -115,6 +147,11 @@ class ModelModel extends BaseModel
         $generator->generate();
     }
 
+    /**
+     * Validates the model.
+     *
+     * @return void
+     */
     public function validate()
     {
         $path = File::symbolizePath('$/'.$this->getFilePath());
@@ -149,6 +186,13 @@ class ModelModel extends BaseModel
         parent::validate();
     }
 
+    /**
+     * Deletes the model from the filesystem.
+     *
+     * This will delete any model assets for the given model, as well.
+     *
+     * @return void
+     */
     public function deleteModel()
     {
         if (File::exists($this->getFullFilePath())) {
@@ -160,6 +204,11 @@ class ModelModel extends BaseModel
         }
     }
 
+    /**
+     * Gets a list of database tables.
+     *
+     * @return array
+     */
     public function getDatabaseTableOptions()
     {
         $pluginCode = $this->getPluginCodeObj()->toCode();
@@ -168,6 +217,15 @@ class ModelModel extends BaseModel
         return array_combine($tables, $tables);
     }
 
+    /**
+     * Returns the table name defined in a plugin's model.
+     *
+     * If table name is unable to be determined, an empty string will be returned.
+     *
+     * @param \Winter\Builder\Classes\PluginCode $pluginCodeObj
+     * @param string $modelClassName
+     * @return string
+     */
     private static function getTableNameFromModelClass($pluginCodeObj, $modelClassName)
     {
         if (!self::validateModelClassName($modelClassName)) {
@@ -193,6 +251,13 @@ class ModelModel extends BaseModel
         return $modelInfo['table'];
     }
 
+    /**
+     * Gets the table columns for a given plugin's model.
+     *
+     * @param \Winter\Builder\Classes\PluginCode $pluginCodeObj
+     * @param string $modelClassName
+     * @return array
+     */
     public static function getModelFields($pluginCodeObj, $modelClassName)
     {
         $tableName = self::getTableNameFromModelClass($pluginCodeObj, $modelClassName);
@@ -203,6 +268,13 @@ class ModelModel extends BaseModel
         return Schema::getColumnListing($tableName);
     }
 
+    /**
+     * Gets the table columns and types for a given plugin's model.
+     *
+     * @param \Winter\Builder\Classes\PluginCode $pluginCodeObj
+     * @param string $modelClassName
+     * @return array
+     */
     public static function getModelColumnsAndTypes($pluginCodeObj, $modelClassName)
     {
         $tableName = self::getTableNameFromModelClass($pluginCodeObj, $modelClassName);
@@ -235,6 +307,15 @@ class ModelModel extends BaseModel
         return $result;
     }
 
+    /**
+     * Returns a list of fully qualified model classes mapped to their own class name within a plugin.
+     *
+     * @TODO: Remove the $subType parameter - it's not used.
+     *
+     * @param string $pluginCode
+     * @param string $subtype
+     * @return array
+     */
     public static function getPluginRegistryData($pluginCode, $subtype)
     {
         $pluginCodeObj = new PluginCode($pluginCode);
@@ -250,6 +331,13 @@ class ModelModel extends BaseModel
         return $result;
     }
 
+    /**
+     * Returns a list of table columns for a given plugin's model.
+     *
+     * @param string $pluginCode
+     * @param string $modelClassName
+     * @return array
+     */
     public static function getPluginRegistryDataColumns($pluginCode, $modelClassName)
     {
         $classParts = explode('\\', $modelClassName);
@@ -274,31 +362,67 @@ class ModelModel extends BaseModel
         return $result;
     }
 
+    /**
+     * Validates the model class name.
+     *
+     * @param string $modelClassName
+     * @return bool
+     */
     public static function validateModelClassName($modelClassName)
     {
         return class_exists($modelClassName) || !!preg_match(self::UNQUALIFIED_CLASS_NAME_PATTERN, $modelClassName);
     }
 
+    /**
+     * Gets the file path to the model, relative to the "plugin" directory.
+     *
+     * @return string
+     */
     protected function getFilePath()
     {
         return $this->getPluginCodeObj()->toFilesystemPath() . '/models/' . $this->className . '.php';
     }
 
+    /**
+     * Gets the absolute file path to the model.
+     *
+     * @return string
+     */
     protected function getFullFilePath()
     {
         return File::symbolizePath('$/' . $this->getFilePath());
     }
 
+    /**
+     * Gets the file path to the model assets, relative to the "plugin" directory.
+     *
+     * @return string
+     */
     protected function getAssetPath()
     {
         return $this->getPluginCodeObj()->toFilesystemPath() . '/models/' . strtolower($this->className);
     }
 
+    /**
+     * Gets the absolute file path to the model assets.
+     *
+     * @return string
+     */
     protected function getFullAssetPath()
     {
         return File::symbolizePath('$/' . $this->getAssetPath());
     }
 
+    /**
+     * Validates that columns exist for a given column set.
+     *
+     * @TODO: Remove the $value property - seems to be useless.
+     *
+     * @param mixed $value
+     * @param array $columns
+     * @param array $columnsToCheck
+     * @return bool
+     */
     protected function validateColumnsExist($value, $columns, $columnsToCheck)
     {
         if (!strlen(trim($this->databaseTable))) {
