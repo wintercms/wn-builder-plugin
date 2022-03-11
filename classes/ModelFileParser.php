@@ -182,9 +182,7 @@ class ModelFileParser extends PhpFileParser
             $property->setDocComment(new Doc(
                 "\n"
                 . "/**\n"
-                . " * JSONable fields.\n"
-                . " *\n"
-                . " * @var array\n"
+                . " * @var array Attribute names to encode and decode using JSON.\n"
                 . " */"
             ));
 
