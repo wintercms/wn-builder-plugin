@@ -204,6 +204,8 @@ Model.prototype.constructor=Model
 Model.prototype.cmdCreateModel=function(ev){var $target=$(ev.currentTarget)
 $target.one('shown.oc.popup',this.proxy(this.onModelPopupShown))
 $target.popup({handler:'onModelLoadPopup'})}
+Model.prototype.cmdDeleteModel=function(ev){var $target=$(ev.currentTarget),model=$target.data('modelClass')
+$.wn.confirm($target.data('confirm'),()=>{$.request('onModelDelete',{data:{model:model,},flash:true})})}
 Model.prototype.cmdApplyModelSettings=function(ev){var $form=$(ev.currentTarget),self=this
 $.wn.stripeLoadIndicator.show()
 $form.request('onModelSave').always($.wn.builder.indexController.hideStripeIndicatorProxy).done(function(data){$form.trigger('close.oc.popup')
