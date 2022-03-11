@@ -1,14 +1,13 @@
 <?php namespace Winter\Builder\Classes;
 
+use Str;
+use File;
+use Lang;
+use Schema;
+use Validator;
+use SystemException;
 use DirectoryIterator;
 use ApplicationException;
-use SystemException;
-use Validator;
-use Lang;
-use File;
-use Schema;
-use Str;
-use Db;
 
 /**
  * Manages plugin models.
@@ -152,12 +151,12 @@ class ModelModel extends BaseModel
 
     public function deleteModel()
     {
-        if (File::exists('$/' . $this->getFilePath())) {
-            File::delete('$/' . $this->getFilePath());
+        if (File::exists($this->getFullFilePath())) {
+            File::delete($this->getFullFilePath());
         }
 
-        if (File::exists('$/' . $this->getAssetPath())) {
-            File::deleteDirectory('$/' . $this->getAssetPath());
+        if (File::exists($this->getFullAssetPath())) {
+            File::deleteDirectory($this->getFullAssetPath());
         }
     }
 
@@ -285,9 +284,19 @@ class ModelModel extends BaseModel
         return $this->getPluginCodeObj()->toFilesystemPath() . '/models/' . $this->className . '.php';
     }
 
+    protected function getFullFilePath()
+    {
+        return File::symbolizePath('$/' . $this->getFilePath());
+    }
+
     protected function getAssetPath()
     {
         return $this->getPluginCodeObj()->toFilesystemPath() . '/models/' . strtolower($this->className);
+    }
+
+    protected function getFullAssetPath()
+    {
+        return File::symbolizePath('$/' . $this->getAssetPath());
     }
 
     protected function validateColumnsExist($value, $columns, $columnsToCheck)
