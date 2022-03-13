@@ -72,12 +72,10 @@ class IndexModelFormOperations extends IndexOperationsBehaviorBase
 
         // Get JSONable fields and store these in the main model
         $jsonable = $model->getJsonableFields();
-        if (count($jsonable)) {
-            $modelClass = new ModelModel();
-            $modelClass->setPluginCode(Request::input('plugin_code'));
-            $modelClass->className = Request::input('model_class');
-            $modelClass->setJsonable($jsonable);
-        }
+        $modelClass = new ModelModel();
+        $modelClass->setPluginCode(Request::input('plugin_code'));
+        $modelClass->className = Request::input('model_class');
+        $modelClass->setJsonable($jsonable);
 
         $result = $this->controller->widget->modelList->updateList();
 
