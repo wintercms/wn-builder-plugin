@@ -43,7 +43,6 @@ class ModelModel extends BaseModel
         'databaseTable',
         'addTimestamps',
         'addSoftDeleting',
-        'jsonable',
     ];
 
     /**
@@ -74,7 +73,6 @@ class ModelModel extends BaseModel
             return [];
         }
 
-        $parser = new ModelFileParser();
         $result = [];
         foreach (new DirectoryIterator($modelsDirectoryPath) as $fileInfo) {
             if (!$fileInfo->isFile()) {
@@ -86,9 +84,9 @@ class ModelModel extends BaseModel
             }
 
             $filePath = $fileInfo->getPathname();
-            $contents = File::get($filePath);
+            $parser = new ModelFileParser($filePath);
 
-            $modelInfo = $parser->extractModelInfoFromSource($contents);
+            $modelInfo = $parser->extractModelInfoFromSource();
             if (!$modelInfo) {
                 continue;
             }
@@ -145,6 +143,31 @@ class ModelModel extends BaseModel
         $generator->setVariable('dynamicContents', implode('', $dynamicContents));
 
         $generator->generate();
+    }
+
+    /**
+     * Gets the value of the "$jsonable" attribute
+     *
+     * @return array|null
+     */
+    public function getJsonable()
+    {
+        $parser = new ModelFileParser($this->getFullFilePath());
+        return $parser->getJsonable();
+    }
+
+    /**
+     * Sets the value of the "$jsonable" attribute, and updates the file.
+     *
+     * @param array $columns
+     * @return void
+     */
+    public function setJsonable(array $columns = [])
+    {
+        $parser = new ModelFileParser($this->getFullFilePath());
+        $parser->setJsonable($columns);
+
+        File::put($this->getFullFilePath(), $parser->getSource());
     }
 
     /**
@@ -242,8 +265,8 @@ class ModelModel extends BaseModel
             return '';
         }
 
-        $parser = new ModelFileParser();
-        $modelInfo = $parser->extractModelInfoFromSource(File::get($modelFilePath));
+        $parser = new ModelFileParser($modelFilePath);
+        $modelInfo = $parser->extractModelInfoFromSource();
         if (!$modelInfo || !isset($modelInfo['table'])) {
             return '';
         }
