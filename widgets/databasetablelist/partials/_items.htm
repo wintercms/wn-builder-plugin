@@ -1,13 +1,18 @@
 <?php if ($items): ?>
     <ul>
         <?php foreach ($items as $table):
-            $dataId = 'databaseTable-'.$table;
+            $dataId = 'databaseTable-' . $table['table'];
         ?>
-            <li class="item" 
-                data-id="<?= e($dataId) ?>" 
+            <li class="item"
+                data-id="<?= e($dataId) ?>"
             >
-                <a href="#" data-builder-command="databaseTable:cmdOpenTable" data-id="<?= e($table) ?>">
-                    <span class="title"><?= e($table) ?></span>
+                <a href="#" data-builder-command="databaseTable:cmdOpenTable" data-id="<?= e($table['table']) ?>">
+                    <span class="title"><?= e($table['table']) ?></span>
+                    <?php if (is_null($table['model'])): ?>
+                        <span class="description unlinked"><?= e(trans($this->unlinkedTableMessage)) ?></span>
+                    <?php else: ?>
+                        <span class="description"><?= e(trans($this->linkedModelMessage, ['model' => $table['model']])) ?></span>
+                    <?php endif ?>
                     <span class="borders"></span>
                 </a>
             </li>
