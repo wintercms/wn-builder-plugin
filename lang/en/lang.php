@@ -87,7 +87,9 @@ return [
         'error_unsigned_negative_value' => "The default value for the unsigned column ':column' can't be negative.",
         'error_table_already_exists' => "The table ':name' already exists in the database.",
         'error_table_name_too_long' => "The table name should not be longer than 64 characters.",
-        'error_column_name_too_long' => "The column name ':column' is too long. Column names should not be longer than 64 characters."
+        'error_column_name_too_long' => "The column name ':column' is too long. Column names should not be longer than 64 characters.",
+        'unlinked_table' => 'No model linked',
+        'linked_model' => ':model model table',
     ],
     'model' => [
         'menu_label' => 'Models',

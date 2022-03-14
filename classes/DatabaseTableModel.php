@@ -1,15 +1,14 @@
 <?php namespace Winter\Builder\Classes;
 
-use Doctrine\DBAL\Types\Type;
-use ApplicationException;
-use ValidationException;
-use SystemException;
-use Exception;
-use Validator;
+use Str;
 use Lang;
 use Schema;
-use Str;
-use Db;
+use Exception;
+use Validator;
+use SystemException;
+use ValidationException;
+use ApplicationException;
+use Doctrine\DBAL\Types\Type;
 
 /**
  * Manages plugin database tables.
@@ -50,16 +49,36 @@ class DatabaseTableModel extends BaseModel
      */
     protected static $schema = null;
 
+    /**
+     * Lists available tables created for this plugin.
+     *
+     * @param string $pluginCode
+     * @return array
+     */
     public static function listPluginTables($pluginCode)
     {
         $pluginCodeObj = new PluginCode($pluginCode);
         $prefix = $pluginCodeObj->toDatabasePrefix();
 
         $tables = self::getSchemaManager()->listTableNames();
+        $models = ModelModel::listPluginModels($pluginCodeObj);
 
-        return array_filter($tables, function ($item) use ($prefix) {
+        return array_map(function ($item) use ($models) {
+            // Find if a model is using this table
+            $linkedModel = null;
+            foreach ($models as $model) {
+                if ($model->databaseTable === $item) {
+                    $linkedModel = $model->className;
+                    break;
+                }
+            }
+            return [
+                'table' => $item,
+                'model' => $linkedModel,
+            ];
+        }, array_filter($tables, function ($item) use ($prefix) {
             return Str::startsWith($item, $prefix);
-        });
+        }));
     }
 
     public static function tableExists($name)
