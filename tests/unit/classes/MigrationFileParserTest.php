@@ -3,7 +3,6 @@
 use Winter\Builder\Classes\MigrationFileParser;
 
 /**
- * @testdox Migration File Parser
  * @covers \Winter\Builder\Classes\MigrationFileParser
  */
 class MigrationFileParserTest extends \TestCase

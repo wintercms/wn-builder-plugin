@@ -3,11 +3,13 @@
 use Winter\Builder\Classes\ModelFileParser;
 
 /**
- * @testdox Model File Parser
  * @covers \Winter\Builder\Classes\ModelFileParser
  */
 class ModelFileParserTest extends \TestCase
 {
+    /**
+     * @testdox can get information for the model from the parser.
+     */
     public function testExtractModelInfoFromSource()
     {
         $parser = new ModelFileParser(__DIR__ . '/../../fixtures/pluginfixture/models/SimpleModel.php');
@@ -19,7 +21,7 @@ class ModelFileParserTest extends \TestCase
     }
 
     /**
-     * @testdox can get the source code of a given model from the parser.
+     * @testdox can generate and provide the source code of a given model from the parser.
      */
     public function testGetSource()
     {
