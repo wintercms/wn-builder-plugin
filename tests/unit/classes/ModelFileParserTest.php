@@ -3,6 +3,7 @@
 use Winter\Builder\Classes\ModelFileParser;
 
 /**
+ * @testdox Model File Parser
  * @covers \Winter\Builder\Classes\ModelFileParser
  */
 class ModelFileParserTest extends \TestCase
@@ -17,6 +18,9 @@ class ModelFileParserTest extends \TestCase
         $this->assertEquals('plugin_fixture_simple_model', $modelInfo['table']);
     }
 
+    /**
+     * @testdox can get the source code of a given model from the parser.
+     */
     public function testGetSource()
     {
         $parser = new ModelFileParser(__DIR__ . '/../../fixtures/pluginfixture/models/SimpleModel.php');
@@ -25,6 +29,9 @@ class ModelFileParserTest extends \TestCase
         $this->assertEquals(file_get_contents(__DIR__ . '/../../fixtures/pluginfixture/models/SimpleModel.php'), $source);
     }
 
+    /**
+     * @testdox can get the value of the $jsonable property from a model.
+     */
     public function testGetJsonable()
     {
         $parser = new ModelFileParser(__DIR__ . '/../../fixtures/pluginfixture/models/SimpleModel.php');
@@ -38,6 +45,9 @@ class ModelFileParserTest extends \TestCase
         ], $jsonable);
     }
 
+    /**
+     * @testdox can set the value of the $jsonable property in a model.
+     */
     public function testSetJsonable()
     {
         $parser = new ModelFileParser(__DIR__ . '/../../fixtures/pluginfixture/models/ArrayDataModel.php');
@@ -50,6 +60,9 @@ class ModelFileParserTest extends \TestCase
         $this->assertStringContainsString('public $jsonable = [\'field_1\', \'field_2\'];', $source);
     }
 
+    /**
+     * @testdox can inject the $jsonable property in a model that does not contain it.
+     */
     public function testSetJsonableAddProperty()
     {
         $parser = new ModelFileParser(__DIR__ . '/../../fixtures/pluginfixture/models/SimpleModel.php');

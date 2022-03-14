@@ -3,6 +3,7 @@
 use Winter\Builder\Classes\MigrationFileParser;
 
 /**
+ * @testdox Migration File Parser
  * @covers \Winter\Builder\Classes\MigrationFileParser
  */
 class MigrationFileParserTest extends \TestCase
@@ -19,6 +20,9 @@ class MigrationFileParserTest extends \TestCase
         $this->migrationFileParser = new MigrationFileParser();
     }
 
+    /**
+     * @testdox can extract the migration info from an update script.
+     */
     public function testExtractMigrationInfoFromSource()
     {
         $migrationInfo = $this->migrationFileParser->extractMigrationInfoFromSource(
