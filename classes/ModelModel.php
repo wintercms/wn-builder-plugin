@@ -236,7 +236,10 @@ class ModelModel extends BaseModel
     {
         $pluginCode = $this->getPluginCodeObj()->toCode();
 
-        $tables = DatabaseTableModel::listPluginTables($pluginCode);
+        $tables = array_map(function ($item) {
+            return $item['table'];
+        }, DatabaseTableModel::listPluginTables($pluginCode));
+
         return array_combine($tables, $tables);
     }
 
