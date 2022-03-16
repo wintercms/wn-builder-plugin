@@ -33,4 +33,4 @@
 "2.0.2": Added fields to control plugin replacement, PHP8 compatibility fixes.
 "2.0.3": Added support for image columns
 "2.0.4": "Added ability to modify Plugin replacement options. Automatically populate the model's `$jsonable` property for field types that require it. UX improvements."
-"2.0.5": "Hot-fix issue with table selection when creating a model."
+"2.0.5": "Fix issue with table selection when creating a model."
