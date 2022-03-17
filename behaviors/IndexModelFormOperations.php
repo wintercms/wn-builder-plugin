@@ -75,7 +75,7 @@ class IndexModelFormOperations extends IndexOperationsBehaviorBase
         $modelClass = new ModelModel();
         $modelClass->setPluginCode(Request::input('plugin_code'));
         $modelClass->className = Request::input('model_class');
-        $jsonable = $this->updateJsonable($modelClass->getJsonable(), $originalJsonable, $newJsonable);
+        $jsonable = $this->updateJsonable($modelClass->getJsonable() ?? [], $originalJsonable, $newJsonable);
         $modelClass->setJsonable($jsonable);
 
         $result = $this->controller->widget->modelList->updateList();
