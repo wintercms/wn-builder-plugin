@@ -90,7 +90,7 @@ class DatabaseTableList extends WidgetBase
             $result = [];
 
             foreach ($tables as $table) {
-                if ($this->textMatchesSearch($words, $table)) {
+                if ($this->textMatchesSearch($words, $table['table'])) {
                     $result[] = $table;
                 }
             }
