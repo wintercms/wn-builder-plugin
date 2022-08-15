@@ -35,6 +35,10 @@
     "require-dev": {
         "phpunit/phpunit": "~4.0"
     },
+    "replace": {
+        "rainlab/builder-plugin": "~1.0"
+    },
+
     "extra": {
         "installer-name": "builder"
     }
