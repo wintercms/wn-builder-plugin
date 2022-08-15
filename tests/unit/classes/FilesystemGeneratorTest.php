@@ -2,9 +2,8 @@
 
 use File;
 use Winter\Builder\Classes\FilesystemGenerator;
-use Winter\Builder\Tests\BuilderPluginTestCase;
 
-class FilesystemGeneratorTest extends BuilderPluginTestCase
+class FilesystemGeneratorTest extends \Winter\Builder\Tests\BuilderPluginTestCase
 {
     public function setUp(): void
     {
