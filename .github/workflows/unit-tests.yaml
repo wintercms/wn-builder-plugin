@@ -13,7 +13,14 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        phpVersions: ['7.2', '7.3', '7.4', '8.0']
+        phpVersion: ['8.0', '8.1']
+        winterRelease: ['develop']
+        winterReleaseDir: ['develop']
+        include:
+          - phpVersion: '7.4'
+            winterRelease: 'v1.1.9'
+            winterReleaseDir: '1.1.9'
+
       fail-fast: false
     env:
       phpExtensions: mbstring, intl, gd, xml, sqlite
