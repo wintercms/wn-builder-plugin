@@ -17,10 +17,9 @@ jobs:
         winterRelease: ['develop']
         winterReleaseDir: ['develop']
         include:
-          - phpVersion: '7.4'
-            winterRelease: 'v1.1.9'
-            winterReleaseDir: '1.1.9'
-
+          phpVersion: '7.4'
+          winterRelease: 'v1.1.9'
+          winterReleaseDir: '1.1.9'
       fail-fast: false
     env:
       phpExtensions: mbstring, intl, gd, xml, sqlite
