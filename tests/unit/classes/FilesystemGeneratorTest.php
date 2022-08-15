@@ -119,7 +119,9 @@ class FilesystemGeneratorTest extends BuilderPluginTestCase
             'plugin.php' => 'null.tpl'
         ];
 
-        $generator = new FilesystemGenerator($generatedDir, $structure);
+        $templatesDir = $this->getFixturesDir('templates');
+
+        $generator = new FilesystemGenerator($generatedDir, $structure, $templatesDir);
         $generator->generate();
     }
 

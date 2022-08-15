@@ -90,6 +90,7 @@ class FilesystemGenerator
     public function getTemplateContents($templateName)
     {
         $templatePath = $this->templatesPath.DIRECTORY_SEPARATOR.$templateName;
+trace_log($templatePath);
         if (!File::isFile($templatePath)) {
             throw new SystemException(Lang::get('winter.builder::lang.common.template_not_found', ['name'=>$templateName]));
         }

@@ -1,11 +1,11 @@
 <?php namespace Winter\Builder\Tests;
 
-if (class_exists('System\Tests\Bootstrap\PluginTestCase')) {
-    class BaseTestCase extends \System\Tests\Bootstrap\PluginTestCase
+if (class_exists('System\Tests\Bootstrap\TestCase')) {
+    class BaseTestCase extends \System\Tests\Bootstrap\TestCase
     {
     }
 } else {
-    class BaseTestCase extends \PluginTestCase
+    class BaseTestCase extends \TestCase
     {
     }
 }
