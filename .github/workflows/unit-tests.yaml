@@ -9,7 +9,7 @@ on:
 jobs:
   phpUnitTests:
     runs-on: ubuntu-latest
-    name: PHP ${{ matrix.phpVersions }}
+    name: Unit Tests / PHP ${{ matrix.phpVersion }} / Winter ${{ matrix.winterRelease }}
     strategy:
       max-parallel: 4
       matrix:
@@ -35,7 +35,7 @@ jobs:
         id: extcache
         uses: shivammathur/cache-extensions@v1
         with:
-          php-version: ${{ matrix.phpVersions }}
+          php-version: ${{ matrix.phpVersion }}
           extensions: ${{ env.phpExtensions }}
           key: ${{ env.cacheKey }}
 
@@ -49,19 +49,19 @@ jobs:
       - name: Install PHP and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.phpVersions }}
+          php-version: ${{ matrix.phpVersion }}
           extensions: ${{ env.phpExtensions }}
           tools: composer:v2
           coverage: none
 
       - name: Install Winter CMS
         run: |
-          wget https://github.com/wintercms/winter/archive/${{ env.winterCmsRelease }}.zip
-          unzip ${{ env.winterCmsRelease }}.zip
-          rm ${{ env.winterCmsRelease }}.zip
+          wget https://github.com/wintercms/winter/archive/${{ matrix.winterRelease }}.zip
+          unzip ${{ matrix.winterRelease }}.zip
+          rm ${{ matrix.winterRelease }}.zip
           shopt -s dotglob
-          mv winter-${{ env.winterCmsRelease }}/* ./
-          rmdir winter-${{ env.winterCmsRelease }}
+          mv winter-${{ matrix.winterReleaseDir }}/* ./
+          rmdir winter-${{ matrix.winterReleaseDir }}
           shopt -u dotglob
           cp config/cms.php config/testing/cms.php
           mkdir -p plugins/winter
@@ -81,7 +81,8 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --no-interaction --no-progress
 
+      - name: Run linting
+        run: ./vendor/bin/parallel-lint plugins/winter/user
+
       - name: Run unit tests
-        run: |
-          cd plugins/winter/builder
-          ../../../vendor/bin/phpunit --testdox
+        run: php artisan winter:test -p Winter.User
