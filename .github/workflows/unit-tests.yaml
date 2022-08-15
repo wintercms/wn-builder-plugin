@@ -82,7 +82,7 @@ jobs:
         run: composer install --no-interaction --no-progress
 
       - name: Run linting
-        run: ./vendor/bin/parallel-lint plugins/winter/user
+        run: ./vendor/bin/parallel-lint plugins/winter/builder
 
       - name: Run unit tests
-        run: php artisan winter:test -p Winter.User
+        run: php artisan winter:test -p Winter.Builder
