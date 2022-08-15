@@ -1,7 +1,7 @@
 <?php namespace Winter\Builder\Tests\Unit\Classes;
 
 use Winter\Builder\Classes\ModelFileParser;
-use Winter\Builder\Tests\BuilderPluginTestCase
+use Winter\Builder\Tests\BuilderPluginTestCase;
 
 /**
  * @covers \Winter\Builder\Classes\ModelFileParser

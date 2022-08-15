@@ -3,7 +3,7 @@
 use SystemException;
 use Winter\Builder\Classes\ModelModel;
 use Winter\Builder\Classes\PluginCode;
-use Winter\Builder\Tests\BuilderPluginTestCase
+use Winter\Builder\Tests\BuilderPluginTestCase;
 
 /**
  * @covers \Winter\Builder\Classes\ModelModel
