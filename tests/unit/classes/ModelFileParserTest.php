@@ -1,11 +1,12 @@
 <?php namespace Winter\Builder\Tests\Unit\Classes;
 
 use Winter\Builder\Classes\ModelFileParser;
+use Winter\Builder\Tests\BuilderPluginTestCase
 
 /**
  * @covers \Winter\Builder\Classes\ModelFileParser
  */
-class ModelFileParserTest extends \TestCase
+class ModelFileParserTest extends BuilderPluginTestCase
 {
     /**
      * @testdox can get information for the model from the parser.

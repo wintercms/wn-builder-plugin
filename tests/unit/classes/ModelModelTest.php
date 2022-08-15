@@ -3,11 +3,12 @@
 use SystemException;
 use Winter\Builder\Classes\ModelModel;
 use Winter\Builder\Classes\PluginCode;
+use Winter\Builder\Tests\BuilderPluginTestCase
 
 /**
  * @covers \Winter\Builder\Classes\ModelModel
  */
-class ModelModelTest extends \TestCase
+class ModelModelTest extends BuilderPluginTestCase
 {
     public function tearDown(): void
     {

@@ -1,11 +1,12 @@
 <?php namespace Winter\Builder\Tests\Unit\Classes;
 
 use Winter\Builder\Classes\MigrationFileParser;
+use Winter\Builder\Tests\BuilderPluginTestCase
 
 /**
  * @covers \Winter\Builder\Classes\MigrationFileParser
  */
-class MigrationFileParserTest extends \TestCase
+class MigrationFileParserTest extends BuilderPluginTestCase
 {
     /**
      * MigrationFileParser instance
