@@ -745,4 +745,10 @@ return [
     'settings' => [
         'menu_desc' => 'Set your author name and namespace for plugin creation.'
     ],
+    'welcome' => [
+        'heading' => 'Welcome to the Builder.',
+        'description' => 'Quickly and easily create fully-functioning plugins for Winter CMS.',
+        'start_button' => 'Start creating a plugin',
+        'show_button' => 'Show the plugins list'
+    ]
 ];
