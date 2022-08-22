@@ -79,6 +79,18 @@ class Index extends Controller
         $this->pageTitleTemplate = '%s Builder';
     }
 
+    public function onWelcome()
+    {
+        $result = [
+            'tabTitle' => 'Welcome',
+            'tabIcon' => 'icon-door-open',
+            'tabId' => 'welcome',
+            'tab' => $this->makePartial('welcome'),
+        ];
+
+        return $result;
+    }
+
     public function setBuilderActivePlugin($pluginCode, $refreshPluginList = false)
     {
         $this->widget->pluginList->setActivePlugin($pluginCode);

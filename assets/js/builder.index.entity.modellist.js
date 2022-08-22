@@ -202,7 +202,7 @@
         if (!$.isArray(data.responseData.columns)) {
             alert('Invalid server response')
         }
-        
+
         var $masterTabPane = this.getMasterTabsActivePane(),
             $form = $masterTabPane.find('form'),
             existingColumns = this.getColumnNames($form),
@@ -290,7 +290,7 @@
         var $masterTabPane = this.getMasterTabsActivePane(),
             $form = $masterTabPane.find('form'),
             $toolbar = $masterTabPane.find('div[data-control=table] div.toolbar'),
-            $button = $('<a class="btn oc-icon-magic builder-custom-table-button" data-builder-command="modelList:cmdAddDatabaseColumns"></a>')
+            $button = $('<a class="btn wn-icon-magic builder-custom-table-button" data-builder-command="modelList:cmdAddDatabaseColumns"></a>')
 
         $button.text($form.attr('data-lang-add-database-columns'));
         $toolbar.append($button)

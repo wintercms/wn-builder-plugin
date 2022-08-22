@@ -29,7 +29,7 @@ class IndexMenusOperations extends IndexOperationsBehaviorBase
 
         $result = [
             'tabTitle' => $widget->model->getPluginName().'/'.Lang::get('winter.builder::lang.menu.tab'),
-            'tabIcon' => 'icon-location-arrow',
+            'tabIcon' => 'icon-sitemap',
             'tabId' => $this->getTabId($pluginCode),
             'tab' => $this->makePartial('tab', [
                 'form'  => $widget,

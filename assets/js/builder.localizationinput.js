@@ -72,7 +72,7 @@
 
         var trigger = document.createElement('a')
 
-        trigger.setAttribute('class', 'oc-icon-plus localization-trigger')
+        trigger.setAttribute('class', 'wn-icon-plus localization-trigger')
         trigger.setAttribute('href', '#')
 
         var pos = $container.position()
@@ -206,7 +206,7 @@
         if (data.localizationData === undefined || data.registryData === undefined) {
             throw new Error('Invalid server response.')
         }
-        
+
         var $input = $(this.input)
 
         $input.val(data.localizationData.key)
