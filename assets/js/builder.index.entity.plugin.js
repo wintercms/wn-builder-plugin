@@ -106,6 +106,8 @@
         var pluginCode = data.responseData.pluginCode
 
         $('#builder-plugin-selector-panel [data-control=filelist]').fileList('markActive', pluginCode)
+
+        $('[data-control="flyout"]').data('oc.flyout').hide()
     }
 
     // REGISTRATION
