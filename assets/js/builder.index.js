@@ -13,6 +13,7 @@
         Base.call(this)
 
         this.$masterTabs = null
+        this.$welcomeTab = null
         this.masterTabsObj = null
         this.hideStripeIndicatorProxy = null
         this.entityControllers = {}
@@ -88,16 +89,37 @@
 
         this.createEntityControllers()
         this.registerHandlers()
-        this.addWelcomeTab()
+        if (this.getSelectedPlugin() === false) {
+            this.addWelcomeTab()
+        }
     }
 
     Builder.prototype.addWelcomeTab = function() {
+        var that = this
+
         $.wn.stripeLoadIndicator.show()
         $.request(
             'onWelcome',
         )
-        .done(this.proxy(this.addMasterTab))
+        .done(function (data) {
+            that.addMasterTab(data)
+            that.$welcomeTab = that.getMasterTabActivePane()
+
+            $('button[data-show-plugins]', that.$welcomeTab).click(function () {
+                $('[data-control="flyout"]').data('oc.flyout').show()
+            })
+        })
         .always(this.hideStripeIndicatorProxy)
+    }
+
+    Builder.prototype.hideWelcomeTab = function () {
+        if (!this.$welcomeTab) {
+            return;
+        }
+
+        var tab = this.masterTabsObj.findTabFromPane(this.$welcomeTab).parent()
+        console.log(tab)
+        this.masterTabsObj.closeTab(tab)
     }
 
     Builder.prototype.createEntityControllers = function() {
@@ -162,6 +184,16 @@
         $.each(counters, function(type, data){
             $.wn.sideNav.setCounter('builder/' + data.menu, data.count);
         })
+    }
+
+    Builder.prototype.getSelectedPlugin = function () {
+        var $activeItem = $('#PluginList-pluginList-plugin-list > ul > li.active')
+
+        if (!$activeItem.length) {
+            return false
+        }
+
+        return $activeItem.data('id');
     }
 
     Builder.prototype.getFormPluginCode = function(formElement) {

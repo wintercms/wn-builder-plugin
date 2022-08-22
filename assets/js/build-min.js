@@ -72,7 +72,9 @@ Plugin.prototype.makePluginActive=function(pluginCode,updatePluginList){var $for
 $.wn.stripeLoadIndicator.show()
 $form.request('onPluginSetActive',{data:{pluginCode:pluginCode,updatePluginList:(updatePluginList?1:0)}}).always($.wn.builder.indexController.hideStripeIndicatorProxy).done(this.proxy(this.makePluginActiveDone))}
 Plugin.prototype.makePluginActiveDone=function(data){var pluginCode=data.responseData.pluginCode
-$('#builder-plugin-selector-panel [data-control=filelist]').fileList('markActive',pluginCode)}
+$('#builder-plugin-selector-panel [data-control=filelist]').fileList('markActive',pluginCode)
+$('[data-control="flyout"]').data('oc.flyout').hide()
+$.wn.builder.indexController.hideWelcomeTab()}
 $.wn.builder.entityControllers.plugin=Plugin;}(window.jQuery);+function($){"use strict";if($.wn.builder===undefined)$.wn.builder={}
 if($.wn.builder.entityControllers===undefined)$.wn.builder.entityControllers={}
 var Base=$.wn.builder.entityControllers.base,BaseProto=Base.prototype
@@ -471,6 +473,7 @@ $.wn.builder.entityControllers.controller=Controller;}(window.jQuery);+function(
 var Base=$.wn.foundation.base,BaseProto=Base.prototype
 var Builder=function(){Base.call(this)
 this.$masterTabs=null
+this.$welcomeTab=null
 this.masterTabsObj=null
 this.hideStripeIndicatorProxy=null
 this.entityControllers={}
@@ -495,9 +498,15 @@ this.hideStripeIndicatorProxy=this.proxy(this.hideStripeIndicator)
 new $.wn.tabFormExpandControls(this.$masterTabs)
 this.createEntityControllers()
 this.registerHandlers()
-this.addWelcomeTab()}
-Builder.prototype.addWelcomeTab=function(){$.wn.stripeLoadIndicator.show()
-$.request('onWelcome',).done(this.proxy(this.addMasterTab)).always(this.hideStripeIndicatorProxy)}
+if(this.getSelectedPlugin()===false){this.addWelcomeTab()}}
+Builder.prototype.addWelcomeTab=function(){var that=this
+$.wn.stripeLoadIndicator.show()
+$.request('onWelcome',).done(function(data){that.addMasterTab(data)
+that.$welcomeTab=that.getMasterTabActivePane()
+$('button[data-show-plugins]',that.$welcomeTab).click(function(){$('[data-control="flyout"]').data('oc.flyout').show()})}).always(this.hideStripeIndicatorProxy)}
+Builder.prototype.hideWelcomeTab=function(){if(!this.$welcomeTab){return;}var tab=this.masterTabsObj.findTabFromPane(this.$welcomeTab).parent()
+console.log(tab)
+this.masterTabsObj.closeTab(tab)}
 Builder.prototype.createEntityControllers=function(){for(var controller in $.wn.builder.entityControllers){if(controller=="base"){continue}this.entityControllers[controller]=new $.wn.builder.entityControllers[controller](this)}}
 Builder.prototype.registerHandlers=function(){$(document).on('click','[data-builder-command]',this.proxy(this.onCommand))
 $(document).on('submit','[data-builder-command]',this.proxy(this.onCommand))
@@ -517,6 +526,8 @@ Builder.prototype.updateModifiedCounter=function(){var counters={database:{menu:
 $('> div.tab-content > div.tab-pane[data-modified] > form',this.$masterTabs).each(function(){var entity=$(this).data('entity')
 counters[entity].count++})
 $.each(counters,function(type,data){$.wn.sideNav.setCounter('builder/'+data.menu,data.count);})}
+Builder.prototype.getSelectedPlugin=function(){var $activeItem=$('#PluginList-pluginList-plugin-list > ul > li.active')
+if(!$activeItem.length){return false}return $activeItem.data('id');}
 Builder.prototype.getFormPluginCode=function(formElement){var $form=$(formElement).closest('form'),$input=$form.find('input[name="plugin_code"]'),code=$input.val()
 if(!code){throw new Error('Plugin code input is not found in the form.')}return code}
 Builder.prototype.setPageTitle=function(title){$.wn.layout.setPageTitle(title.length?(title+' | '):title)}
