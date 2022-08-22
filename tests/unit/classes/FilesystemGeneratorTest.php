@@ -56,7 +56,7 @@ class FilesystemGeneratorTest extends BuilderPluginTestCase
     public function testDestNotExistsException()
     {
         $this->expectException(\Winter\Storm\Exception\SystemException::class);
-        $this->expectExceptionMessageMatches('/exists/');
+        $this->expectExceptionMessageMatches('/doesn\'t exist/');
 
         $dir = $this->getFixturesDir('temporary/null');
         $generator = new FilesystemGenerator($dir, []);
