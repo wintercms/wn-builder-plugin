@@ -76,4 +76,4 @@ jobs:
         run: composer install --no-interaction --no-progress
 
       - name: Run unit tests
-        run: php artisan winter:test -p Winter.Test -- --testdox
+        run: php artisan winter:test -p Winter.Builder -- --testdox
