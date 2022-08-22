@@ -34,7 +34,7 @@ class IndexControllerOperations extends IndexOperationsBehaviorBase
 
         $result = [
             'tabTitle' => $this->getTabName($widget->model),
-            'tabIcon' => 'icon-asterisk',
+            'tabIcon' => 'icon-signs-post',
             'tabId' => $this->getTabId($pluginCodeObj->toCode(), $controller),
             'tab' => $this->makePartial('tab', [
                 'form'  => $widget,
@@ -69,7 +69,7 @@ class IndexControllerOperations extends IndexOperationsBehaviorBase
 
             $tab = [
                 'tabTitle' => $this->getTabName($widget->model),
-                'tabIcon' => 'icon-asterisk',
+                'tabIcon' => 'icon-signs-post',
                 'tabId' => $this->getTabId($pluginCodeObj->toCode(), $model->controller),
                 'tab' => $this->makePartial('tab', [
                     'form'  => $widget,

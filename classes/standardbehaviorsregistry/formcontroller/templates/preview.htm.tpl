@@ -16,7 +16,7 @@
 <?php endif ?>
 
 <p>
-    <a href="<?= Backend::url('{{ controllerUrl }}') ?>" class="btn btn-default oc-icon-chevron-left">
+    <a href="<?= Backend::url('{{ controllerUrl }}') ?>" class="btn btn-default wn-icon-chevron-left">
         <?= e(trans('backend::lang.form.return_to_list')) ?>
     </a>
 </p>

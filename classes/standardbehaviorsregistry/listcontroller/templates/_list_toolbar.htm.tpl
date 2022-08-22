@@ -1,12 +1,12 @@
 <div data-control="toolbar">
     {% if hasFormBehavior %}
-    <a href="<?= Backend::url('{{ createUrl }}') ?>" class="btn btn-primary oc-icon-plus"><?= e(trans('backend::lang.form.create')) ?></a>
+    <a href="<?= Backend::url('{{ createUrl }}') ?>" class="btn btn-primary wn-icon-plus"><?= e(trans('backend::lang.form.create')) ?></a>
     {% endif %}
     {% if hasReorderBehavior %}
-    <a href="<?= Backend::url('{{ reorderUrl }}') ?>" class="btn btn-default oc-icon-list"><?= e(trans('backend::lang.reorder.default_title')) ?></a>
+    <a href="<?= Backend::url('{{ reorderUrl }}') ?>" class="btn btn-default wn-icon-list"><?= e(trans('backend::lang.reorder.default_title')) ?></a>
     {% endif %}
     <button
-        class="btn btn-default oc-icon-trash-o"
+        class="btn btn-default wn-icon-trash-o"
         disabled="disabled"
         onclick="$(this).data('request-data', {
             checked: $('.control-list').listWidget('getChecked')

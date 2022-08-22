@@ -56,35 +56,35 @@ class Plugin extends PluginBase
                 'sideMenu' => [
                     'database' => [
                         'label'       => 'winter.builder::lang.database.menu_label',
-                        'icon'        => 'icon-hdd-o',
+                        'icon'        => 'icon-database',
                         'url'         => 'javascript:;',
                         'attributes'  => ['data-menu-item'=>'database'],
                         'permissions' => ['winter.builder.manage_plugins']
                     ],
                     'models' => [
                         'label'       => 'winter.builder::lang.model.menu_label',
-                        'icon'        => 'icon-random',
+                        'icon'        => 'icon-file-code',
                         'url'         => 'javascript:;',
                         'attributes'  => ['data-menu-item'=>'models'],
                         'permissions' => ['winter.builder.manage_plugins']
                     ],
                     'permissions' => [
                         'label'       => 'winter.builder::lang.permission.menu_label',
-                        'icon'        => 'icon-unlock-alt',
+                        'icon'        => 'icon-unlock',
                         'url'         => '#',
                         'attributes'  => ['data-no-side-panel'=>'true', 'data-builder-command'=>'permission:cmdOpenPermissions', 'data-menu-item'=>'permissions'],
                         'permissions' => ['winter.builder.manage_plugins']
                     ],
                     'menus' => [
                         'label'       => 'winter.builder::lang.menu.menu_label',
-                        'icon'        => 'icon-location-arrow',
+                        'icon'        => 'icon-sitemap',
                         'url'         => 'javascript:;',
                         'attributes'  => ['data-no-side-panel'=>'true', 'data-builder-command'=>'menus:cmdOpenMenus', 'data-menu-item'=>'menus'],
                         'permissions' => ['winter.builder.manage_plugins']
                     ],
                     'controllers' => [
                         'label'       => 'winter.builder::lang.controller.menu_label',
-                        'icon'        => 'icon-asterisk',
+                        'icon'        => 'icon-signs-post',
                         'url'         => 'javascript:;',
                         'attributes'  => ['data-menu-item'=>'controllers'],
                         'permissions' => ['winter.builder.manage_plugins']

@@ -24,7 +24,7 @@
     Builder.prototype.constructor = Builder
 
     Builder.prototype.dispose = function() {
-        // We don't really care about disposing the 
+        // We don't really care about disposing the
         // index controller, as it's used only once
         // and always exists during the page life.
         BaseProto.dispose.call(this)
@@ -41,7 +41,7 @@
 
         $.wn.stripeLoadIndicator.show()
         var promise = $form.request(
-                serverHandlerName, 
+                serverHandlerName,
                 { data: requestData }
             )
             .done(this.proxy(this.addMasterTab))
@@ -88,6 +88,16 @@
 
         this.createEntityControllers()
         this.registerHandlers()
+        this.addWelcomeTab()
+    }
+
+    Builder.prototype.addWelcomeTab = function() {
+        $.wn.stripeLoadIndicator.show()
+        $.request(
+            'onWelcome',
+        )
+        .done(this.proxy(this.addMasterTab))
+        .always(this.hideStripeIndicatorProxy)
     }
 
     Builder.prototype.createEntityControllers = function() {
@@ -124,7 +134,7 @@
     }
 
     Builder.prototype.addMasterTab = function(data) {
-        this.masterTabsObj.addTab(data.tabTitle, data.tab, data.tabId, 'oc-' + data.tabIcon)
+        this.masterTabsObj.addTab(data.tabTitle, data.tab, data.tabId, 'wn-' + data.tabIcon)
 
         if (data.isNewRecord) {
             var $masterTabPane = this.getMasterTabActivePane()
@@ -194,7 +204,7 @@
     Builder.prototype.onCommand = function(ev) {
         if (ev.currentTarget.tagName == 'FORM' && ev.type == 'click') {
             // The form elements could have data-builder-command attribute,
-            // but for them we only handle the submit event and ignore clicks. 
+            // but for them we only handle the submit event and ignore clicks.
 
             return
         }
@@ -260,12 +270,12 @@
     Builder.prototype.onDataRegistryItems = function(ev, data) {
         var self = this
 
-        if (data.propertyDefinition.fillFrom == 'model-classes' || 
-            data.propertyDefinition.fillFrom == 'model-forms' || 
-            data.propertyDefinition.fillFrom == 'model-lists' || 
+        if (data.propertyDefinition.fillFrom == 'model-classes' ||
+            data.propertyDefinition.fillFrom == 'model-forms' ||
+            data.propertyDefinition.fillFrom == 'model-lists' ||
             data.propertyDefinition.fillFrom == 'controller-urls' ||
-            data.propertyDefinition.fillFrom == 'model-columns' || 
-            data.propertyDefinition.fillFrom == 'plugin-lists' || 
+            data.propertyDefinition.fillFrom == 'model-columns' ||
+            data.propertyDefinition.fillFrom == 'plugin-lists' ||
             data.propertyDefinition.fillFrom == 'permissions') {
             ev.preventDefault()
 
