@@ -3,12 +3,12 @@
 
         <div class="control-filelist filelist-hero" data-control="filelist">
             <ul>
-                <?php foreach ($controlGroups as $index=>$group): ?>
+                <?php foreach ($controlsGroups as $index=>$group): ?>
                     <li class="separator">
-                        <h5><?=  e($group) ?></h5>
+                        <h5><?=  e($group['label']) ?></h5>
                     </li>
 
-                    <?php foreach ($registeredControls[$group] as $controlCode=>$controlInfo): ?>
+                    <?php foreach ($group['controls'] as $controlCode=>$controlInfo): ?>
                         <li>
                             <a href="javascript:;"
                                 data-builder-control-palette-control="<?= e($controlCode) ?>"

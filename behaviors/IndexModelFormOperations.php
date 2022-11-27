@@ -219,12 +219,8 @@ class IndexModelFormOperations extends IndexOperationsBehaviorBase
         // Get all registered controls and build an array that uses the control types as key and value for each entry.
         $controls   = ControlLibrary::instance()->listControls();
         $fieldTypes = array_merge(
-            array_keys(
-                $controls[Lang::get('winter.builder::lang.form.control_group_standard')]
-            ),
-            array_keys(
-                $controls[Lang::get('winter.builder::lang.form.control_group_widgets')]
-            )
+            array_keys($controls[ControlLibrary::GROUP_STANDARD]['controls']),
+            array_keys($controls[ControlLibrary::GROUP_WIDGETS]['controls'])
         );
         $options    = array_combine($fieldTypes, $fieldTypes);
 
