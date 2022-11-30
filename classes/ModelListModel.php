@@ -37,7 +37,7 @@ class ModelListModel extends ModelYamlModel
             $attributes['columns'] = json_decode($attributes['columns'], true);
 
             if ($attributes['columns'] === null) {
-                throw new SystemException(Lang::get('winter.builder::lang.list.error_cannot_decode_columns_json_string'));
+                throw new SystemException('Cannot decode columns JSON string.'));
             }
         }
 

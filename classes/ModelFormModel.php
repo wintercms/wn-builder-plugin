@@ -36,7 +36,7 @@ class ModelFormModel extends ModelYamlModel
             $attributes['controls'] = json_decode($attributes['controls'], true);
 
             if ($attributes['controls'] === null) {
-                throw new SystemException(Lang::get('winter.builder::lang.form.error_cannot_decode_controls_json_string'));
+                throw new SystemException('Cannot decode controls JSON string.');
             }
         }
 

@@ -42,7 +42,7 @@ class ControllerModel extends BaseModel
     public function load($controller)
     {
         if (!$this->validateFileName($controller)) {
-            throw new SystemException(Lang::get('winter.builder::lang.controller.error_invalid_controller_file_name', ['language' => $language]));
+            throw new SystemException('Invalid controller file name: '.$language);
         }
 
         $this->controller = $this->trimExtension($controller);
@@ -221,7 +221,7 @@ class ControllerModel extends BaseModel
         }
 
         if (!is_array($this->behaviors)) {
-            throw new SystemException(Lang::get('winter.builder::lang.controller.error_behaviors_data_should_be_an_array'));
+            throw new SystemException('The behaviors data should be an array.');
         }
 
         $fileContents = File::get($controllerPath);

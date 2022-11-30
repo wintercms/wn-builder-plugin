@@ -329,11 +329,11 @@ class LocalizationModel extends BaseModel
         $language = trim($language);
 
         if (!strlen($language)) {
-            throw new SystemException(Lang::get('winter.builder::lang.localization.error_form_language_is_not_set'));
+            throw new SystemException('The form model language is not set.');
         }
 
         if (!$this->validateLanguage($language)) {
-            throw new SystemException(Lang::get('winter.builder::lang.localization.error_invalid_language_file_name'), ['lang' => $language]);
+            throw new SystemException('Invalid language file name: ' . $language);
         }
 
         $path = $this->getPluginCodeObj()->toPluginDirectoryPath().'/lang/'.$language.'/lang.php';

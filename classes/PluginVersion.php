@@ -3,7 +3,6 @@
 use SystemException;
 use File;
 use Yaml;
-use Lang;
 
 /**
  * Helper class for managing plugin versions
@@ -21,7 +20,7 @@ class PluginVersion extends BaseModel
         $filePath = $this->getPluginUpdatesPath($pluginCodeObj, 'version.yaml');
 
         if (!File::isFile($filePath)) {
-            throw new SystemException(Lang::get('winter.builder::lang.version.error_plugin_version_yaml_file_is_not_found'));
+            throw new SystemException('Plugin version.yaml file is not found.');
         }
 
         $versionInfo = Yaml::parseFile($filePath);

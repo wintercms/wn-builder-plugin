@@ -3,7 +3,6 @@
 use ValidationException;
 use SystemException;
 use Validator;
-use Lang;
 
 /**
  * Base class for Builder models.
@@ -124,7 +123,7 @@ abstract class BaseModel
     public function getPluginCodeObj()
     {
         if (!$this->pluginCodeObj) {
-            throw new SystemException(Lang::get('winter.builder::lang.plugin.error_active_plugin_is_not_set', ['class' => get_class($this)]));
+            throw new SystemException(sprintf('The active plugin is not set in the %s object.', get_class($this)));
         }
 
         return $this->pluginCodeObj;

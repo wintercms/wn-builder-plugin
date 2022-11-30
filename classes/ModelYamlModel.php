@@ -169,7 +169,7 @@ abstract class ModelYamlModel extends YamlModel
     protected function getModelClassName()
     {
         if ($this->modelClassName === null) {
-            throw new SystemException(Lang::get('winter.builder::lang.yaml.error_model_class_name_is_not_set'));
+            throw new SystemException('The model class name is not set.');
         }
 
         return $this->modelClassName;
@@ -184,7 +184,7 @@ abstract class ModelYamlModel extends YamlModel
     {
         $fileName = trim($this->fileName);
         if (!strlen($fileName)) {
-            throw new SystemException(Lang::get('winter.builder::lang.yaml.error_form_model_file_name_is_not_set'));
+            throw new SystemException('The form model file name is not set.');
         }
 
         $fileName = $this->addExtension($fileName);

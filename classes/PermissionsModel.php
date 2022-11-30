@@ -188,7 +188,7 @@ class PermissionsModel extends PluginYamlModel
     protected function getFilePath()
     {
         if ($this->pluginCodeObj === null) {
-            throw new SystemException(Lang::get('winter.builder::lang.permission.error_saving_permission_code_is_not_set'));
+            throw new SystemException('Error saving plugin permission model - the plugin code object is not set.');
         }
 
         return $this->pluginCodeObj->toPluginFilePath();

@@ -79,7 +79,7 @@ class MenusModel extends PluginYamlModel
             $attributes['menus'] = json_decode($attributes['menus'], true);
 
             if ($attributes['menus'] === null) {
-                throw new SystemException(Lang::get('winter.builder::lang.menu.error_cannot_decode_menus_json_string'));
+                throw new SystemException('Cannot decode menus JSON string.');
             }
         }
 
@@ -141,7 +141,7 @@ class MenusModel extends PluginYamlModel
     protected function getFilePath()
     {
         if ($this->pluginCodeObj === null) {
-            throw new SystemException(Lang::get('winter.builder::lang.menu.error_plugin_code_object_is_not_set'));
+            throw new SystemException('Error saving plugin menus model - the plugin code object is not set.');
         }
 
         return $this->pluginCodeObj->toPluginFilePath();

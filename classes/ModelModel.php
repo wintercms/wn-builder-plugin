@@ -161,7 +161,7 @@ class ModelModel extends BaseModel
     private static function getTableNameFromModelClass($pluginCodeObj, $modelClassName)
     {
         if (!self::validateModelClassName($modelClassName)) {
-            throw new SystemException(Lang::get('winter.builder::lang.model.error_invalid_model_class_name', ['class' => $modelClassName]));
+            throw new SystemException('Invalid model class name: '.$modelClassName);
         }
 
         $modelsDirectoryPath = File::symbolizePath($pluginCodeObj->toPluginDirectoryPath().'/models');
