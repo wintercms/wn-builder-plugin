@@ -2,8 +2,9 @@
 
 use File;
 use Winter\Builder\Classes\FilesystemGenerator;
+use Winter\Builder\Tests\BuilderPluginTestCase;
 
-class FilesystemGeneratorTest extends \TestCase
+class FilesystemGeneratorTest extends BuilderPluginTestCase
 {
     public function setUp(): void
     {
@@ -55,7 +56,7 @@ class FilesystemGeneratorTest extends \TestCase
     public function testDestNotExistsException()
     {
         $this->expectException(\Winter\Storm\Exception\SystemException::class);
-        $this->expectExceptionMessageMatches('/exists/');
+        $this->expectExceptionMessageMatches('/doesn\'t exist/');
 
         $dir = $this->getFixturesDir('temporary/null');
         $generator = new FilesystemGenerator($dir, []);

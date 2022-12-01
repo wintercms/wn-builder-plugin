@@ -3,8 +3,12 @@
 use SystemException;
 use Winter\Builder\Classes\ModelModel;
 use Winter\Builder\Classes\PluginCode;
+use Winter\Builder\Tests\BuilderPluginTestCase;
 
-class ModelModelTest extends \TestCase
+/**
+ * @covers \Winter\Builder\Classes\ModelModel
+ */
+class ModelModelTest extends BuilderPluginTestCase
 {
     public function tearDown(): void
     {
@@ -12,6 +16,9 @@ class ModelModelTest extends \TestCase
         @unlink(__DIR__.'/../../../models/MyMock.php');
     }
 
+    /**
+     * @testdox validates valid model class names
+     */
     public function testValidateValidModelClassNames()
     {
         $unQualifiedClassName = 'MyClassName';
@@ -27,6 +34,9 @@ class ModelModelTest extends \TestCase
         $this->assertTrue(ModelModel::validateModelClassName($qualifiedClassNameStartingWithLowerCase));
     }
 
+    /**
+     * @testdox does not validate invalid model class names
+     */
     public function testInvalidateInvalidModelClassNames()
     {
         $unQualifiedClassName = 'myClassName'; // starts with lower case
@@ -39,6 +49,9 @@ class ModelModelTest extends \TestCase
         $this->assertFalse(ModelModel::validateModelClassName($fullyQualifiedClassName));
     }
 
+    /**
+     * @testdox can extract the model fields from a given model
+     */
     public function testGetModelFields()
     {
         // Invalid Class Name

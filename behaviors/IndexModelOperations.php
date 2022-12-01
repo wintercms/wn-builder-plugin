@@ -1,12 +1,11 @@
 <?php namespace Winter\Builder\Behaviors;
 
+use Lang;
+use Flash;
+use Request;
+use ApplicationException;
 use Winter\Builder\Classes\IndexOperationsBehaviorBase;
 use Winter\Builder\Classes\ModelModel;
-use Backend\Behaviors\FormController;
-use ApplicationException;
-use Exception;
-use Request;
-use Input;
 
 /**
  * Model management functionality for the Builder index controller
@@ -55,6 +54,23 @@ class IndexModelOperations extends IndexOperationsBehaviorBase
         ];
 
         $result['builderResponseData'] = $builderResponseData;
+
+        return $result;
+    }
+
+    public function onModelDelete()
+    {
+        $pluginCode = $this->getPluginCode();
+        $model = Request::input('model');
+
+        $modelClass = new ModelModel();
+        $modelClass->setPluginCode($pluginCode->toCode());
+        $modelClass->className = $model;
+        $modelClass->deleteModel();
+
+        $result = $this->controller->widget->modelList->updateList();
+
+        Flash::success(Lang::get('winter.builder::lang.model.deleted', ['model' => $model]));
 
         return $result;
     }

@@ -90,6 +90,8 @@ return [
         'error_table_already_exists' => "The table ':name' already exists in the database.",
         'error_table_name_too_long' => "The table name should not be longer than 64 characters.",
         'error_column_name_too_long' => "The column name ':column' is too long. Column names should not be longer than 64 characters.",
+        'unlinked_table' => 'No model linked',
+        'linked_model' => ':model model table',
     ],
     'model' => [
         'menu_label' => 'Models',
@@ -111,6 +113,9 @@ return [
         'add_form' => 'Add form',
         'add_list' => 'Add list',
         'error_db_table_not_found' => 'Database table not found: :table',
+        'delete_model' => 'Delete model :model',
+        'delete_model_confirm' => 'Are you sure you wish to delete the ":model" model? This will also remove any forms and lists connected to the model.',
+        'deleted' => 'Model ":model" successfully deleted.',
     ],
     'form' => [
         'saved' => 'Form saved',
@@ -766,4 +771,10 @@ return [
     'settings' => [
         'menu_desc' => 'Set your author name and namespace for plugin creation.',
     ],
+    'welcome' => [
+        'heading' => 'Welcome to the Builder.',
+        'description' => 'Quickly and easily create fully-functioning plugins for Winter CMS.',
+        'start_button' => 'Start creating a plugin',
+        'show_button' => 'Show the plugins list'
+    ]
 ];

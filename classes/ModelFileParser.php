@@ -1,200 +1,221 @@
 <?php namespace Winter\Builder\Classes;
 
+use ApplicationException;
+use PhpParser\Comment\Doc;
+use PhpParser\Node;
+use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\Expr\Cast\Bool_;
+use PhpParser\Node\Name;
+use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Namespace_;
+use PhpParser\Node\Stmt\Property;
+use PhpParser\Node\Stmt\PropertyProperty;
+use PhpParser\Node\VarLikeIdentifier;
+use PhpParser\NodeFinder;
+
 /**
- * Parses models source files.
+ * Parses and manipulates model files.
  *
  * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
+ * @author Winter CMS
  */
-class ModelFileParser
+class ModelFileParser extends PhpFileParser
 {
     /**
      * Returns the model namespace, class name and table name.
-     * @param string $fileContents Specifies the file contents.
-     * @return array|null Returns an array with keys 'namespace', 'class' and 'table'
-     * Returns null if the parsing fails.
+     *
+     * @return array|null Returns an array with keys 'namespace', 'class' and 'table'. Returns `null` if the parsing
+     *  fails.
      */
-    public function extractModelInfoFromSource($fileContents)
+    public function extractModelInfoFromSource()
     {
-        $stream = new PhpSourceStream($fileContents);
-
         $result = [];
+        $finder = new NodeFinder;
 
-        while ($stream->forward()) {
-            $tokenCode = $stream->getCurrentCode();
+        // Get the namespace
+        $namespace = $finder->findFirstInstanceOf($this->ast, Namespace_::class);
 
-            if ($tokenCode == T_NAMESPACE) {
-                $namespace = $this->extractNamespace($stream);
-                if ($namespace === null) {
-                    return null;
-                }
-
-                $result['namespace'] = $namespace;
-            }
-
-            if ($tokenCode == T_CLASS && !isset($result['class'])) {
-                $className = $this->extractClassName($stream);
-                if ($className === null) {
-                    return null;
-                }
-
-                $result['class'] = $className;
-            }
-
-            if ($tokenCode == T_PUBLIC || $tokenCode == T_PROTECTED) {
-                $tableName = $this->extractTableName($stream);
-                if ($tableName === false) {
-                    continue;
-                }
-
-                if ($tableName === null) {
-                    return null;
-                }
-
-                $result['table'] = $tableName;
-            }
+        if ($namespace === null) {
+            return null;
         }
 
-        if (!$result) {
+        $result['namespace'] = $namespace->name->toString();
+
+        // Get the class name
+        $class = $finder->findFirstInstanceOf($this->ast, Class_::class);
+
+        if ($class === null) {
             return null;
+        }
+
+        $result['class'] = $class->name->toString();
+        $result['fqClass'] = Name::concat($namespace->name, $class->name->toString());
+
+        // Get the table name
+        $tableName = $finder->findFirst($class, function (Node $node) {
+            return (
+                $node instanceof PropertyProperty
+                && $node->name instanceof VarLikeIdentifier
+                && $node->name->name === 'table'
+            );
+        });
+
+        if (
+            $tableName === null
+            || (
+                $tableName->default instanceof String_ === false
+                && $tableName->default instanceof Bool_ === false
+            )
+        ) {
+            return null;
+        }
+
+        if ($tableName->default instanceof String_) {
+            $result['table'] = $tableName->default->value;
         }
 
         return $result;
     }
 
     /**
-     * Extracts names and types of model relations.
-     * @param string $fileContents Specifies the file contents.
-     * @return array|null Returns an array with keys matching the relation types and values containing relation names as array.
-     * Returns null if the parsing fails.
+     * Gets the value of the $jsonable property, if available.
+     *
+     * @return array|null
      */
-    public function extractModelRelationsFromSource($fileContents)
+    public function getJsonable()
     {
-        $result = [];
+        $finder = new NodeFinder;
 
-        $stream = new PhpSourceStream($fileContents);
+        $class = $finder->findFirstInstanceOf($this->ast, Class_::class);
 
-        while ($stream->forward()) {
-            $tokenCode = $stream->getCurrentCode();
+        if ($class === null) {
+            return null;
+        }
 
-            if ($tokenCode == T_PUBLIC) {
-                $relations = $this->extractRelations($stream);
-                if ($relations === false) {
-                    continue;
+        $jsonable = $finder->findFirst($class, function (Node $node) {
+            return (
+                $node instanceof PropertyProperty
+                && $node->name instanceof VarLikeIdentifier
+                && $node->name->name === 'jsonable'
+            );
+        });
+
+        if ($jsonable === null || $jsonable->default instanceof Array_ === false) {
+            return null;
+        }
+
+        $columns = [];
+
+        foreach ($jsonable->default->items as $item) {
+            if ($item->value instanceof String_) {
+                $columns[] = $item->value->value;
+            } elseif (method_exists($item->value, 'toString')) {
+                $columns[] = $item->value->toString();
+            }
+        }
+
+        return $columns;
+    }
+
+    /**
+     * Sets the value of the $jsonable property for a model.
+     *
+     * If the property does not exist, it will be added.
+     *
+     * @param array $columns
+     * @return void
+     * @throws ApplicationException If the property cannot be created, ie. this is not a class.
+     */
+    public function setJsonable(array $columns)
+    {
+        $finder = new NodeFinder;
+
+        $class = $finder->findFirstInstanceOf($this->ast, Class_::class);
+
+        if ($class === null) {
+            throw new ApplicationException(
+                sprintf(
+                    'File "%s" does not appear to be a class, and cannot have the $jsonable property written',
+                    $this->filePath
+                )
+            );
+        }
+
+        $jsonable = $finder->findFirst($class, function (Node $node) {
+            return (
+                $node instanceof PropertyProperty
+                && $node->name instanceof VarLikeIdentifier
+                && $node->name->name === 'jsonable'
+            );
+        });
+
+        if ($jsonable === null) {
+            // We must create the property - we'll need to traverse the property list, find the first method definition, and
+            // add $jsonable before it
+
+            // Create an array of items
+            $arrayItems = [];
+            foreach ($columns as $column) {
+                $arrayItems[] = new ArrayItem(
+                    new String_($column)
+                );
+            }
+
+            // Create a property
+            $property = new Property(
+                Class_::MODIFIER_PUBLIC,
+                [
+                    new PropertyProperty(
+                        new VarLikeIdentifier('jsonable'),
+                        new Array_($arrayItems, [
+                            'kind' => Array_::KIND_SHORT
+                        ])
+                    )
+                ]
+            );
+
+            // Set the docblock for the property
+            $property->setDocComment(new Doc(
+                "\n"
+                . "/**\n"
+                . " * @var array Attribute names to encode and decode using JSON.\n"
+                . " */"
+            ));
+
+            $firstMethodIndex = null;
+
+            foreach ($class->stmts as $i => $stmt) {
+                if ($stmt instanceof ClassMethod) {
+                    $firstMethodIndex = $i;
+                    break;
                 }
             }
-        }
 
-        if (!$result) {
-            return null;
-        }
-
-        return $result;
-    }
-
-    /**
-     * extractNamespace from model info
-     */
-    protected function extractNamespace($stream)
-    {
-        if ($stream->getNextExpected(T_WHITESPACE) === null) {
-            return null;
-        }
-
-        $expected = [T_STRING, T_NS_SEPARATOR];
-
-        // Namespace string on PHP 8.0 returns code 314 (T_NAME_QUALIFIED)
-        // @deprecated combine when min req > php 8
-        if (defined('T_NAME_QUALIFIED') && T_NAME_QUALIFIED > 0) {
-            $expected[] = T_NAME_QUALIFIED;
-        }
-
-        return $stream->getNextExpectedTerminated($expected, [T_WHITESPACE, ';']);
-    }
-
-    /**
-     * extractClassName from model info
-     */
-    protected function extractClassName($stream)
-    {
-        if ($stream->getNextExpected(T_WHITESPACE) === null) {
-            return null;
-        }
-
-        return $stream->getNextExpectedTerminated([T_STRING], [T_WHITESPACE, ';']);
-    }
-
-    /**
-     * Returns the table name. This method would return null in case if the
-     * $table variable was found, but it value cannot be read. If the variable
-     * is not found, the method returns false, allowing the outer loop to go to
-     * the next token.
-     */
-    protected function extractTableName($stream)
-    {
-        if ($stream->getNextExpected(T_WHITESPACE) === null) {
-            return false;
-        }
-
-        if ($stream->getNextExpected(T_VARIABLE) === null) {
-            return false;
-        }
-
-        if ($stream->getCurrentText() != '$table') {
-            return false;
-        }
-
-        if ($stream->getNextExpectedTerminated(['=', T_WHITESPACE], [T_CONSTANT_ENCAPSED_STRING]) === null) {
-            return null;
-        }
-
-        $tableName = $stream->getCurrentText();
-        $tableName = trim($tableName, '\'');
-        $tableName = trim($tableName, '"');
-
-        return $tableName;
-    }
-
-    protected function extractRelations($stream)
-    {
-        if ($stream->getNextExpected(T_WHITESPACE) === null) {
-            return false;
-        }
-
-        if ($stream->getNextExpected(T_VARIABLE) === null) {
-            return false;
-        }
-
-        $relationTypes = [
-            'belongsTo',
-            'belongsToMany',
-            'attachMany',
-            'hasMany',
-            'morphToMany',
-            'morphedByMany',
-            'morphMany',
-            'hasManyThrough'
-        ];
-
-        $relationType = null;
-        $currentText = $stream->getCurrentText();
-
-        foreach ($relationTypes as $type) {
-            if ($currentText == '$'.$type) {
-                $relationType = $type;
-                break;
+            if ($firstMethodIndex !== null) {
+                array_splice(
+                    $class->stmts,
+                    $firstMethodIndex,
+                    0,
+                    [$property]
+                );
+                return;
             }
+
+            $class->stmts[] = $property;
+            return;
         }
 
-        if (!$relationType) {
-            return false;
-        }
+        // Reset $jsonable property and add new columns
+        $jsonable->default->items = [];
 
-        if ($stream->getNextExpectedTerminated(['=', T_WHITESPACE], ['[']) === null) {
-            return null;
+        foreach ($columns as $column) {
+            $jsonable->default->items[] = new ArrayItem(
+                new String_($column)
+            );
         }
-
-        // The implementation is not finished and postponed. Relation definition could
-        // be quite complex and contain nested arrays.
     }
 }

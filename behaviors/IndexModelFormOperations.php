@@ -1,19 +1,15 @@
 <?php namespace Winter\Builder\Behaviors;
 
+use Lang;
+use Flash;
+use Request;
 use Winter\Builder\Classes\IndexOperationsBehaviorBase;
 use Winter\Builder\Classes\ModelFormModel;
-use Winter\Builder\Classes\PluginCode;
 use Winter\Builder\FormWidgets\FormBuilder;
 use Winter\Builder\Classes\ModelModel;
 use Winter\Builder\Classes\ControlLibrary;
 use Backend\Classes\FormField;
 use Backend\FormWidgets\DataTable;
-use ApplicationException;
-use Exception;
-use Request;
-use Flash;
-use Input;
-use Lang;
 
 /**
  * Model form management functionality for the Builder index controller
@@ -39,8 +35,8 @@ class IndexModelFormOperations extends IndexOperationsBehaviorBase
 
     public function onModelFormCreateOrOpen()
     {
-        $fileName = Input::get('file_name');
-        $modelClass = Input::get('model_class');
+        $fileName = Request::input('file_name');
+        $modelClass = Request::input('model_class');
 
         $pluginCodeObj = $this->getPluginCode();
 
@@ -70,15 +66,23 @@ class IndexModelFormOperations extends IndexOperationsBehaviorBase
     public function onModelFormSave()
     {
         $model = $this->loadOrCreateFormFromPost();
-
+        $originalJsonable = $model->getJsonableFields();
         $model->fill($_POST);
+        $newJsonable = $model->getJsonableFields();
         $model->save();
+
+        // Diff JSONable fields and store these in the main model, keeping any changes added by the user
+        $modelClass = new ModelModel();
+        $modelClass->setPluginCode(Request::input('plugin_code'));
+        $modelClass->className = Request::input('model_class');
+        $jsonable = $this->updateJsonable($modelClass->getJsonable() ?? [], $originalJsonable, $newJsonable);
+        $modelClass->setJsonable($jsonable);
 
         $result = $this->controller->widget->modelList->updateList();
 
         Flash::success(Lang::get('winter.builder::lang.form.saved'));
 
-        $modelClass = Input::get('model_class');
+        $modelClass = Request::input('model_class');
         $result['builderResponseData'] = [
             'builderObjectName' => $model->fileName,
             'tabId' => $this->getTabId($modelClass, $model->fileName),
@@ -98,7 +102,7 @@ class IndexModelFormOperations extends IndexOperationsBehaviorBase
 
         $result = $this->controller->widget->modelList->updateList();
 
-        $modelClass = Input::get('model_class');
+        $modelClass = Request::input('model_class');
         $this->mergeRegistryDataIntoResult($result, $model, $modelClass);
 
         return $result;
@@ -106,8 +110,8 @@ class IndexModelFormOperations extends IndexOperationsBehaviorBase
 
     public function onModelFormGetModelFields()
     {
-        $columnNames = ModelModel::getModelFields($this->getPluginCode(), Input::get('model_class'));
-        $asPlainList = Input::get('as_plain_list');
+        $columnNames = ModelModel::getModelFields($this->getPluginCode(), Request::input('model_class'));
+        $asPlainList = Request::input('as_plain_list');
 
         $result = [];
         foreach ($columnNames as $columnName) {
@@ -131,7 +135,7 @@ class IndexModelFormOperations extends IndexOperationsBehaviorBase
 
     public function onModelShowAddDatabaseFieldsPopup()
     {
-        $columns = ModelModel::getModelColumnsAndTypes($this->getPluginCode(), Input::get('model_class'));
+        $columns = ModelModel::getModelColumnsAndTypes($this->getPluginCode(), Request::input('model_class'));
         $config = $this->makeConfig($this->getAddDatabaseFieldsDataTableConfig());
 
         $field = new FormField('add_database_fields_datatable', 'add_database_fields_datatable');
@@ -150,8 +154,8 @@ class IndexModelFormOperations extends IndexOperationsBehaviorBase
     protected function loadOrCreateFormFromPost()
     {
         $pluginCode = Request::input('plugin_code');
-        $modelClass = Input::get('model_class');
-        $fileName = Input::get('file_name');
+        $modelClass = Request::input('model_class');
+        $fileName = Request::input('file_name');
 
         $options = [
             'pluginCode' => $pluginCode,
@@ -276,5 +280,49 @@ class IndexModelFormOperations extends IndexOperationsBehaviorBase
                 'add'    => false,
             ];
         }, $columns);
+    }
+
+    /**
+     * Conducts a 3-way diff to update a model's $jsonable property.
+     *
+     * This determines changes made to the fields config within Builder and applies them to the model's
+     * $jsonable property, whilst keeping any manual changes made to this property.
+     *
+     * @param array $modelProp
+     * @param array $original
+     * @param array $new
+     * @return array
+     */
+    protected function updateJsonable(array $model, array $original, array $new)
+    {
+        // Determine changes
+        $toAdd = array_diff($new, $original);
+        $toRemove = array_diff($original, $new);
+        $unchanged = array_intersect($original, $new);
+
+        // Add new columns
+        foreach ($toAdd as $column) {
+            if (!in_array($column, $model)) {
+                $model[] = $column;
+            }
+        }
+
+        // Keep unchanged columns
+        foreach ($unchanged as $column) {
+            if (!in_array($column, $model)) {
+                $model[] = $column;
+            }
+        }
+
+        // Remove unneeded columns
+        foreach ($toRemove as $column) {
+            $key = array_search($column, $model);
+
+            if ($key !== false) {
+                array_splice($model, $key, 1);
+            }
+        }
+
+        return $model;
     }
 }

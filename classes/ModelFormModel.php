@@ -9,6 +9,7 @@ use Lang;
  *
  * @package winter\builder
  * @author Alexey Bobkov, Samuel Georges
+ * @author Winter CMS
  */
 class ModelFormModel extends ModelYamlModel
 {
@@ -41,6 +42,72 @@ class ModelFormModel extends ModelYamlModel
         }
 
         return parent::fill($attributes);
+    }
+
+    /**
+     * Determines the fields that should be stored as "jsonable" data.
+     *
+     * @return array
+     */
+    public function getJsonableFields()
+    {
+        $fields = [];
+
+        // Search outside fields
+        if (isset($this->controls['fields']) && count($this->controls['fields'])) {
+            $this->scanJsonableFields($fields, $this->controls['fields']);
+        }
+
+        // Search primary tabs fields
+        if (isset($this->controls['tabs']['fields']) && count($this->controls['tabs']['fields'])) {
+            $this->scanJsonableFields($fields, $this->controls['tabs']['fields']);
+        }
+
+        // Search secondary tabs fields
+        if (isset($this->controls['secondaryTabs']['fields']) && count($this->controls['secondaryTabs']['fields'])) {
+            $this->scanJsonableFields($fields, $this->controls['secondaryTabs']['fields']);
+        }
+
+        return $fields;
+    }
+
+    /**
+     * Scans for "jsonable" fields within a fieldset and adds them to the found array.
+     *
+     * @param array $found
+     * @param array $fields
+     * @return void
+     */
+    protected function scanJsonableFields(array &$found, array $fields)
+    {
+        $jsonableFields = [
+            'checkboxlist',
+            'datatable',
+            'nestedform',
+            'repeater',
+        ];
+
+        foreach ($fields as $name => $field) {
+            // Skip related fields
+            if (str_contains($name, '[')) {
+                continue;
+            }
+
+            if (in_array($field['type'], $jsonableFields)) {
+                if (!array_key_exists($name, $found)) {
+                    $found[] = $name;
+                    continue;
+                }
+            }
+
+            // Allow for multi-selection dropdowns
+            if ($field['type'] === 'dropdown' && isset($field['multiple']) && $field['multiple'] === true) {
+                if (!array_key_exists($name, $found)) {
+                    $found[] = $name;
+                    continue;
+                }
+            }
+        }
     }
 
     public static function validateFileIsModelType($fileContentsArray)

@@ -33,7 +33,7 @@ class IndexDatabaseTableOperations extends IndexOperationsBehaviorBase
 
         $result = [
             'tabTitle' => $this->getTabTitle($tableName),
-            'tabIcon' => 'icon-hdd-o',
+            'tabIcon' => 'icon-database',
             'tabId' => $this->getTabId($tableName),
             'tab' => $this->makePartial('tab', [
                 'form'  => $widget,
@@ -100,7 +100,7 @@ class IndexDatabaseTableOperations extends IndexOperationsBehaviorBase
             throw new ApplicationException($ex->getMessage());
         }
 
-        $result = $this->controller->widget->databaseTabelList->updateList();
+        $result = $this->controller->widget->databaseTableList->updateList();
 
         $result = array_merge(
             $result,

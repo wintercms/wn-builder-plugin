@@ -19,6 +19,8 @@ class DatabaseTableList extends WidgetBase
     protected $theme;
 
     public $noRecordsMessage = 'winter.builder::lang.database.no_records';
+    public $unlinkedTableMessage = 'winter.builder::lang.database.unlinked_table';
+    public $linkedModelMessage = 'winter.builder::lang.database.linked_model';
 
     public function __construct($controller, $alias)
     {
@@ -88,7 +90,7 @@ class DatabaseTableList extends WidgetBase
             $result = [];
 
             foreach ($tables as $table) {
-                if ($this->textMatchesSearch($words, $table)) {
+                if ($this->textMatchesSearch($words, $table['table'])) {
                     $result[] = $table;
                 }
             }

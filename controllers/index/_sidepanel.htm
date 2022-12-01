@@ -6,9 +6,9 @@
                 class="layout"
                 data-content-id="database"
                 data-template-type="database"
-                data-type-icon="oc-icon-table"
+                data-type-icon="wn-icon-database"
                 onsubmit="return false">
-                <?= $this->widget->databaseTabelList->render() ?>
+                <?= $this->widget->databaseTableList->render() ?>
             </form>
 
             <!-- Models -->
@@ -16,17 +16,17 @@
                 class="layout hide"
                 data-content-id="models"
                 data-template-type="model"
-                data-type-icon="oc-icon-random"
+                data-type-icon="wn-icon-file-code"
                 onsubmit="return false">
                 <?= $this->widget->modelList->render() ?>
             </form>
 
-            <!-- Controllerss -->
+            <!-- Controllers -->
             <form
                 class="layout hide"
                 data-content-id="controllers"
                 data-template-type="controller"
-                data-type-icon="oc-icon-asterisk"
+                data-type-icon="wn-icon-asterisk"
                 onsubmit="return false">
                 <?= $this->widget->controllerList->render() ?>
             </form>
@@ -36,7 +36,7 @@
                 class="layout hide"
                 data-content-id="version"
                 data-template-type="version"
-                data-type-icon="oc-icon-code-fork"
+                data-type-icon="wn-icon-code-fork"
                 onsubmit="return false">
                 <?= $this->widget->versionList->render() ?>
             </form>
@@ -46,7 +46,7 @@
                 class="layout hide"
                 data-content-id="localization"
                 data-template-type="localization"
-                data-type-icon="oc-icon-glove"
+                data-type-icon="wn-icon-glove"
                 onsubmit="return false">
                 <?= $this->widget->languageList->render() ?>
             </form>

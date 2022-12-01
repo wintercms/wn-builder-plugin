@@ -56,10 +56,10 @@ class FormBuilder extends FormWidgetBase
      */
     public function loadAssets()
     {
-        $this->addJs('js/formbuilder.js', 'builder');
-        $this->addJs('js/formbuilder.domtopropertyjson.js', 'builder');
-        $this->addJs('js/formbuilder.tabs.js', 'builder');
-        $this->addJs('js/formbuilder.controlpalette.js', 'builder');
+        $this->addJs('js/formbuilder.js', 'Winter.Builder');
+        $this->addJs('js/formbuilder.domtopropertyjson.js', 'Winter.Builder');
+        $this->addJs('js/formbuilder.tabs.js', 'Winter.Builder');
+        $this->addJs('js/formbuilder.controlpalette.js', 'Winter.Builder');
     }
 
     public function renderControlList($controls, $listName = '')

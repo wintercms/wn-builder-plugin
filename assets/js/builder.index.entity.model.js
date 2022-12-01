@@ -32,6 +32,20 @@
         })
     }
 
+    Model.prototype.cmdDeleteModel = function(ev) {
+        var $target = $(ev.currentTarget),
+            model = $target.data('modelClass')
+
+        $.wn.confirm($target.data('confirm'), () => {
+            $.request('onModelDelete', {
+                data: {
+                    model: model,
+                },
+                flash: true
+            })
+        })
+    }
+
     Model.prototype.cmdApplyModelSettings = function(ev) {
         var $form = $(ev.currentTarget),
             self = this

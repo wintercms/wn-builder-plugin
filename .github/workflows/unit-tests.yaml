@@ -13,11 +13,11 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        phpVersions: ['7.2', '7.3', '7.4', '8.0']
+        phpVersions: ['8.0', '8.1']
       fail-fast: false
     env:
       phpExtensions: mbstring, intl, gd, xml, sqlite
-      cacheKey: ext-cache-v1
+      cacheKey: ext-cache-v2
       winterCmsRelease: develop
     steps:
       - name: Checkout changes
@@ -76,6 +76,4 @@ jobs:
         run: composer install --no-interaction --no-progress
 
       - name: Run unit tests
-        run: |
-          cd plugins/winter/builder
-          ../../../vendor/bin/phpunit --testdox
+        run: php artisan winter:test -p Winter.Builder -- --testdox

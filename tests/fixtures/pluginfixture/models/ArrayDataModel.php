@@ -2,14 +2,23 @@
 
 use Model;
 
-class SimpleModel extends Model
+class ArrayDataModel extends Model
 {
     /**
      * Database table.
      *
      * @var string
      */
-    public $table = 'plugin_fixture_simple_model';
+    public $table = 'plugin_fixture_array_data_model';
+
+    /**
+     * JSONable fields.
+     *
+     * @var array
+     */
+    public $jsonable = [
+        'data',
+    ];
 
     /**
      * Used to make sure that the "setJsonable" method doesn't mess with the source code too much

@@ -16,6 +16,16 @@
     top: 10px;
 }
 
+.control-filelist ul li.group.model > .controls {
+    display: none !important;
+    right: 29px;
+}
+
+.control-filelist ul li.group.model h4:hover + .controls,
+.control-filelist ul li.group.model .controls:hover {
+    display: block !important;
+}
+
 .control-filelist ul li.group.form > h4 a:after {
     content: @check-square;
 }
@@ -147,7 +157,7 @@ div.control-table .toolbar a.builder-custom-table-button {
             padding-bottom: 2px;
             background: white;
             position: relative;
-            
+
             &:before {
                 .border-top(#95a5a6);
             }
