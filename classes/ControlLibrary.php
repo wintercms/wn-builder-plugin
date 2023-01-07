@@ -141,7 +141,8 @@ class ControlLibrary
                     'left' => Lang::get('winter.builder::lang.form.span_left'),
                     'right' => Lang::get('winter.builder::lang.form.span_right'),
                     'full' => Lang::get('winter.builder::lang.form.span_full'),
-                    'auto' => Lang::get('winter.builder::lang.form.span_auto')
+                    'auto' => Lang::get('winter.builder::lang.form.span_auto'),
+                    'storm' => Lang::get('winter.builder::lang.form.span_storm'),
                 ]
             ],
             'placeholder' => [
