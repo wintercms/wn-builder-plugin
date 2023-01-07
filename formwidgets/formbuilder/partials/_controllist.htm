@@ -2,6 +2,7 @@
     <?php
         $prevConfig = null;
         $prevSpan = null;
+        $cssClass = '';
 
         foreach ($controls as $controlName=>$controlConfig):
             $controlRenderingInfo = $this->getControlRenderingInfo($controlName, $controlConfig, $prevConfig);
