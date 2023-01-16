@@ -106,13 +106,32 @@ class StandardControlsRegistry
 
     protected function registerSwitchControl()
     {
+        $properties = [
+            'on' => [
+                'title' => Lang::get('winter.builder::lang.form.property_switch_label_on'),
+                'description' => Lang::get('winter.builder::lang.form.property_switch_label_on_description'),
+                'type' => 'string',
+                'ignoreIfEmpty' => true,
+                'sortOrder' => 70
+            ],
+            'off' => [
+                'title' => Lang::get('winter.builder::lang.form.property_switch_label_off'),
+                'description' => Lang::get('winter.builder::lang.form.property_switch_label_off_description'),
+                'type' => 'string',
+                'ignoreIfEmpty' => true,
+                'sortOrder' => 71
+            ],
+        ];
+
+        $properties = array_merge($properties, $this->getCheckboxTypeProperties());
+
         $this->controlLibrary->registerControl(
             'switch',
             'winter.builder::lang.form.control_switch',
             'winter.builder::lang.form.control_switch_description',
             ControlLibrary::GROUP_STANDARD,
             'icon-toggle-on',
-            $this->controlLibrary->getStandardProperties(['oc.commentPosition', 'stretch'], $this->getCheckboxTypeProperties()),
+            $this->controlLibrary->getStandardProperties(['oc.commentPosition', 'stretch'], $properties),
             null
         );
     }
