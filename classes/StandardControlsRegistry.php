@@ -108,15 +108,15 @@ class StandardControlsRegistry
     {
         $properties = [
             'on' => [
-                'title' => Lang::get('rainlab.builder::lang.form.property_switch_label_on'),
-                'description' => Lang::get('rainlab.builder::lang.form.property_switch_label_on_description'),
+                'title' => Lang::get('winter.builder::lang.form.property_switch_label_on'),
+                'description' => Lang::get('winter.builder::lang.form.property_switch_label_on_description'),
                 'type' => 'string',
                 'ignoreIfEmpty' => true,
                 'sortOrder' => 70
             ],
             'off' => [
-                'title' => Lang::get('rainlab.builder::lang.form.property_switch_label_off'),
-                'description' => Lang::get('rainlab.builder::lang.form.property_switch_label_off_description'),
+                'title' => Lang::get('winter.builder::lang.form.property_switch_label_off'),
+                'description' => Lang::get('winter.builder::lang.form.property_switch_label_off_description'),
                 'type' => 'string',
                 'ignoreIfEmpty' => true,
                 'sortOrder' => 71
