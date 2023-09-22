@@ -48,7 +48,7 @@ class PermissionsModel extends PluginYamlModel
             }
 
             if (!isset($permission['permission'])) {
-                throw new ApplicationException('Cannot save permissions - the permission code should not be empty.');
+                throw new ApplicationException(Lang::get('winter.builder::lang.permission.error_save_permissions_code_should_not_be_empty'));
             }
 
             $code = $permission['permission'];

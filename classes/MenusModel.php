@@ -35,7 +35,7 @@ class MenusModel extends PluginYamlModel
             $mainMenuItem = $this->trimMenuProperties($mainMenuItem);
 
             if (!isset($mainMenuItem['code'])) {
-                throw new ApplicationException('Cannot save menus - the main menu item code should not be empty.');
+                throw new ApplicationException(Lang::get('winter.builder::lang.menu.error_main_menu_item_code_should_not_be_empty'));
             }
 
             if (isset($mainMenuItem['sideMenu'])) {
@@ -45,7 +45,7 @@ class MenusModel extends PluginYamlModel
                     $sideMenuItem = $this->trimMenuProperties($sideMenuItem);
 
                     if (!isset($sideMenuItem['code'])) {
-                        throw new ApplicationException('Cannot save menus - the side menu item code should not be empty.');
+                        throw new ApplicationException(Lang::get('winter.builder::lang.menu.error_side_menu_item_code_should_not_be_empty'));
                     }
 
                     $code = $sideMenuItem['code'];

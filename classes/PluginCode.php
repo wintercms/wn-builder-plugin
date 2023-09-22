@@ -1,6 +1,7 @@
 <?php namespace Winter\Builder\Classes;
 
 use ApplicationException;
+use Lang;
 
 /**
  * Represents a plugin code and provides basic code operations.
@@ -18,13 +19,13 @@ class PluginCode
     {
         $codeParts = explode('.', $pluginCodeStr);
         if (count($codeParts) !== 2) {
-            throw new ApplicationException(sprintf('Invalid plugin code: %s', $pluginCodeStr));
+            throw new ApplicationException(Lang::get('winter.builder::lang.plugin.error_invalid_plugin_code', ['code' => $pluginCodeStr]));
         }
 
         list($authorCode, $pluginCode) = $codeParts;
 
         if (!$this->validateCodeWord($authorCode) || !$this->validateCodeWord($pluginCode)) {
-            throw new ApplicationException(sprintf('Invalid plugin code: %s', $pluginCodeStr));
+            throw new ApplicationException(Lang::get('winter.builder::lang.plugin.error_invalid_plugin_code', ['code' => $pluginCodeStr]));
         }
 
         $this->authorCode = trim($authorCode);
@@ -35,7 +36,7 @@ class PluginCode
     {
         $namespaceParts = explode('\\', $namespace);
         if (count($namespaceParts) < 2) {
-            throw new ApplicationException('Invalid plugin namespace value.');
+            throw new ApplicationException(Lang::get('winter.builder::lang.plugin.error_invalid_plugin_namespace'));
         }
 
         $authorCode = $namespaceParts[0];

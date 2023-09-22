@@ -33,6 +33,8 @@ return [
         'replaces_prompt' => 'Add a plugin',
         'replaces_plugin_code' => 'Plugin code',
         'replaces_plugin_constraint' => 'Version constraint',
+        'error_invalid_plugin_code' => 'Invalid plugin code: :code',
+        'error_invalid_plugin_namespace' => 'Invalid plugin namespace value.',
     ],
     'author_name' => [
         'title' => 'Author name',
@@ -110,6 +112,7 @@ return [
         'error_deleted_at_column_must_exist' => 'The database table must have deleted_at column.',
         'add_form' => 'Add form',
         'add_list' => 'Add list',
+        'error_db_table_not_found' => 'Database table not found: :table',
         'delete_model' => 'Delete model :model',
         'delete_model_confirm' => 'Are you sure you wish to delete the ":model" model? This will also remove any forms and lists connected to the model.',
         'deleted' => 'Model ":model" successfully deleted.',
@@ -403,6 +406,7 @@ return [
         'tab_css_class_description' => 'Assigns a CSS class to the tabs container.',
         'tab_name_template' => 'Tab %s',
         'tab_already_exists' => 'Tab with the specified title already exists.',
+        'validation_create_at_least_one_field' => 'Please create at least one field.',
     ],
     'list' => [
         'tab_new_list' => 'New list',
@@ -441,7 +445,9 @@ return [
         'column_label_value_from' => 'Value from',
         'error_duplicate_column' => "Duplicate column field name: ':column'.",
         'btn_add_database_columns' => 'Add database columns',
-        'all_database_columns_exist' => 'All database columns are already defined in the list'
+        'all_database_columns_exist' => 'All database columns are already defined in the list',
+        'validation_columns_create_at_least_one_column' => 'Please create at least one column.',
+        'error_name_should_not_be_empty' => 'Cannot save the list - the column field name should not be empty.',
     ],
     'controller' => [
         'menu_label' => 'Controllers',
@@ -615,6 +621,8 @@ return [
         'property_code_required' => 'Please enter the menu item code.',
         'error_duplicate_main_menu_code' => "Duplicate main menu item code: ':code'.",
         'error_duplicate_side_menu_code' => "Duplicate side menu item code: ':code'.",
+        'error_main_menu_item_code_should_not_be_empty' => 'Cannot save menus - the main menu item code should not be empty.',
+        'error_side_menu_item_code_should_not_be_empty' => 'Cannot save menus - the side menu item code should not be empty.',
     ],
     'localization' => [
         'menu_label' => 'Localization',
@@ -643,6 +651,9 @@ return [
         'string_key_is_a_string' => ':key is a string and cannot contain other strings.',
         'string_value_is_empty' => 'String value should not be empty',
         'string_key_exists' => 'The string key already exists',
+        'error_cannot_delete_lang_file_which_is_not_saved' => 'Cannot delete language file which is not saved yet.',
+        'error_default_language_is_not_defined' => 'The default language is not defined in the application configuration (app.locale).',
+        'error_cannot_parse_yaml' => 'Cannot parse the YAML content: :message',
     ],
     'permission' => [
         'menu_label' => 'Permissions',
@@ -658,9 +669,14 @@ return [
         'column_label_required' => 'Please enter the permission label',
         'saved' => 'Permissions saved',
         'error_duplicate_code' => "Duplicate permission code: ':code'.",
+        'error_save_permissions_code_should_not_be_empty' => 'Cannot save permissions - the permission code should not be empty.',
     ],
     'yaml' => [
         'save_error' => "Error saving file ':name'. Please check write permissions.",
+        'error_cannot_load_model_file_is_not_found' => 'Cannot load the model - the original file is not found: :path',
+        'error_cannot_parse_yaml_file' => 'Cannot parse the YAML file :path: :message',
+        'error_cannot_load_model_file_is_not_found' => 'Cannot load the model - the original file is not found: :path',
+        'error_cannot_delete_model_file_should_be_yaml' => 'Cannot delete the model - the original file should be a YAML document',
     ],
     'common' => [
         'error_file_exists' => "File already exists: ':path'.",
@@ -692,6 +708,10 @@ return [
         'error_namespace_mismatch' => "The migration code should use the plugin namespace: :namespace",
         'error_migration_file_exists' => "Migration file :file already exists. Please use another class name.",
         'error_cant_delete_applied' => 'This version has already been applied and cannot be deleted. Please rollback the version first.',
+        'error_cannot_load_version_model_should_not_be_empty' => 'Cannot load the version model - the version number should not be empty.',
+        'error_requested_version_does_not_exist' => 'The requested version does not exist in the version information file.',
+        'error_requested_version_cannot_be_edited' => 'The requested version cannot be edited with Builder as it refers to multiple PHP scripts.',
+        'error_version_file_is_not_found' => 'Version file :path is not found',
     ],
     'components' => [
         'list_title' => 'Record list',
@@ -743,12 +763,18 @@ return [
         'details_not_found_message' => 'Not found message',
         'details_not_found_message_description' => 'Message to display if the record is not found. Used in the default component\'s partial.',
         'details_not_found_message_default' => 'Record not found',
+        'error_invalid_model_class_name' => 'Invalid model class name.',
+        'error_model_class_name_should_be_a_string' => 'Model class name should be a string.',
     ],
     'validation' => [
-        'reserved' => ':attribute cannot be a PHP reserved keyword'
+        'reserved' => ':attribute cannot be a PHP reserved keyword',
+    ],
+    'behavior' => [
+        'error_base_form_configuration_file_is_not_specified' => 'Base form configuration file is not specified for :class behavior',
+        'error_cannot_determine_currently_active_plugin' => 'Cannot determine the currently active plugin.',
     ],
     'settings' => [
-        'menu_desc' => 'Set your author name and namespace for plugin creation.'
+        'menu_desc' => 'Set your author name and namespace for plugin creation.',
     ],
     'welcome' => [
         'heading' => 'Welcome to the Builder.',
