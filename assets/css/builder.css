@@ -83,7 +83,7 @@ html.gecko.mac .builder-building-area div[data-root-control-wrapper]{margin-righ
 .builder-building-area .builder-blueprint-control-dropdown:before,
 .builder-building-area .builder-blueprint-control-dropdown:after{position:absolute;content:''}
 .builder-building-area .builder-blueprint-control-dropdown:before{top:0;width:2px;background:#bdc3c7;right:40px;height:100%}
-.builder-building-area .builder-blueprint-control-dropdown:after{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;content:"\f107";color:inherit;right:15px;top:12px;font-size:20px;line-height:20px}
+.builder-building-area .builder-blueprint-control-dropdown:after{font-family:"Font Awesome 6 Free";font-weight:900;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-style:normal;font-variant:normal;text-rendering:auto;content:"\f107";color:inherit;right:15px;top:12px;font-size:20px;line-height:20px}
 .builder-building-area .builder-blueprint-control-checkbox:before{float:left;content:' ';border:2px solid #bdc3c7;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;width:17px;height:17px;position:relative;top:2px}
 .builder-building-area .builder-blueprint-control-checkbox .builder-control-label{margin-left:25px;font-weight:normal}
 .builder-building-area .builder-blueprint-control-checkbox .builder-control-comment-below{margin-left:25px}
