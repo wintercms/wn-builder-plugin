@@ -60,7 +60,12 @@ class DatabaseTableModel extends BaseModel
         $pluginCodeObj = new PluginCode($pluginCode);
         $prefix = $pluginCodeObj->toDatabasePrefix();
 
-        $tables = self::getSchemaManager()->listTableNames();
+        $schemaManager = self::getSchemaManager();
+        if (method_exists($schemaManager, 'listTableNames')) {
+            $tables = $schemaManager->listTableNames();
+        } else {
+            $tables = $schemaManager->getTableListing();
+        }
         $models = ModelModel::listPluginModels($pluginCodeObj);
 
         return array_map(function ($item) use ($models) {
@@ -96,7 +101,7 @@ class DatabaseTableModel extends BaseModel
             throw new SystemException(sprintf('The table with name %s doesn\'t exist', $name));
         }
 
-        $schema = self::getSchemaManager()->createSchema();
+        $schema = self::getSchema();
 
         $this->name = $name;
         $this->tableInfo = $schema->getTable($this->name);
@@ -184,7 +189,12 @@ class DatabaseTableModel extends BaseModel
     public static function getSchema()
     {
         if (!self::$schema) {
-            self::$schema = self::getSchemaManager()->createSchema();
+            $schemaManager = self::getSchemaManager();
+            if (method_exists($schemaManager, 'createSchema')) {
+                self::$schema = $schemaManager->createSchema();
+            } else {
+                self::$schema = $schemaManager;
+            }
         }
 
         return self::$schema;
@@ -362,15 +372,20 @@ class DatabaseTableModel extends BaseModel
     protected static function getSchemaManager()
     {
         if (!self::$schemaManager) {
-            self::$schemaManager = Schema::getConnection()->getDoctrineSchemaManager();
+            $connection = Schema::getConnection();
+            if (method_exists($connection, 'getDoctrineSchemaManager')) {
+                self::$schemaManager = $connection->getDoctrineSchemaManager();
 
-            Type::addType('enumdbtype', 'Winter\Builder\Classes\EnumDbType');
+                Type::addType('enumdbtype', 'Winter\Builder\Classes\EnumDbType');
 
-            // Fixes the problem with enum column type not supported
-            // by Doctrine (https://github.com/laravel/framework/issues/1346)
-            $platform = self::$schemaManager->getDatabasePlatform();
-            $platform->registerDoctrineTypeMapping('enum', 'enumdbtype');
-            $platform->registerDoctrineTypeMapping('json', 'text');
+                // Fixes the problem with enum column type not supported
+                // by Doctrine (https://github.com/laravel/framework/issues/1346)
+                $platform = self::$schemaManager->getDatabasePlatform();
+                $platform->registerDoctrineTypeMapping('enum', 'enumdbtype');
+                $platform->registerDoctrineTypeMapping('json', 'text');
+            } else {
+                self::$schemaManager = $connection->getSchemaBuilder();
+            }
         }
 
         return self::$schemaManager;
