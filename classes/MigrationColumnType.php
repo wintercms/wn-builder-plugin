@@ -2,7 +2,7 @@
 
 use SystemException;
 use ApplicationException;
-use Doctrine\DBAL\Types\Type as DoctrineType;
+use Doctrine\DBAL\Types\Types as DoctrineTypes;
 use Lang;
 
 /**
@@ -66,19 +66,19 @@ class MigrationColumnType extends BaseModel
     public static function getDoctrineTypeMap()
     {
         return [
-            self::TYPE_INTEGER => DoctrineType::INTEGER,
-            self::TYPE_SMALLINTEGER => DoctrineType::SMALLINT,
-            self::TYPE_BIGINTEGER => DoctrineType::BIGINT,
-            self::TYPE_DATE => DoctrineType::DATE,
-            self::TYPE_TIME => DoctrineType::TIME,
-            self::TYPE_DATETIME => DoctrineType::DATETIME,
-            self::TYPE_TIMESTAMP => DoctrineType::DATETIME,
-            self::TYPE_STRING => DoctrineType::STRING,
-            self::TYPE_TEXT => DoctrineType::TEXT,
-            self::TYPE_BINARY => DoctrineType::BLOB,
-            self::TYPE_BOOLEAN => DoctrineType::BOOLEAN,
-            self::TYPE_DECIMAL => DoctrineType::DECIMAL,
-            self::TYPE_DOUBLE => DoctrineType::FLOAT
+            self::TYPE_INTEGER => DoctrineTypes::INTEGER,
+            self::TYPE_SMALLINTEGER => DoctrineTypes::SMALLINT,
+            self::TYPE_BIGINTEGER => DoctrineTypes::BIGINT,
+            self::TYPE_DATE => DoctrineTypes::DATE_MUTABLE,
+            self::TYPE_TIME => DoctrineTypes::TIME_MUTABLE,
+            self::TYPE_DATETIME => DoctrineTypes::DATETIME_MUTABLE,
+            self::TYPE_TIMESTAMP => DoctrineTypes::DATETIME_MUTABLE,
+            self::TYPE_STRING => DoctrineTypes::STRING,
+            self::TYPE_TEXT => DoctrineTypes::TEXT,
+            self::TYPE_BINARY => DoctrineTypes::BLOB,
+            self::TYPE_BOOLEAN => DoctrineTypes::BOOLEAN,
+            self::TYPE_DECIMAL => DoctrineTypes::DECIMAL,
+            self::TYPE_DOUBLE => DoctrineTypes::FLOAT,
         ];
     }
 
@@ -112,7 +112,7 @@ class MigrationColumnType extends BaseModel
         // Some guessing could be required in this method. The method is not
         // 100% reliable.
 
-        if ($type == DoctrineType::DATETIME) {
+        if ($type == DoctrineTypes::DATETIME_MUTABLE) {
             // The datetime type maps to datetime and timestamp. Use the name
             // guessing as the only possible solution.
 
