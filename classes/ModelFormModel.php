@@ -2,6 +2,7 @@
 
 use SystemException;
 use ValidationException;
+use Lang;
 
 /**
  * Represents and manages model forms.
@@ -131,7 +132,7 @@ class ModelFormModel extends ModelYamlModel
         parent::validate();
 
         if (!$this->controls) {
-            throw new ValidationException(['controls' => 'Please create at least one field.']);
+            throw new ValidationException(['controls' => Lang::get('winter.builder::lang.form.validation_create_at_least_one_field')]);
         }
     }
 

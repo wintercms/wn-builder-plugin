@@ -151,12 +151,12 @@ class MigrationModel extends BaseModel
         $versionNumber = trim($versionNumber);
 
         if (!strlen($versionNumber)) {
-            throw new ApplicationException('Cannot load the the version model - the version number should not be empty.');
+            throw new ApplicationException(Lang::get('winter.builder::lang.migration.error_cannot_load_version_model_should_not_be_empty'));
         }
 
         $pluginVersions = $this->getPluginVersionInformation();
         if (!array_key_exists($versionNumber, $pluginVersions)) {
-            throw new ApplicationException('The requested version does not exist in the version information file.');
+            throw new ApplicationException(Lang::get('winter.builder::lang.migration.error_requested_version_does_not_exist'));
         }
 
         $this->version = $versionNumber;
@@ -171,7 +171,7 @@ class MigrationModel extends BaseModel
             $cnt = count($versionInformation);
 
             if ($cnt > 2) {
-                throw new ApplicationException('The requested version cannot be edited with Builder as it refers to multiple PHP scripts.');
+                throw new ApplicationException(Lang::get('winter.builder::lang.migration.error_requested_version_cannot_be_edited'));
             }
 
             if ($cnt > 0) {
@@ -373,7 +373,7 @@ class MigrationModel extends BaseModel
         $scriptFilePath = $this->getPluginUpdatesPath($this->scriptFileName.'.php');
 
         if (!File::isFile($scriptFilePath)) {
-            throw new ApplicationException(sprintf('Version file %s is not found.', $scriptFilePath));
+            throw new ApplicationException(Lang::get('winter.builder::lang.migration.error_version_file_is_not_found', ['path' => $scriptFilePath]));
         }
 
         return File::get($scriptFilePath);

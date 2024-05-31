@@ -306,7 +306,7 @@ class ModelModel extends BaseModel
         $tableName = self::getTableNameFromModelClass($pluginCodeObj, $modelClassName);
 
         if (!DatabaseTableModel::tableExists($tableName)) {
-            throw new ApplicationException('Database table not found: '.$tableName);
+            throw new ApplicationException(Lang::get('winter.builder::lang.model.error_db_table_not_found', ['table' => $tableName]));
         }
 
         $schema = DatabaseTableModel::getSchema();
