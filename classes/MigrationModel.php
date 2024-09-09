@@ -122,7 +122,7 @@ class MigrationModel extends BaseModel
     {
         $this->validate();
 
-        if (!strlen($this->scriptFileName) || !$this->isNewModel()) {
+        if (!strlen($this->scriptFileName) || $this->isNewModel()) {
             $this->assignFileName();
         }
 
