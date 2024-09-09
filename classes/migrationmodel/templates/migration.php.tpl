@@ -1,6 +1,8 @@
-<?php namespace {namespace};
+<?php
 
-use Schema;
+namespace {namespace};
+
+use Winter\Storm\Support\Facades\Schema;
 use Winter\Storm\Database\Updates\Migration;
 
 class {className} extends Migration

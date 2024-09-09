@@ -1,6 +1,8 @@
-<?php namespace {namespace};
+<?php
 
-use Seeder;
+namespace {namespace};
+
+use Winter\Storm\Database\Updates\Seeder;
 
 class {className} extends Seeder
 {
