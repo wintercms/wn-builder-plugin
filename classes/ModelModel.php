@@ -1,4 +1,6 @@
-<?php namespace Winter\Builder\Classes;
+<?php
+
+namespace Winter\Builder\Classes;
 
 use Str;
 use File;
@@ -84,7 +86,7 @@ class ModelModel extends BaseModel
             }
 
             $filePath = $fileInfo->getPathname();
-            $parser = new ModelFileParser($filePath);
+            $parser = ModelFileParser::fromFile($filePath);
 
             $modelInfo = $parser->extractModelInfoFromSource();
             if (!$modelInfo) {
@@ -152,7 +154,7 @@ class ModelModel extends BaseModel
      */
     public function getJsonable()
     {
-        $parser = new ModelFileParser($this->getFullFilePath());
+        $parser = ModelFileParser::fromFile($this->getFullFilePath());
         return $parser->getJsonable();
     }
 
@@ -164,7 +166,7 @@ class ModelModel extends BaseModel
      */
     public function setJsonable(array $columns = [])
     {
-        $parser = new ModelFileParser($this->getFullFilePath());
+        $parser = ModelFileParser::fromFile($this->getFullFilePath());
         $parser->setJsonable($columns);
 
         File::put($this->getFullFilePath(), $parser->getSource());
@@ -268,7 +270,7 @@ class ModelModel extends BaseModel
             return '';
         }
 
-        $parser = new ModelFileParser($modelFilePath);
+        $parser = ModelFileParser::fromFile($modelFilePath);
         $modelInfo = $parser->extractModelInfoFromSource();
         if (!$modelInfo || !isset($modelInfo['table'])) {
             return '';

@@ -1,4 +1,6 @@
-<?php namespace Winter\Builder\Classes;
+<?php
+
+namespace Winter\Builder\Classes;
 
 use ApplicationException;
 use PhpParser\Comment\Doc;
@@ -23,7 +25,7 @@ use PhpParser\NodeFinder;
  * @author Alexey Bobkov, Samuel Georges
  * @author Winter CMS
  */
-class ModelFileParser extends PhpFileParser
+class ModelFileParser extends PhpSourceParser
 {
     /**
      * Returns the model namespace, class name and table name.
