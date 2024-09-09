@@ -11,7 +11,7 @@ use Winter\Builder\Tests\BuilderPluginTestCase;
 class MigrationFileParserTest extends BuilderPluginTestCase
 {
    /**
-     * @testdox can extract the migration info from an update script.
+     * @testdox can determine if a file is a migration class definition.
      */
     public function testIsMigration()
     {
@@ -30,6 +30,9 @@ class MigrationFileParserTest extends BuilderPluginTestCase
         $this->assertFalse($notAMigration->isMigration());
     }
 
+   /**
+     * @testdox can determine if a file is an anonymous class definition.
+     */
     public function testIsAnonymous()
     {
         $firstMigration = MigrationFileParser::fromFile(
@@ -47,6 +50,9 @@ class MigrationFileParserTest extends BuilderPluginTestCase
         $this->assertTrue($notAMigration->isAnonymous());
     }
 
+   /**
+     * @testdox can get the namespace of a class.
+     */
     public function testGetNamespace()
     {
         $firstMigration = MigrationFileParser::fromFile(
@@ -64,6 +70,9 @@ class MigrationFileParserTest extends BuilderPluginTestCase
         $this->assertNull($notAMigration->getNamespace());
     }
 
+   /**
+     * @testdox can get the class name of a class.
+     */
     public function testGetClassName()
     {
         $firstMigration = MigrationFileParser::fromFile(
