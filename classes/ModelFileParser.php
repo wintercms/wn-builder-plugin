@@ -2,7 +2,6 @@
 
 namespace Winter\Builder\Classes;
 
-use ApplicationException;
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
@@ -17,6 +16,7 @@ use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\PropertyProperty;
 use PhpParser\Node\VarLikeIdentifier;
 use PhpParser\NodeFinder;
+use Winter\Storm\Exception\ApplicationException;
 
 /**
  * Parses and manipulates model files.
@@ -156,8 +156,8 @@ class ModelFileParser extends PhpSourceParser
         });
 
         if ($jsonable === null) {
-            // We must create the property - we'll need to traverse the property list, find the first method definition, and
-            // add $jsonable before it
+            // We must create the property - we'll need to traverse the property list, find the first method definition,
+            // and add $jsonable before it
 
             // Create an array of items
             $arrayItems = [];

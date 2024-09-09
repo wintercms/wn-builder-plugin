@@ -1,4 +1,6 @@
-<?php namespace Winter\Builder\Tests\Unit\Classes;
+<?php
+
+namespace Winter\Builder\Tests\Unit\Classes;
 
 use Winter\Builder\Classes\ModelFileParser;
 use Winter\Builder\Tests\BuilderPluginTestCase;
@@ -13,7 +15,7 @@ class ModelFileParserTest extends BuilderPluginTestCase
      */
     public function testExtractModelInfoFromSource()
     {
-        $parser = new ModelFileParser(__DIR__ . '/../../fixtures/pluginfixture/models/SimpleModel.php');
+        $parser = ModelFileParser::fromFile(__DIR__ . '/../../fixtures/pluginfixture/models/SimpleModel.php');
         $modelInfo = $parser->extractModelInfoFromSource();
 
         $this->assertEquals('Winter\Builder\Tests\Fixtures\PluginFixture\Models', $modelInfo['namespace']);
@@ -26,7 +28,7 @@ class ModelFileParserTest extends BuilderPluginTestCase
      */
     public function testGetSource()
     {
-        $parser = new ModelFileParser(__DIR__ . '/../../fixtures/pluginfixture/models/SimpleModel.php');
+        $parser = ModelFileParser::fromFile(__DIR__ . '/../../fixtures/pluginfixture/models/SimpleModel.php');
         $source = $parser->getSource();
 
         $this->assertEquals(file_get_contents(__DIR__ . '/../../fixtures/pluginfixture/models/SimpleModel.php'), $source);
@@ -37,11 +39,11 @@ class ModelFileParserTest extends BuilderPluginTestCase
      */
     public function testGetJsonable()
     {
-        $parser = new ModelFileParser(__DIR__ . '/../../fixtures/pluginfixture/models/SimpleModel.php');
+        $parser = ModelFileParser::fromFile(__DIR__ . '/../../fixtures/pluginfixture/models/SimpleModel.php');
         $jsonable = $parser->getJsonable();
         $this->assertNull($jsonable);
 
-        $parser = new ModelFileParser(__DIR__ . '/../../fixtures/pluginfixture/models/ArrayDataModel.php');
+        $parser = ModelFileParser::fromFile(__DIR__ . '/../../fixtures/pluginfixture/models/ArrayDataModel.php');
         $jsonable = $parser->getJsonable();
         $this->assertEquals([
             'data',
@@ -53,7 +55,7 @@ class ModelFileParserTest extends BuilderPluginTestCase
      */
     public function testSetJsonable()
     {
-        $parser = new ModelFileParser(__DIR__ . '/../../fixtures/pluginfixture/models/ArrayDataModel.php');
+        $parser = ModelFileParser::fromFile(__DIR__ . '/../../fixtures/pluginfixture/models/ArrayDataModel.php');
         $parser->setJsonable([
             'field_1',
             'field_2',
@@ -68,7 +70,7 @@ class ModelFileParserTest extends BuilderPluginTestCase
      */
     public function testSetJsonableAddProperty()
     {
-        $parser = new ModelFileParser(__DIR__ . '/../../fixtures/pluginfixture/models/SimpleModel.php');
+        $parser = ModelFileParser::fromFile(__DIR__ . '/../../fixtures/pluginfixture/models/SimpleModel.php');
         $parser->setJsonable([
             'field_1',
             'field_2',
