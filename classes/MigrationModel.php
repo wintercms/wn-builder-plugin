@@ -1,17 +1,19 @@
-<?php namespace Winter\Builder\Classes;
+<?php
 
-use Str;
-use Lang;
-use File;
-use Yaml;
-use Validator;
-use System\Classes\VersionManager;
-use Winter\Storm\Parse\Bracket as TextParser;
-use ApplicationException;
-use ValidationException;
-use SystemException;
+namespace Winter\Builder\Classes;
+
 use Exception;
 use Throwable;
+use Illuminate\Support\Facades\Lang;
+use System\Classes\VersionManager;
+use Winter\Storm\Exception\ApplicationException;
+use Winter\Storm\Exception\ValidationException;
+use Winter\Storm\Exception\SystemException;
+use Winter\Storm\Parse\Bracket as TextParser;
+use Winter\Storm\Support\Facades\File;
+use Winter\Storm\Support\Facades\Yaml;
+use Winter\Storm\Support\Facades\Validator;
+use Winter\Storm\Support\Str;
 
 /**
  * Manages plugin migrations
@@ -56,7 +58,8 @@ class MigrationModel extends BaseModel
     protected $validationRules = [
         'version' => ['required', 'regex:/^[0-9]+\.[0-9]+\.[0-9]+$/', 'uniqueVersion'],
         'description' => ['required'],
-        'scriptFileName' => ['regex:/^[a-z]+[a-z0-9_]+$/']
+        'scriptFileName' => ['regex:/^[a-z]+[a-z0-9_]+$/'],
+        'code' => ['sometimes', 'isMigrationOrSeeder'],
     ];
 
     public function validate()
@@ -66,7 +69,8 @@ class MigrationModel extends BaseModel
         $this->validationMessages = [
             'version.regex' => Lang::get('winter.builder::lang.migration.error_version_invalid'),
             'version.unique_version' => Lang::get('winter.builder::lang.migration.error_version_exists'),
-            'scriptFileName.regex' => Lang::get('winter.builder::lang.migration.error_script_filename_invalid')
+            'scriptFileName.regex' => Lang::get('winter.builder::lang.migration.error_script_filename_invalid'),
+            'code.is_migration_or_seeder' => Lang::get('winter.builder::lang.migration.error_not_a_migration_or_seeder'),
         ];
 
         $versionInformation = $this->getPluginVersionInformation();
@@ -76,6 +80,11 @@ class MigrationModel extends BaseModel
                 return !array_key_exists($value, $versionInformation);
             }
             return true;
+        });
+
+        Validator::extend('isMigrationOrSeeder', function ($attribute, $value, $parameters) {
+            $parser = new MigrationFileParser($value);
+            return ($parser->isMigration() || $parser->isSeeder());
         });
 
         if (!$isNewModel && $this->version != $this->originalVersion && $this->isApplied()) {
