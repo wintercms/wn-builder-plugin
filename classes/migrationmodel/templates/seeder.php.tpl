@@ -8,6 +8,6 @@ class {className} extends Seeder
 {
     public function run()
     {
-
+        // Your seeder code here.
     }
 }

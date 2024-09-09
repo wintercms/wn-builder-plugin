@@ -9,13 +9,13 @@ class {className} extends Migration
 {
     public function up()
     {
-        // Schema::create('{tableNamePrefix}_table', function($table)
-        // {
-        // });
+        Schema::create('{tableNamePrefix}_table', function ($table) {
+            // Your migration code here.
+        });
     }
 
     public function down()
     {
-        // Schema::drop('{tableNamePrefix}_table');
+        Schema::drop('{tableNamePrefix}_table');
     }
 }
