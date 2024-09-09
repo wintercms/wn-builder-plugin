@@ -692,6 +692,7 @@ return [
         'error_namespace_mismatch' => "The migration code should use the plugin namespace: :namespace",
         'error_migration_file_exists' => "Migration file :file already exists. Please use another class name.",
         'error_cant_delete_applied' => 'This version has already been applied and cannot be deleted. Please rollback the version first.',
+        'error_not_a_migration_or_seeder' => 'The migration code does not appear to be a migration or seeder. You must extend the Winter\Storm\Database\Updates\Migration or Winter\Storm\Database\Updates\Seeder class.',
     ],
     'components' => [
         'list_title' => 'Record list',
