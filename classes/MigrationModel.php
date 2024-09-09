@@ -301,36 +301,18 @@ class MigrationModel extends BaseModel
         /*
          * The file name is based on the migration class name.
          */
-        $parser = new MigrationFileParser();
-        $migrationInfo = $parser->extractMigrationInfoFromSource($code);
+        $parser = new MigrationFileParser($code);
 
-        if (!$migrationInfo || !array_key_exists('class', $migrationInfo)) {
-            throw new ValidationException([
-                'code' => Lang::get('winter.builder::lang.migration.error_file_must_define_class')
-            ]);
+        if (($parser->isMigration() || $parser->isSeeder()) && !$parser->isAnonymous()) {
+            $this->scriptFileName = Str::snake($parser->getClassName());
+        } else {
+            $this->scriptFileName = Str::snake($this->description);
         }
-
-        if (!array_key_exists('namespace', $migrationInfo)) {
-            throw new ValidationException([
-                'code' => Lang::get('winter.builder::lang.migration.error_file_must_define_namespace')
-            ]);
-        }
-
-        $pluginCodeObj = $this->getPluginCodeObj();
-        $pluginNamespace = $pluginCodeObj->toUpdatesNamespace();
-
-        if ($migrationInfo['namespace'] != $pluginNamespace) {
-            throw new ValidationException([
-                'code' => Lang::get('winter.builder::lang.migration.error_namespace_mismatch', ['namespace'=>$pluginNamespace])
-            ]);
-        }
-
-        $this->scriptFileName = Str::snake($migrationInfo['class']);
 
         /*
          * Validate that a file with the generated name does not exist yet.
          */
-        if ($this->scriptFileName != $this->originalScriptFileName) {
+        if ($this->scriptFileName !== $this->originalScriptFileName) {
             $fileName = $this->scriptFileName.'.php';
             $filePath = $this->getPluginUpdatesPath($fileName);
 
