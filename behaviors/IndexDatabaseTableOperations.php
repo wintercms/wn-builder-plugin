@@ -82,7 +82,10 @@ class IndexDatabaseTableOperations extends IndexOperationsBehaviorBase
         $model = new MigrationModel();
         $model->setPluginCodeObj($pluginCode);
 
-        $model->fill($_POST);
+        $model->fill([
+            'version' => Request::input('version'),
+            'description' => Request::input('description'),
+        ]);
 
         $operation = Input::get('operation');
         $table = Input::get('table');
@@ -91,12 +94,11 @@ class IndexDatabaseTableOperations extends IndexOperationsBehaviorBase
         $model->makeScriptFileNameUnique();
 
         $codeGenerator = new TableMigrationCodeGenerator();
-        $model->code = $codeGenerator->wrapMigrationCode($model->scriptFileName, $model->code, $pluginCode);
+        $model->code = $codeGenerator->wrapMigrationCode($model->scriptFileName, Request::input('code'), $pluginCode);
 
         try {
             $model->save();
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             throw new ApplicationException($ex->getMessage());
         }
 

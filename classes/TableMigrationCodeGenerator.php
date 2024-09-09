@@ -79,7 +79,7 @@ class TableMigrationCodeGenerator extends BaseModel
      * @param string $scriptFilename Specifies the migration script file name
      * @param string $code Specifies the migration code
      * @param PluginCode $pluginCodeObj The plugin code object
-     * @return TextParser
+     * @return string
      */
     public function wrapMigrationCode($scriptFilename, $code, $pluginCodeObj)
     {
