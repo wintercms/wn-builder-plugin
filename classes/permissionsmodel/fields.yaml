@@ -19,6 +19,8 @@ tabs:
             type: datatable
             btnAddRowLabel: winter.builder::lang.permission.btn_add_permission
             btnDeleteRowLabel: winter.builder::lang.permission.btn_delete_permission
+            dynamicHeight: true
+            height: 100
             columns:
                 permission:
                     title: winter.builder::lang.permission.column_permission_label

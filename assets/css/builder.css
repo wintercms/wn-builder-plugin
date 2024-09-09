@@ -287,10 +287,14 @@ html.gecko .control-filelist ul li.group{margin-right:10px}
 form.hide-secondary-tabs div.control-tabs.secondary-tabs ul.nav.nav-tabs{display:none}
 .form-group.size-quarter{width:23.5%}
 .form-group.size-three-quarter{width:73.5%}
-form[data-entity=database] div.field-datatable{position:absolute;width:100%;height:100%}
-form[data-entity=database] div.field-datatable div[data-control=table]{position:absolute;width:100%;height:100%}
-form[data-entity=database] div.field-datatable div[data-control=table] div.table-container{position:absolute;width:100%;height:100%}
-form[data-entity=database] div.field-datatable div[data-control=table] div.table-container div.control-scrollbar{top:70px;bottom:0;position:absolute;max-height:none !important;height:auto !important}
+form[data-entity=database] div.field-datatable,
+form[data-entity=permissions] div.field-datatable{position:absolute;width:100%;height:100%}
+form[data-entity=database] div.field-datatable div[data-control=table],
+form[data-entity=permissions] div.field-datatable div[data-control=table]{position:absolute;width:100%;height:100%}
+form[data-entity=database] div.field-datatable div[data-control=table] div.table-container,
+form[data-entity=permissions] div.field-datatable div[data-control=table] div.table-container{position:absolute;width:100%;height:100%}
+form[data-entity=database] div.field-datatable div[data-control=table] div.table-container div.control-scrollbar,
+form[data-entity=permissions] div.field-datatable div[data-control=table] div.table-container div.control-scrollbar{top:72px;bottom:0;position:absolute;max-height:none !important;height:auto !important}
 div.control-table .toolbar a.builder-custom-table-button:before{line-height:17px;font-size:21px;color:#323e50;margin-right:5px;top:3px;opacity:1;filter:alpha(opacity=100)}
 .control-tabs.auxiliary-tabs{background:white}
 .control-tabs.auxiliary-tabs>ul.nav-tabs,

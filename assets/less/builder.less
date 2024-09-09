@@ -92,9 +92,10 @@ form.hide-secondary-tabs {
     }
 }
 
-// Full height database columns table
+// Full height database columns and permissions table
 
-form[data-entity=database] {
+form[data-entity=database],
+form[data-entity=permissions] {
     div.field-datatable {
         position: absolute;
         width: 100%;
@@ -111,7 +112,7 @@ form[data-entity=database] {
                 height: 100%;
 
                 div.control-scrollbar {
-                    top: 70px;
+                    top: 72px;
                     bottom: 0;
                     position: absolute;
                     max-height: none!important;
