@@ -1,13 +1,114 @@
-<?php namespace Winter\Builder\Classes;
+<?php
+
+namespace Winter\Builder\Classes;
+
+use Illuminate\Database\Migrations\Migration as LaravelMigration;
+use Illuminate\Database\Seeder as LaravelSeeder;
+use PhpParser\NodeFinder;
+use Winter\Storm\Database\Updates\Migration as WinterMigration;
+use Winter\Storm\Database\Updates\Seeder as WinterSeeder;
 
 /**
- * Parses migrations source files.
- *
- * @package winter\builder
- * @author Alexey Bobkov, Samuel Georges
+ * Parses migration source files.
  */
-class MigrationFileParser
+class MigrationFileParser extends PhpSourceParser
 {
+    /**
+     * Determines if the given file contains a class that extends a Migration class.
+     */
+    public function isMigration(): bool
+    {
+        $class = $this->getClassNode();
+
+        if ($class === null) {
+            return false;
+        }
+
+        if (is_null($class->extends)) {
+            return false;
+        }
+
+        if (!in_array($class->extends->toString(), [
+            WinterMigration::class,
+            LaravelMigration::class,
+        ])) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Determines if the given file contains a class that extends a Seeder class.
+     */
+    public function isSeeder(): bool
+    {
+        $class = $this->getClassNode();
+
+        if ($class === null) {
+            return false;
+        }
+
+        if (is_null($class->extends)) {
+            return false;
+        }
+
+        if (!in_array($class->extends->toString(), [
+            WinterSeeder::class,
+            LaravelSeeder::class,
+        ])) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Determines if the given source contains an anonymous class definition.
+     */
+    public function isAnonymous(): bool
+    {
+        $class = $this->getClassNode();
+
+        if ($class === null) {
+            return false;
+        }
+
+        return $class->isAnonymous();
+    }
+
+    /**
+     * Gets the namespace for the migration.
+     */
+    public function getNamespace(): ?string
+    {
+        $namespace = $this->getNamespaceNode();
+
+        if ($namespace === null) {
+            return null;
+        }
+
+        return $namespace->name->toString();
+    }
+
+    /**
+     * Gets the class name for the migration.
+     */
+    public function getClassName(): ?string
+    {
+        $class = $this->getClassNode();
+
+        if ($class === null) {
+            return null;
+        }
+
+        if ($class->isAnonymous()) {
+            return null;
+        }
+
+        return $class->name->toString();
+    }
+
     /**
      * Returns the migration namespace and class name.
      * @param string $fileContents Specifies the file contents.
@@ -49,29 +150,20 @@ class MigrationFileParser
         return $result;
     }
 
-    protected function extractClassName($stream)
+    /**
+     * Gets the class from the source.
+     */
+    protected function getClassNode(): ?\PhpParser\Node\Stmt\Class_
     {
-        if ($stream->getNextExpected(T_WHITESPACE) === null) {
-            return null;
-        }
+        $finder = new NodeFinder;
 
-        return $stream->getNextExpectedTerminated([T_STRING], [T_WHITESPACE, ';']);
+        return $finder->findFirstInstanceOf($this->ast, \PHPParser\Node\Stmt\Class_::class);
     }
 
-    protected function extractNamespace($stream)
+    protected function getNamespaceNode(): ?\PhpParser\Node\Stmt\Namespace_
     {
-        if ($stream->getNextExpected(T_WHITESPACE) === null) {
-            return null;
-        }
+        $finder = new NodeFinder;
 
-        $expected = [T_STRING, T_NS_SEPARATOR];
-
-        // Namespace string on PHP 8.0 returns code 314 (T_NAME_QUALIFIED)
-        // @deprecated remove if min req > php 8
-        if (defined('T_NAME_QUALIFIED') && T_NAME_QUALIFIED > 0) {
-            $expected[] = T_NAME_QUALIFIED;
-        }
-
-        return $stream->getNextExpectedTerminated($expected, [T_WHITESPACE, ';']);
+        return $finder->findFirstInstanceOf($this->ast, \PHPParser\Node\Stmt\Namespace_::class);
     }
 }
