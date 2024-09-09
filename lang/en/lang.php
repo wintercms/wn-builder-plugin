@@ -386,6 +386,7 @@ return [
         'span_right' => 'Right',
         'span_full' => 'Full',
         'span_auto' => 'Auto',
+        'span_storm' => 'Storm',
         'style_default' => 'Default',
         'style_collapsed' => 'Collapsed',
         'style_accordion' => 'Accordion',
