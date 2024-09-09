@@ -218,7 +218,10 @@ class IndexModelFormOperations extends IndexOperationsBehaviorBase
     {
         // Get all registered controls and build an array that uses the control types as key and value for each entry.
         $controls   = ControlLibrary::instance()->listControls();
-        $fieldTypes = array_merge(array_keys($controls['Standard']), array_keys($controls['Widgets']));
+        $fieldTypes = array_merge(
+            array_keys($controls[ControlLibrary::GROUP_STANDARD]['controls']),
+            array_keys($controls[ControlLibrary::GROUP_WIDGETS]['controls'])
+        );
         $options    = array_combine($fieldTypes, $fieldTypes);
 
         return [
