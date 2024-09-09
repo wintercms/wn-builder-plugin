@@ -6,6 +6,7 @@ use PhpParser\Error;
 use PhpParser\Lexer\Emulative;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\CloningVisitor;
+use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\ParserFactory;
 use PhpParser\PrettyPrinter\Standard;
 use Winter\Storm\Exception\ApplicationException;
@@ -80,6 +81,10 @@ abstract class PhpSourceParser
         $this->originalTokens = $this->lexer->getTokens();
         $this->traverser = new NodeTraverser;
         $this->traverser->addVisitor(new CloningVisitor);
+        $this->traverser->addVisitor(new NameResolver(null, [
+            'preserveOriginalNames' => true,
+            'replaceNodes' => true,
+        ]));
         $this->ast = $this->traverser->traverse($this->originalAst);
         $this->filePath = $file;
     }
