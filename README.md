@@ -1,13 +1,21 @@
-# Builder plugin
+# Builder Plugin
 
-A user-friendly, visual plugin scaffolding tool that makes it trivial to get a new plugin running in Winter CMS. This plugin takes away the leg-work in setting up the necessary structure for a plugin by providing several simple tools that manage all facets of your plugin's definitions and files.
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/wintercms/wn-sso-plugin/blob/main/LICENSE)
+
+A user-friendly, visual plugin scaffolding tool that makes it trivial to get a new plugin running in Winter CMS. This plugin takes away the legwork in setting up the necessary structure for a plugin by providing several simple tools that manage all facets of your plugin's definitions and files.
 
 ## Installation
 
-You can install the plugin using Composer. As this is a development plugin, it should be defined as a "dev" dependency.
+This plugin is available for installation via [Composer](http://getcomposer.org/). As this is a development plugin, it should be defined as a "dev" dependency.
 
 ```bash
 composer require --dev winter/wn-builder-plugin
+```
+
+After installing the plugin you will need to run the migrations and (if you are using a [public folder](https://wintercms.com/docs/develop/docs/setup/configuration#using-a-public-folder)) [republish your public directory](https://wintercms.com/docs/develop/docs/console/setup-maintenance#mirror-public-files).
+
+```bash
+php artisan migrate
 ```
 
 ## Features
