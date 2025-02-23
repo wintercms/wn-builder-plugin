@@ -5,10 +5,10 @@ use BackendMenu;
 
 class {{ controller }} extends Controller
 {
-    public $implement = [{% for behavior in behaviors %}
-        '{{ behavior }}'{% if not loop.last %},{% endif %}{% endfor %}
+    public $implement = [
+        {{ behaviors|map(b => "'" ~ b ~ "'")|join(",\n\t\t")|raw }}
     ];
-    {{ templateParts|raw }}
+{{ templateParts|raw }}
     public function __construct()
     {
         parent::__construct();
