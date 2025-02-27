@@ -6,7 +6,7 @@ use BackendMenu;
 class {{ controller }} extends Controller
 {
     public $implement = [
-        {{ behaviors|map(b => "'" ~ b ~ "'")|join(",\n\t\t")|raw }}
+        {{ behaviors|map(b => "'" ~ b ~ "'")|join(",\n        ")|raw }}
     ];
 {{ templateParts|raw }}
     public function __construct()
