@@ -13,7 +13,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        phpVersions: ['8.0', '8.1']
+        phpVersions: ['8.1', '8.2', '8.3', '8.4']
       fail-fast: false
     env:
       phpExtensions: mbstring, intl, gd, xml, sqlite
