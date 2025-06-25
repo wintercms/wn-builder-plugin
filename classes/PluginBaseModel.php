@@ -103,9 +103,8 @@ class PluginBaseModel extends PluginYamlModel
         ];
 
         foreach ($attributes as $attribute) {
-            if ($attribute === 'replaces') {
+            if ($attribute === 'replaces' && !empty($this->{$attribute})) {
                 $array[$attribute] = [];
-
                 foreach ($this->{$attribute} as $replace) {
                     $array[$attribute][$replace['plugin_code']] = $replace['version_constraint'];
                 }
