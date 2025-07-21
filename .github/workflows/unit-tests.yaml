@@ -21,7 +21,7 @@ jobs:
       winterCmsRelease: develop
     steps:
       - name: Checkout changes
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           path: builder-plugin
 
@@ -34,7 +34,7 @@ jobs:
           key: ${{ env.cacheKey }}
 
       - name: Cache extensions
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ${{ steps.extcache.outputs.dir }}
           key: ${{ steps.extcache.outputs.key }}
