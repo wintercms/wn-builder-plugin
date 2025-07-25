@@ -54,9 +54,6 @@ abstract class PhpSourceParser
     {
         $parser = (new ParserFactory())->createForHostVersion();
 
-        var_dump([\PHP_MAJOR_VERSION, \PHP_MINOR_VERSION]);
-        die();
-
         try {
             $this->originalAst = $parser->parse($source);
         } catch (Error $e) {
