@@ -12,6 +12,8 @@ class ModelModelTest extends BuilderPluginTestCase
 {
     public function tearDown(): void
     {
+        parent::tearDown();
+
         // Ensure cleanup for testGetModelFields
         @unlink(__DIR__.'/../../../models/MyMock.php');
     }
