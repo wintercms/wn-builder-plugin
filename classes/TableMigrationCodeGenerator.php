@@ -335,7 +335,10 @@ class TableMigrationCodeGenerator extends BaseModel
 
     protected function generateColumnDrop($column)
     {
-        return sprintf('\t\t$table->dropColumn(\'%s\');', $column->getName()).$this->eol;
+        $code  = sprintf('\t\tif (Schema::hasColumn($table->getTable(),  \'%s\' )) {', $column->getName()).$this->eol;
+        $code .= sprintf('\t\t\t$table->dropColumn(\'%s\');', $column->getName()).$this->eol;
+        $code .= '\t\t};'.$this->eol;
+        return $code;
     }
 
     protected function generateIndexDrop($index)
@@ -408,7 +411,10 @@ class TableMigrationCodeGenerator extends BaseModel
 
     protected function generateColumnRemoveCode($name)
     {
-        return sprintf('\t\t$table->dropColumn(\'%s\');', $name).$this->eol;
+        $code  = sprintf('\t\tif (Schema::hasColumn($table->getTable(),  \'%s\' )) {', $column->getName()).$this->eol;
+        $code .= sprintf('\t\t\t$table->dropColumn(\'%s\');', $column->getName()).$this->eol;
+        $code .= '\t\t};'.$this->eol;
+        return $code;
     }
 
     protected function generateColumnMethodCall($column)
