@@ -19,7 +19,7 @@ jobs:
       max-parallel: 4
       matrix:
         operatingSystem: [ubuntu-latest, windows-latest]
-        phpVersions: ['8.1', '8.2', '8.3', '8.4']
+        phpVersions: ['8.2', '8.3', '8.4']
       fail-fast: false
     steps:
       - name: Setup Winter
