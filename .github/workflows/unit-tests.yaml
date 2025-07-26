@@ -19,13 +19,13 @@ jobs:
       max-parallel: 4
       matrix:
         operatingSystem: [ubuntu-latest, windows-latest]
-        phpVersions: ['8.2', '8.3', '8.4']
+        phpVersion: ['8.2', '8.3', '8.4']
       fail-fast: false
     steps:
       - name: Setup Winter
         uses: wintercms/setup-winter-action@v1
         with:
-          php-version: ${{ matrix.phpVersions }}
+          php-version: ${{ matrix.phpVersion }}
           winter-ref: wip/1.3
           plugin-author: winter
           plugin-name: builder
