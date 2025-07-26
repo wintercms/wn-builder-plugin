@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   phpUnitTests:
-    name: PHP ${{ matrix.phpVersions }}
+    name: ${{ matrix.operatingSystem }} / PHP ${{ matrix.phpVersion }}
     runs-on: ${{ matrix.operatingSystem }}
     strategy:
       max-parallel: 4
