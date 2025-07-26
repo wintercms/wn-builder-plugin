@@ -14,6 +14,8 @@ jobs:
   phpUnitTests:
     name: ${{ matrix.operatingSystem }} / PHP ${{ matrix.phpVersion }}
     runs-on: ${{ matrix.operatingSystem }}
+    env:
+      GITHUB_TOKEN: ${{ secrets.COMPOSER_PUBLIC_TOKEN }}
     strategy:
       max-parallel: 4
       matrix:
