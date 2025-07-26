@@ -1,13 +1,13 @@
-<?php namespace Winter\Builder\Tests\Unit\Classes;
+<?php
 
-use SystemException;
+namespace Winter\Builder\Tests\Unit\Classes;
+
 use Winter\Builder\Classes\ModelModel;
 use Winter\Builder\Classes\PluginCode;
 use Winter\Builder\Tests\BuilderPluginTestCase;
+use Winter\Storm\Exception\SystemException;
 
-/**
- * @covers \Winter\Builder\Classes\ModelModel
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(ModelModel::class)]
 class ModelModelTest extends BuilderPluginTestCase
 {
     public function tearDown(): void
@@ -18,10 +18,7 @@ class ModelModelTest extends BuilderPluginTestCase
         @unlink(__DIR__.'/../../../models/MyMock.php');
     }
 
-    /**
-     * @testdox validates valid model class names
-     */
-    public function testValidateValidModelClassNames()
+    public function test_it_validates_model_class_names()
     {
         $unQualifiedClassName = 'MyClassName';
         $this->assertTrue(ModelModel::validateModelClassName($unQualifiedClassName));
@@ -36,10 +33,7 @@ class ModelModelTest extends BuilderPluginTestCase
         $this->assertTrue(ModelModel::validateModelClassName($qualifiedClassNameStartingWithLowerCase));
     }
 
-    /**
-     * @testdox does not validate invalid model class names
-     */
-    public function testInvalidateInvalidModelClassNames()
+    public function test_it_does_not_validate_invalid_model_class_names()
     {
         $unQualifiedClassName = 'myClassName'; // starts with lower case
         $this->assertFalse(ModelModel::validateModelClassName($unQualifiedClassName));
@@ -51,10 +45,7 @@ class ModelModelTest extends BuilderPluginTestCase
         $this->assertFalse(ModelModel::validateModelClassName($fullyQualifiedClassName));
     }
 
-    /**
-     * @testdox can extract the model fields from a given model
-     */
-    public function testGetModelFields()
+    public function test_it_can_extract_model_fields_from_model()
     {
         // Invalid Class Name
         try {
