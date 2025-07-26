@@ -2,18 +2,14 @@
 
 namespace Winter\Builder\Tests\Unit\Classes;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use Winter\Builder\Classes\MigrationFileParser;
 use Winter\Builder\Tests\BuilderPluginTestCase;
 
-/**
- * @covers \Winter\Builder\Classes\MigrationFileParser
- */
+#[CoversClass(MigrationFileParser::class)]
 class MigrationFileParserTest extends BuilderPluginTestCase
 {
-   /**
-     * @testdox can determine if a file is a migration class definition.
-     */
-    public function testIsMigration()
+    public function test_it_can_determine_if_file_is_class_migration()
     {
         $firstMigration = MigrationFileParser::fromFile(
             __DIR__ . '/../../fixtures/pluginfixture/updates/create_simple_model_table.php'
@@ -30,10 +26,7 @@ class MigrationFileParserTest extends BuilderPluginTestCase
         $this->assertFalse($notAMigration->isMigration());
     }
 
-   /**
-     * @testdox can determine if a file is an anonymous class definition.
-     */
-    public function testIsAnonymous()
+    public function test_it_can_determine_if_file_is_anonymous_migration()
     {
         $firstMigration = MigrationFileParser::fromFile(
             __DIR__ . '/../../fixtures/pluginfixture/updates/create_simple_model_table.php'
@@ -50,10 +43,7 @@ class MigrationFileParserTest extends BuilderPluginTestCase
         $this->assertTrue($notAMigration->isAnonymous());
     }
 
-   /**
-     * @testdox can get the namespace of a class.
-     */
-    public function testGetNamespace()
+    public function test_it_can_get_namespace_of_class()
     {
         $firstMigration = MigrationFileParser::fromFile(
             __DIR__ . '/../../fixtures/pluginfixture/updates/create_simple_model_table.php'
@@ -70,10 +60,7 @@ class MigrationFileParserTest extends BuilderPluginTestCase
         $this->assertNull($notAMigration->getNamespace());
     }
 
-   /**
-     * @testdox can get the class name of a class.
-     */
-    public function testGetClassName()
+    public function test_it_can_get_class_name_of_class()
     {
         $firstMigration = MigrationFileParser::fromFile(
             __DIR__ . '/../../fixtures/pluginfixture/updates/create_simple_model_table.php'

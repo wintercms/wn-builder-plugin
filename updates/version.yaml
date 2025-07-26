@@ -47,3 +47,4 @@
     - "Fixed an issue where migration files stored within subdirectories could not be read or saved."
     - "The permissions data table is now scrollable and will stretch to full height."
 "2.1.1": "Fix issue when creating new plugins"
+"2.2.0": "Support Winter v1.3+"

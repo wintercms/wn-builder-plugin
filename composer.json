@@ -30,7 +30,7 @@
     "require": {
         "php": ">=7.0",
         "composer/installers": "~1.0",
-        "nikic/php-parser": "^4.13.2"
+        "nikic/php-parser": "^5.5"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0"
