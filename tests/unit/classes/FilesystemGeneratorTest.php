@@ -1,8 +1,10 @@
-<?php namespace Winter\Builder\Tests\Unit\Classes;
+<?php
 
-use File;
+namespace Winter\Builder\Tests\Unit\Classes;
+
 use Winter\Builder\Classes\FilesystemGenerator;
 use Winter\Builder\Tests\BuilderPluginTestCase;
+use Winter\Storm\Support\Facades\File;
 
 class FilesystemGeneratorTest extends BuilderPluginTestCase
 {
