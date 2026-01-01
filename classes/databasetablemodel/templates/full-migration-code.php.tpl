@@ -1,9 +1,18 @@
-<?php namespace {namespace};
+<?php
 
-use Schema;
+use Winter\Storm\Database\Schema\Blueprint;
 use Winter\Storm\Database\Updates\Migration;
+use Winter\Storm\Support\Facades\Schema;
 
-class {className} extends Migration
+return new class extends Migration
 {
-{migrationCode}
-}
+    public function up()
+    {
+{upCode}
+    }
+
+    public function down()
+    {
+{downCode}
+    }
+};
