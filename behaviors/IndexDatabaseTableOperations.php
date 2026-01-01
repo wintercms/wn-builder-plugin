@@ -206,6 +206,48 @@ class IndexDatabaseTableOperations extends IndexOperationsBehaviorBase
         return $form;
     }
 
+    /**
+     * Reconstructs a migration FormWidget from POST data
+     *
+     * This allows widgets within popups (like CodeEditor) to make AJAX requests
+     * by rebuilding the FormWidget state from the request data
+     *
+     * @param string $alias The exact widget alias to recreate
+     * @return \Backend\Widgets\Form|null The reconstructed form widget, or null if not a migration form
+     */
+    protected function reconstructFormWidget($alias)
+    {
+        // Only handle migration forms (popup forms for database table operations)
+        if (!preg_match('/^form_migration_[a-z0-9]+_$/i', $alias)) {
+            return parent::reconstructFormWidget($alias);
+        }
+
+        // Get plugin code from request or fall back to active plugin
+        $pluginCode = Request::input('plugin_code');
+        if (!$pluginCode) {
+            $pluginCode = $this->getPluginCode()->toCode();
+        }
+
+        // Build MigrationModel from POST data
+        $migration = new MigrationModel();
+        $migration->setPluginCodeObj(new PluginCode($pluginCode));
+        $migration->fill([
+            'version' => Request::input('version', ''),
+            'description' => Request::input('description', ''),
+            'code' => Request::input('code', '')
+        ]);
+
+        // Create FormWidget with exact same config as original popup
+        // Using the EXACT alias from the AJAX handler is critical
+        $form = $this->makeMigrationFormWidget($migration, $alias);
+
+        // CRITICAL: Bind to controller so it's available in $this->widget
+        // This makes the widget discoverable when the AJAX handler looks it up
+        $form->bindToController();
+
+        return $form;
+    }
+
     protected function processColumnData($postData)
     {
         if (!array_key_exists('columns', $postData)) {
