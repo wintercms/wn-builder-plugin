@@ -84,3 +84,16 @@ table.data td[data-column-type=builderLocalization] .loading-indicator-container
         right: 6px;
     }
 }
+
+// Monaco CodeEditor decorations for new translation strings
+// Using decorations instead of markers to avoid error-like squiggly underlines
+// Soft green highlight similar to GitHub's diff view for added content
+.builder-new-translation-line {
+    background-color: rgba(16, 185, 129, 0.12) !important;  // Soft green background
+}
+
+.builder-new-translation-gutter {
+    background-color: rgba(16, 185, 129, 0.6) !important;  // Green gutter indicator
+    width: 3px !important;
+    margin-left: 3px !important;
+}
