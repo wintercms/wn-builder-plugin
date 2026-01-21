@@ -6,12 +6,12 @@ use Winter\Storm\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
 {upCode}
     }
 
-    public function down()
+    public function down(): void
     {
 {downCode}
     }
