@@ -425,32 +425,32 @@ if(data.builderResponseData.registryData!==undefined){var registryData=data.buil
 $.wn.builder.dataRegistry.set(registryData.pluginCode,'localization',null,registryData.strings,{suppressLanguageEditorUpdate:true})
 $.wn.builder.dataRegistry.set(registryData.pluginCode,'localization','sections',registryData.sections)}}
 Localization.prototype.getLanguageList=function(){return $('#layout-side-panel form[data-content-id=localization] [data-control=filelist]')}
-Localization.prototype.getCodeEditor=function($tab){return $tab.find('div[data-field-name=strings] div[data-control=codeeditor]').data('oc.codeEditor').editor}
+Localization.prototype.getCodeEditor=function($tab){return $tab.find('div[data-field-name=strings] div[data-control=codeeditor]').data('oc.codeEditor')}
 Localization.prototype.deleteConfirmed=function(){var $masterTabPane=this.getMasterTabsActivePane(),$form=$masterTabPane.find('form')
 $.wn.stripeLoadIndicator.show()
 $form.request('onLanguageDelete').always($.wn.builder.indexController.hideStripeIndicatorProxy).done(this.proxy(this.deleteDone))}
 Localization.prototype.deleteDone=function(){var $masterTabPane=this.getMasterTabsActivePane()
 this.getIndexController().unchangeTab($masterTabPane)
 this.forceCloseTab($masterTabPane)}
-Localization.prototype.copyStringsFromDone=function(data){if(data['builderResponseData']===undefined){throw new Error('Invalid response data')}var responseData=data.builderResponseData,$masterTabPane=this.getMasterTabsActivePane(),$form=$masterTabPane.find('form'),codeEditor=this.getCodeEditor($masterTabPane),newStringMessage=$form.data('newStringMessage'),mismatchMessage=$form.data('structureMismatch')
-codeEditor.getSession().setValue(responseData.strings)
-var annotations=[]
+Localization.prototype.copyStringsFromDone=function(data){if(data['builderResponseData']===undefined){throw new Error('Invalid response data')}var responseData=data.builderResponseData,$masterTabPane=this.getMasterTabsActivePane(),$form=$masterTabPane.find('form'),codeEditorWrapper=this.getCodeEditor($masterTabPane),newStringMessage=$form.data('newStringMessage'),mismatchMessage=$form.data('structureMismatch')
+codeEditorWrapper.setValue(responseData.strings)
+var decorations=[]
 for(var i=responseData.updatedLines.length-1;i>=0;i--){var line=responseData.updatedLines[i]
-annotations.push({row:line,column:0,text:newStringMessage,type:'warning'})}codeEditor.getSession().setAnnotations(annotations)
+decorations.push({range:new codeEditorWrapper.monaco.Range(line+1,1,line+1,Number.MAX_VALUE),options:{isWholeLine:true,className:'builder-new-translation-line',linesDecorationsClassName:'builder-new-translation-gutter',hoverMessage:{value:newStringMessage}}})}codeEditorWrapper.setDecorations('builderLocalization',decorations)
 if(responseData.mismatch){$.wn.alert(mismatchMessage)}}
 Localization.prototype.findDefaultLanguageForm=function(plugin){var forms=document.body.querySelectorAll('form[data-entity=localization]')
 for(var i=forms.length-1;i>=0;i--){var form=forms[i],pluginInput=form.querySelector('input[name=plugin_code]'),languageInput=form.querySelector('input[name=original_language]')
 if(!pluginInput||pluginInput.value!=plugin){continue}if(!languageInput){continue}if(form.getAttribute('data-default-language')==languageInput.value){return form}}return null}
 Localization.prototype.updateLanguageFromServer=function($languageForm){var self=this
 $languageForm.request('onLanguageGetStrings').done(function(data){self.updateLanguageFromServerDone($languageForm,data)})}
-Localization.prototype.updateLanguageFromServerDone=function($languageForm,data){if(data['builderResponseData']===undefined){throw new Error('Invalid response data')}var responseData=data.builderResponseData,$tabPane=$languageForm.closest('.tab-pane'),codeEditor=this.getCodeEditor($tabPane)
-if(!responseData.strings){return}codeEditor.getSession().setValue(responseData.strings)
+Localization.prototype.updateLanguageFromServerDone=function($languageForm,data){if(data['builderResponseData']===undefined){throw new Error('Invalid response data')}var responseData=data.builderResponseData,$tabPane=$languageForm.closest('.tab-pane'),codeEditorWrapper=this.getCodeEditor($tabPane)
+if(!responseData.strings){return}codeEditorWrapper.setValue(responseData.strings)
 this.unmodifyTab($tabPane)}
 Localization.prototype.mergeLanguageFromServer=function($languageForm){var language=$languageForm.find('input[name=original_language]').val(),self=this
 $languageForm.request('onLanguageCopyStringsFrom',{data:{copy_from:language}}).done(function(data){self.mergeLanguageFromServerDone($languageForm,data)})}
-Localization.prototype.mergeLanguageFromServerDone=function($languageForm,data){if(data['builderResponseData']===undefined){throw new Error('Invalid response data')}var responseData=data.builderResponseData,$tabPane=$languageForm.closest('.tab-pane'),codeEditor=this.getCodeEditor($tabPane)
-codeEditor.getSession().setValue(responseData.strings)
-codeEditor.getSession().setAnnotations([])}
+Localization.prototype.mergeLanguageFromServerDone=function($languageForm,data){if(data['builderResponseData']===undefined){throw new Error('Invalid response data')}var responseData=data.builderResponseData,$tabPane=$languageForm.closest('.tab-pane'),codeEditorWrapper=this.getCodeEditor($tabPane)
+codeEditorWrapper.setValue(responseData.strings)
+codeEditorWrapper.setDecorations('builderLocalization',[])}
 $.wn.builder.entityControllers.localization=Localization;}(window.jQuery);+function($){"use strict";if($.wn.builder===undefined)$.wn.builder={}
 if($.wn.builder.entityControllers===undefined)$.wn.builder.entityControllers={}
 var Base=$.wn.builder.entityControllers.base,BaseProto=Base.prototype

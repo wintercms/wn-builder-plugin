@@ -2,7 +2,7 @@
 
 use Backend\Classes\ControllerBehavior;
 use Backend\Behaviors\FormController;
-use ApplicationException;
+use Winter\Storm\Exception\ApplicationException;
 
 /**
  * Base class for index operation behaviors

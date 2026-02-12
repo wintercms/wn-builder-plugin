@@ -144,7 +144,9 @@
     }
 
     Localization.prototype.getCodeEditor = function($tab) {
-        return $tab.find('div[data-field-name=strings] div[data-control=codeeditor]').data('oc.codeEditor').editor
+        // Returns the Monaco wrapper (not the raw editor) to use wrapper methods
+        // The wrapper provides setValue(), getValue(), insert(), etc.
+        return $tab.find('div[data-field-name=strings] div[data-control=codeeditor]').data('oc.codeEditor')
     }
 
     Localization.prototype.deleteConfirmed = function() {
@@ -174,25 +176,38 @@
         var responseData = data.builderResponseData,
             $masterTabPane = this.getMasterTabsActivePane(),
             $form = $masterTabPane.find('form'),
-            codeEditor = this.getCodeEditor($masterTabPane),
+            codeEditorWrapper = this.getCodeEditor($masterTabPane),
             newStringMessage = $form.data('newStringMessage'),
             mismatchMessage = $form.data('structureMismatch')
 
-        codeEditor.getSession().setValue(responseData.strings)
+        // Use Monaco wrapper API instead of ACE's getSession()
+        codeEditorWrapper.setValue(responseData.strings)
 
-        var annotations = []
+        // Convert ACE annotations to Monaco decorations (visual highlights)
+        // ACE uses 0-indexed rows, Monaco uses 1-indexed lines
+        // Using decorations instead of markers to avoid error-like squiggly underlines
+        var decorations = []
         for (var i=responseData.updatedLines.length-1; i>=0; i--) {
             var line = responseData.updatedLines[i]
 
-            annotations.push({
-                row: line, 
-                column: 0,
-                text: newStringMessage,
-                type: 'warning'
+            decorations.push({
+                range: new codeEditorWrapper.monaco.Range(
+                    line + 1,           // Convert 0-indexed to 1-indexed
+                    1,                  // Start column
+                    line + 1,           // End line (same line)
+                    Number.MAX_VALUE    // End column (end of line)
+                ),
+                options: {
+                    isWholeLine: true,
+                    className: 'builder-new-translation-line',         // Background highlight
+                    linesDecorationsClassName: 'builder-new-translation-gutter',  // Gutter indicator
+                    hoverMessage: { value: newStringMessage }          // Tooltip on hover
+                }
             })
         }
 
-        codeEditor.getSession().setAnnotations(annotations)
+        // Set decorations using wrapper method
+        codeEditorWrapper.setDecorations('builderLocalization', decorations)
 
         if (responseData.mismatch) {
             $.wn.alert(mismatchMessage)
@@ -238,13 +253,14 @@
 
         var responseData = data.builderResponseData,
             $tabPane = $languageForm.closest('.tab-pane'),
-            codeEditor = this.getCodeEditor($tabPane)
+            codeEditorWrapper = this.getCodeEditor($tabPane)
 
         if (!responseData.strings) {
             return
         }
 
-        codeEditor.getSession().setValue(responseData.strings)
+        // Use Monaco wrapper API
+        codeEditorWrapper.setValue(responseData.strings)
         this.unmodifyTab($tabPane)
     }
 
@@ -268,10 +284,12 @@
 
         var responseData = data.builderResponseData,
             $tabPane = $languageForm.closest('.tab-pane'),
-            codeEditor = this.getCodeEditor($tabPane)
+            codeEditorWrapper = this.getCodeEditor($tabPane)
 
-        codeEditor.getSession().setValue(responseData.strings)
-        codeEditor.getSession().setAnnotations([])
+        // Use Monaco wrapper API
+        codeEditorWrapper.setValue(responseData.strings)
+        // Clear any decorations
+        codeEditorWrapper.setDecorations('builderLocalization', [])
     }
 
     // REGISTRATION

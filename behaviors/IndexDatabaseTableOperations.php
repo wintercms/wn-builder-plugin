@@ -82,19 +82,22 @@ class IndexDatabaseTableOperations extends IndexOperationsBehaviorBase
         $model = new MigrationModel();
         $model->setPluginCodeObj($pluginCode);
 
+        // Fill all fields from the form - code is already wrapped from DatabaseTableModel
         $model->fill([
             'version' => Request::input('version'),
             'description' => Request::input('description'),
+            'code' => Request::input('code'),
         ]);
 
+        // The scriptFileName should be extracted from the code by MigrationModel::assignFileName()
+        // But as a safety fallback, generate it if needed
         $operation = Input::get('operation');
         $table = Input::get('table');
 
-        $model->scriptFileName = 'builder_table_'.$operation.'_'.$table;
-        $model->makeScriptFileNameUnique();
-
-        $codeGenerator = new TableMigrationCodeGenerator();
-        $model->code = $codeGenerator->wrapMigrationCode($model->scriptFileName, Request::input('code'), $pluginCode);
+        if (!$model->scriptFileName) {
+            $model->scriptFileName = 'builder_table_'.$operation.'_'.$table;
+            $model->makeScriptFileNameUnique();
+        }
 
         try {
             $model->save();
@@ -190,12 +193,12 @@ class IndexDatabaseTableOperations extends IndexOperationsBehaviorBase
         return $model;
     }
 
-    protected function makeMigrationFormWidget($migration)
+    protected function makeMigrationFormWidget($migration, $alias = null)
     {
         $widgetConfig = $this->makeConfig($this->migrationFormConfigFile);
 
         $widgetConfig->model = $migration;
-        $widgetConfig->alias = 'form_migration_'.uniqid();
+        $widgetConfig->alias = $alias ?: 'form_migration_'.uniqid().'_';
 
         $form = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
         $form->context = FormController::CONTEXT_CREATE;

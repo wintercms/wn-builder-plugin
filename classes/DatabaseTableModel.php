@@ -168,8 +168,14 @@ class DatabaseTableModel extends BaseModel
             return $migrationCode;
         }
 
+        $operation = $existingSchema ? 'update' : 'create';
         $description = $existingSchema ? 'Updated table %s' : 'Created table %s';
-        return $this->createMigrationObject($migrationCode, sprintf($description, $tableName));
+        return $this->createMigrationObject(
+            $migrationCode,
+            sprintf($description, $tableName),
+            $operation,
+            $tableName
+        );
     }
 
     public function generateDropMigration()
@@ -178,7 +184,12 @@ class DatabaseTableModel extends BaseModel
         $codeGenerator = new TableMigrationCodeGenerator();
         $migrationCode = $codeGenerator->dropTable($existingSchema);
 
-        return $this->createMigrationObject($migrationCode, sprintf('Drop table %s', $this->name));
+        return $this->createMigrationObject(
+            $migrationCode,
+            sprintf('Drop table %s', $this->name),
+            'delete',
+            $this->name
+        );
     }
 
     public static function getSchema()
@@ -420,14 +431,25 @@ class DatabaseTableModel extends BaseModel
         }
     }
 
-    protected function createMigrationObject($code, $description)
+    protected function createMigrationObject($code, $description, $operation, $tableName)
     {
         $migration = new MigrationModel();
         $migration->setPluginCodeObj($this->getPluginCodeObj());
-
-        $migration->code = $code;
         $migration->version = $migration->getNextVersion();
         $migration->description = $description;
+
+        // Generate script file name early so we can use it for wrapping
+        $migration->scriptFileName = 'builder_table_' . $operation . '_' . $tableName;
+        $migration->makeScriptFileNameUnique();
+
+        // Wrap the up/down methods with full migration class structure
+        $codeGenerator = new TableMigrationCodeGenerator();
+        $migration->code = $codeGenerator->wrapMigrationCode(
+            $migration->scriptFileName,
+            $code['upCode'],
+            $code['downCode'],
+            $this->getPluginCodeObj()
+        );
 
         return $migration;
     }

@@ -77,11 +77,12 @@ class TableMigrationCodeGenerator extends BaseModel
     /**
      * Wrap migration's up() and down() functions into a complete migration class declaration
      * @param string $scriptFilename Specifies the migration script file name
-     * @param string $code Specifies the migration code
+     * @param string $upCode Specifies the up() method code
+     * @param string $downCode Specifies the down() method code
      * @param PluginCode $pluginCodeObj The plugin code object
      * @return string
      */
-    public function wrapMigrationCode($scriptFilename, $code, $pluginCodeObj)
+    public function wrapMigrationCode($scriptFilename, $upCode, $downCode, $pluginCodeObj)
     {
         $templatePath = '$/winter/builder/classes/databasetablemodel/templates/full-migration-code.php.tpl';
         $templatePath = File::symbolizePath($templatePath);
@@ -89,9 +90,8 @@ class TableMigrationCodeGenerator extends BaseModel
         $fileContents = File::get($templatePath);
 
         return TextParser::parse($fileContents, [
-            'className' => Str::studly($scriptFilename),
-            'migrationCode' => $this->indent($code),
-            'namespace' => $pluginCodeObj->toUpdatesNamespace()
+            'upCode' => $this->indent($upCode),
+            'downCode' => $this->indent($downCode)
         ]);
     }
 
@@ -124,15 +124,12 @@ class TableMigrationCodeGenerator extends BaseModel
 
     protected function generateMigrationCode($upCode, $downCode)
     {
-        $templatePath = '$/winter/builder/classes/databasetablemodel/templates/migration-code.php.tpl';
-        $templatePath = File::symbolizePath($templatePath);
-
-        $fileContents = File::get($templatePath);
-
-        return TextParser::parse($fileContents, [
+        // Return an array of up/down codes to be wrapped later
+        // The unwrapped template is no longer needed
+        return [
             'upCode' => $upCode,
             'downCode' => $downCode
-        ]);
+        ];
     }
 
     protected function generateCreateOrUpdateUpCode($tableDiff, $isNewTable, $newOrUpdatedTable)
