@@ -108,9 +108,8 @@ class FormBuilder extends FormWidgetBase
         $controlId = Input::get('controlId');
 
         $library = ControlLibrary::instance();
-        $controls = $library->listControls();
-        $this->vars['registeredControls'] = $controls;
-        $this->vars['controlGroups'] = array_keys($controls);
+
+        $this->vars['controlsGroups'] = $library->listControls();
 
         return [
             'markup' => $this->makePartial('controlpalette'),

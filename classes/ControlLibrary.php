@@ -2,6 +2,8 @@
 
 use Event;
 use Lang;
+use Winter\Builder\Behaviors\IndexModelFormOperations;
+use Winter\Builder\FormWidgets\FormBuilder;
 
 /**
  * Manages Builder form control library.
@@ -32,21 +34,23 @@ class ControlLibrary
             return $returnGrouped ? $this->groupedControls : $this->controls;
         }
 
-        $this->groupedControls = [
-            $this->resolveControlGroupName(self::GROUP_STANDARD) => [],
-            $this->resolveControlGroupName(self::GROUP_WIDGETS) => []
-        ];
+        /**
+         * @see FormBuilder::onModelFormLoadControlPalette
+         * @see IndexModelFormOperations::getAddDatabaseFieldsDataTableConfig
+         */
+        $this->groupedControls = [];
 
         Event::fire('pages.builder.registerControls', [$this]);
 
         foreach ($this->controls as $controlType => $controlInfo) {
-            $controlGroup = $this->resolveControlGroupName($controlInfo['group']);
-
-            if (!array_key_exists($controlGroup, $this->groupedControls)) {
-                $this->groupedControls[$controlGroup] = [];
+            if (!array_key_exists($controlInfo['group'], $this->groupedControls)) {
+                $this->groupedControls[$controlInfo['group']] = [
+                    'label' => $this->resolveControlGroupName($controlInfo['group']),
+                    'controls' => []
+                ];
             }
 
-            $this->groupedControls[$controlGroup][$controlType] = $controlInfo;
+            $this->groupedControls[$controlInfo['group']]['controls'][$controlType] = $controlInfo;
         }
 
         return $returnGrouped ? $this->groupedControls : $this->controls;
