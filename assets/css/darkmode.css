@@ -1,0 +1,115 @@
+/*
+ * Dark mode for the Winter.Builder editors.
+ *
+ * The builder UI (building area / control blueprints, backend-menu editor,
+ * auxiliary tabs, inspector) is authored light in assets/less/*.less. Under the
+ * backend dark scheme set by Winter.TailwindUI (html[data-color-scheme="dark"]
+ * + the .dark class) those panels flash-bang, so re-skin them here.
+ *
+ * Kept as a standalone, plain-CSS file loaded after builder.css (see
+ * controllers/Index.php) rather than folded into the .less bundle: the shared
+ * `winter:util compile less` currently aborts on a `.clearfix undefined`
+ * resolution bug in buildingarea.less, so builder.css can't be regenerated
+ * cleanly. Using the TailwindUI --drk-* palette vars with literal fallbacks.
+ */
+
+html[data-color-scheme="dark"] {
+    /* ---- Form/model building area (control blueprints) ---------------- */
+    .builder-building-area {
+        background: var(--drk-bg-color-a, #0d1117);
+        color: var(--drk-color, #c9d1d9);
+    }
+
+    /* Empty-list "add first control" prompt */
+    .builder-building-area ul.builder-control-list li.no-controls,
+    .builder-building-area ul.builder-control-list > li.add {
+        border-color: var(--drk-border-color, #30363d);
+        color: var(--drk-muted, #8b949e);
+    }
+
+    /* A control blueprint card */
+    .builder-control-list li.control {
+        border-color: var(--drk-border-color, #30363d);
+        color: var(--drk-color, #c9d1d9);
+        background: var(--drk-bg-color-b, #161b22);
+    }
+
+    .builder-control-list li.control .control-header {
+        border-bottom-color: var(--drk-border-color, #30363d);
+    }
+
+    /* Tabs / groups inside the blueprint */
+    .builder-control-list li.control .control-tabs,
+    .builder-control-list li.control .tab-strip,
+    .builder-control-list li.control .control-container {
+        border-color: var(--drk-border-color, #30363d);
+    }
+
+    /* The "eee" separators/drop-zones in control blueprints */
+    .builder-control-list .control-drop-zone,
+    .builder-control-list .drop-target {
+        border-color: var(--drk-border-color, #30363d) !important;
+        background: var(--drk-bg-color-inset, #010409) !important;
+    }
+
+    /* Span/size grid badges */
+    .builder-control-list li.control .control-span,
+    .builder-control-list li.control .span-badge {
+        background: var(--drk-bg-color-btn, #21262d);
+        color: var(--drk-color, #c9d1d9);
+    }
+
+    /* ---- Backend-menu editor ----------------------------------------- */
+    .builder-menu-editor {
+        background: var(--drk-bg-color-a, #0d1117);
+        color: var(--drk-color, #c9d1d9);
+    }
+
+    /* "Add menu item" dashed box */
+    .builder-menu-editor ul.builder-menu > li.add {
+        border-color: var(--drk-border-color, #30363d);
+    }
+
+    .builder-menu-editor ul.builder-menu > li.add a {
+        color: var(--drk-muted, #8b949e);
+    }
+
+    /* Main-menu item cards */
+    .builder-menu-editor ul.builder-menu.builder-main-menu > li > div.item-container {
+        background: var(--drk-bg-color-b, #161b22);
+        color: var(--drk-color, #c9d1d9);
+    }
+
+    /* Submenu item cards */
+    .builder-menu-editor ul.builder-menu.builder-submenu > li > div.item-container {
+        background: var(--drk-bg-color-c, #1b222c);
+        color: var(--drk-color, #c9d1d9);
+    }
+
+    /* ---- Auxiliary tabs (e.g. the blueprint "Columns" tab bar) -------- */
+    .control-tabs.auxiliary-tabs,
+    .control-tabs.auxiliary-tabs > ul.nav-tabs,
+    .control-tabs.auxiliary-tabs > div > ul.nav-tabs,
+    .control-tabs.auxiliary-tabs > div.tab-content > .tab-pane {
+        background: var(--drk-bg-color-a, #0d1117);
+    }
+
+    .control-tabs.auxiliary-tabs > ul.nav-tabs > li > a,
+    .control-tabs.auxiliary-tabs > div > ul.nav-tabs > li > a {
+        background: var(--drk-bg-color-b, #161b22);
+        color: var(--drk-muted, #8b949e);
+        border-color: var(--drk-border-color, #30363d) !important;
+    }
+
+    .control-tabs.auxiliary-tabs > ul.nav-tabs > li.active > a,
+    .control-tabs.auxiliary-tabs > div > ul.nav-tabs > li.active > a {
+        background: var(--drk-bg-color-c, #1b222c);
+        color: var(--drk-color, #c9d1d9);
+        border-color: var(--drk-border-color, #30363d) !important;
+    }
+
+    /* ---- Inspector panel border -------------------------------------- */
+    .builder-inspector-container {
+        border-left-color: var(--drk-border-color, #30363d);
+    }
+}

@@ -61,6 +61,7 @@ class Index extends Controller
     public function index()
     {
         $this->addCss('/plugins/winter/builder/assets/css/builder.css', 'Winter.Builder');
+        $this->addCss('/plugins/winter/builder/assets/css/darkmode.css', 'Winter.Builder');
 
         // The table widget scripts should be preloaded
         $this->addJs('/modules/backend/widgets/table/assets/js/build-min.js', 'core');
