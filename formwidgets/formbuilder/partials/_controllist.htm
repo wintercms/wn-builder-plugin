@@ -2,15 +2,20 @@
     <?php
         $prevConfig = null;
         $prevSpan = null;
+        $cssClass = '';
 
         foreach ($controls as $controlName=>$controlConfig):
             $controlRenderingInfo = $this->getControlRenderingInfo($controlName, $controlConfig, $prevConfig);
 
             $prevSpan = $controlConfig['span'] = $controlRenderingInfo['span'];
             $prevConfig = $controlConfig;
+            $cssClass = (
+                    ($controlRenderingInfo['span'] == 'storm' && isset($controlRenderingInfo['properties']['cssClass'])) ?
+                    $controlRenderingInfo['properties']['cssClass'] : 'col-sx-12 col-md-6'
+            );
     ?>
         <li
-            class="control <?= e($controlRenderingInfo['spanClass']) ?>"
+            class="control <?= e($controlRenderingInfo['spanClass']) ?> <?= e($cssClass) ?>"
             data-builder-span="<?= e($controlRenderingInfo['spanFixed']) ?>"
             <?php if (!$controlRenderingInfo['unknownControl']): ?>
             data-inspectable="true"
