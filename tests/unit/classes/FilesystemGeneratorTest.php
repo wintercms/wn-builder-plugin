@@ -17,9 +17,9 @@ class FilesystemGeneratorTest extends BuilderPluginTestCase
 
     public function tearDown(): void
     {
-        parent::tearDown();
-
         $this->cleanUp();
+
+        parent::tearDown();
     }
 
     public function testGenerate()
