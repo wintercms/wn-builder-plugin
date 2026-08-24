@@ -1,16 +1,10 @@
-<?php namespace Winter\Builder\Tests;
+<?php
 
-if (class_exists('System\Tests\Bootstrap\PluginTestCase')) {
-    class BaseTestCase extends \System\Tests\Bootstrap\PluginTestCase
-    {
-    }
-} else {
-    class BaseTestCase extends \PluginTestCase
-    {
-    }
-}
+namespace Winter\Builder\Tests;
 
-abstract class BuilderPluginTestCase extends BaseTestCase
+use System\Tests\Bootstrap\PluginTestCase;
+
+abstract class BuilderPluginTestCase extends PluginTestCase
 {
     protected $refreshPlugins = [
         'Winter.Builder',

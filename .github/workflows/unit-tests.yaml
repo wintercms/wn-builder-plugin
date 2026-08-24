@@ -3,77 +3,33 @@ name: Unit Tests
 on:
   push:
     branches:
-      - main
+      - 'main'
   pull_request:
+
+concurrency:
+  group: tests-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   phpUnitTests:
-    runs-on: ubuntu-latest
-    name: PHP ${{ matrix.phpVersions }}
+    name: ${{ matrix.operatingSystem }} / PHP ${{ matrix.phpVersion }}
+    runs-on: ${{ matrix.operatingSystem }}
+    env:
+      GITHUB_TOKEN: ${{ secrets.COMPOSER_PUBLIC_TOKEN }}
     strategy:
       max-parallel: 4
       matrix:
-        phpVersions: ['8.1', '8.2', '8.3', '8.4']
+        operatingSystem: [ubuntu-latest, windows-latest]
+        phpVersion: ['8.2', '8.3', '8.4']
       fail-fast: false
-    env:
-      phpExtensions: mbstring, intl, gd, xml, sqlite
-      cacheKey: ext-cache-v2
-      winterCmsRelease: develop
     steps:
-      - name: Checkout changes
-        uses: actions/checkout@v4
+      - name: Setup Winter
+        uses: wintercms/setup-winter-action@v1
         with:
-          path: builder-plugin
-
-      - name: Setup cache environment
-        id: extcache
-        uses: shivammathur/cache-extensions@v1
-        with:
-          php-version: ${{ matrix.phpVersions }}
-          extensions: ${{ env.phpExtensions }}
-          key: ${{ env.cacheKey }}
-
-      - name: Cache extensions
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.extcache.outputs.dir }}
-          key: ${{ steps.extcache.outputs.key }}
-          restore-keys: ${{ steps.extcache.outputs.key }}
-
-      - name: Install PHP and extensions
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.phpVersions }}
-          extensions: ${{ env.phpExtensions }}
-          tools: composer:v2
-          coverage: none
-
-      - name: Install Winter CMS
-        run: |
-          wget https://github.com/wintercms/winter/archive/${{ env.winterCmsRelease }}.zip
-          unzip ${{ env.winterCmsRelease }}.zip
-          rm ${{ env.winterCmsRelease }}.zip
-          shopt -s dotglob
-          mv winter-${{ env.winterCmsRelease }}/* ./
-          rmdir winter-${{ env.winterCmsRelease }}
-          shopt -u dotglob
-          cp config/cms.php config/testing/cms.php
-          mkdir -p plugins/winter
-          mv builder-plugin plugins/winter/builder
-
-      - name: Get Composer cache directory
-        id: composercache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-      - name: Cache dependencies
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.composercache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
-          restore-keys: ${{ runner.os }}-composer-
-
-      - name: Install Composer dependencies
-        run: composer install --no-interaction --no-progress
+          php-version: ${{ matrix.phpVersion }}
+          winter-ref: wip/1.3
+          plugin-author: winter
+          plugin-name: builder
 
       - name: Run unit tests
         run: php artisan winter:test -p Winter.Builder -- --testdox

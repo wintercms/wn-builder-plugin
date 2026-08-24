@@ -3,7 +3,6 @@
 namespace Winter\Builder\Classes;
 
 use PhpParser\Error;
-use PhpParser\Lexer\Emulative;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\CloningVisitor;
 use PhpParser\NodeVisitor\NameResolver;
@@ -42,11 +41,6 @@ abstract class PhpSourceParser
     protected \PhpParser\NodeTraverser $traverser;
 
     /**
-     * The lexer used to manipulate code.
-     */
-    protected \PhpParser\Lexer\Emulative $lexer;
-
-    /**
      * The path to the parsed file, if loaded from a file.
      */
     protected ?string $filePath = null;
@@ -58,15 +52,7 @@ abstract class PhpSourceParser
      */
     public function __construct(string $source, string $file = null)
     {
-        $this->lexer = new Emulative([
-            'usedAttributes' => [
-                'comments',
-                'startLine', 'endLine',
-                'startTokenPos', 'endTokenPos',
-            ],
-        ]);
-
-        $parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7, $this->lexer);
+        $parser = (new ParserFactory())->createForHostVersion();
 
         try {
             $this->originalAst = $parser->parse($source);
@@ -78,7 +64,7 @@ abstract class PhpSourceParser
             );
         }
 
-        $this->originalTokens = $this->lexer->getTokens();
+        $this->originalTokens = $parser->getTokens();
         $this->traverser = new NodeTraverser;
         $this->traverser->addVisitor(new CloningVisitor);
         $this->traverser->addVisitor(new NameResolver(null, [
